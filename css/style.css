@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-bg-primary: #12263A;
+  --clr-bg-secondary-light: #23231A;
+  --clr-text: #fff;
+  --clr-accent: #FAFF81;
+  --clr-accent2: #68A175;
+  --clr-accent-dark: #5B7553;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: var(--clr-bg-primary);
+  font-family: 'Merriweather', serif;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+button {
+  width: 200px;
+  height: 50px;
+  background: var(--clr-accent2);
+  border: none;
+  font-size: .6em;
+}
+
+button:hover {
+  background: var(--clr-accent-dark);
+  cursor: pointer;
+  opacity: .9;
+}
+
+body > header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: var(--clr-bg-primary);
+  margin-left: 3em;
+}
+
+body > header > h1 {
+  font-size: 3rem;
+  margin-bottom: 1em;
+}
+
+body > header img {
+  background: var(--clr-accent2);
+  width: 80%;
+  margin: 0 1em;
+  border-radius: 40px;
+}
+
+body > main {
+  display: grid;
+  grid-template-columns: 350px auto;
+}
+
+body > main > nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: var(--clr-bg-primary);
+}
+
+body > main > nav > .tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3em;
+  font-size: 2em;
+  padding: 1em 2em;
+  border-radius: 2em;
+  position: relative;
+}
+
+body > main > nav > .tabs > h4 {
+  border-bottom: 4px solid purple;
+  cursor: pointer;
+}
+
+body > main > nav > .tabs > h4:hover {
+  border-bottom: 4px solid var(--clr-accent);
+}
+
+body > main > .data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #12263A;
+  position: relative;
+}
+
+body > main > div.data > section.standings {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 700px;
+  height: 100%;
+  position: absolute;
+  font-weight: bold;
+  gap: .2em;
+}
+
+body > main > div.data > section.standings.is_visible {
+  display: flex;
+  animation: slideIn 250ms ease-in 0;
+}
+
+body > main > div.data > section.fixtures {
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: none;
+  grid-template-rows: auto;
+  gap: 1em;
+  font-size: 1em;
+  width: 700px;
+  position: absolute;
+}
+
+body > main > div.data > section.fixtures.is_visible {
+  display: grid;
+  animation: slideIn 250ms ease-in 0;
+}
+
+body > main > div.data > section.statistics {
+  display: none;
+  width: 700px;
+  height: 100%;
+  margin: auto;
+  font-size: 1.2em;
+  gap: .2em;
+}
+
+body > main > div.data > section.statistics.is_visible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  color: #000;
+}
+
+body > main > div.data > section.statistics > div {
+  background: var(--clr-accent2);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr .3fr .3fr;
+  padding: .2em;
+}
+
+body > main > div.data > section.statistics > div:first-child {
+  background: #8EB897;
+  font-size: .9em;
+}
+
+body > main > div.data > section.statistics > div > span:nth-of-type(1) {
+  text-indent: 1em;
+} 
+
+body > main > div.data > section.statistics > div > span:nth-of-type(2),
+body > main > div.data > section.statistics > div > span:nth-of-type(3) {
+  text-align: center;
+}
+
+
+body > main > div.data > section.fixtures > div {
+  background: var(--clr-accent2);
+  display: grid;
+  grid-template-columns: 1fr .2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    "homeTeam score awayTeam"
+    "additionalInfo additionalInfo additionalInfo"
+ ;
+}
+
+body > main > div.data > section.fixtures > div > span:nth-of-type(1) {
+  grid-area: homeTeam;
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
+
+body > main > div.data > section.fixtures > div > span:nth-of-type(2) {
+  grid-area: score;
+  text-align: center;
+  background: var(--clr-accent);
+  padding: 10px 0 10px 0;
+}
+body > main > div.data > section.fixtures > div > span:nth-of-type(3) {
+  grid-area: awayTeam;
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
+
+body > main > div.data > section.fixtures > div > div {
+  grid-area: additionalInfo;
+  background: #5B7553;
+  text-align: center;
+  padding: .5em;
+}
+
+
+div.data > section.standings > div {
+  display: grid;
+  grid-template-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
+  gap: 1em;
+  width: 700px;
+  color: #000;
+  background: var(--clr-accent2);
+  padding: .2em;
+}
+
+div.data > section.standings > div.headings {
+  background: #8EB897;
+}
+
+div.data > section.standings > div.headings > span {
+  font-size: .9em;
+  text-align: center;
+}
+
+div.data > section.standings > div > span {
+  text-align: right;
+  font-size: 1.2em;
+}
+
+div.data > section.standings > div > span:first-of-type {
+  border-right: 1px solid white;
+  text-align: center;
+}
+
+div.data > section.standings > div > span:nth-of-type(2) {
+  border-right: 1px solid white;
+  text-align: left;
+}
+
+div.data > section.standings > div > span:nth-of-type(3) {
+  text-align: center;
+}
+
+div.data > section.standings > div > span:nth-of-type(4) {
+  text-align: center;
+}
+
+div.data > section.standings > div > span:nth-of-type(5) {
+  text-align: center;
+}
+div.data > section.standings > div > span:nth-of-type(6) {
+  text-align: center;
+}
+div.data > section.standings > div > span:nth-of-type(7) {
+  text-align: center;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-50%);
+    opacity: .5;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

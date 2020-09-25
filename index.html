@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Premier League</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="logo">
+    <h1>EPL</h1>
+    <img src="./img/logo.png" alt="PL-logo">
+  </header>
+  <main>
+    <nav>
+      <div class="tabs">
+        <h4 class="fixturesBtn tab">Fixtures</h4>
+        <h4 class="standingsBtn tab">Standings</h4>
+        <h4 class="statsBtn tab">Statistics</h4>
+        <button class="refreshData">Refresh Data</button>
+      </div>
+    </nav>
+    <div class="data">
+      <section class="standings is_visible">
+        <div class="headings">
+          <span>#</span>
+          <span>Team</span>
+          <span>Played</span>
+          <span>Won</span>
+          <span>Lost</span>
+          <span>Drawn</span>
+          <span>Points</span>
+      </div>
+      </section>
+      <section class="fixtures">
+      </section>
+      <section class="statistics"></section>
+    </div>
+  </main>
+  <script src="./node_modules//moment/moment.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
