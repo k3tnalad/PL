@@ -1,15 +1,21 @@
+import moment from 'moment';
+
 const dataSection = document.querySelector('.data');
 const refreshButton = document.querySelector('.refreshData');
 const standingsSection = document.querySelector('.standings');
 const statsSection = document.querySelector('.statistics')
 const fixturesSection = document.querySelector('.fixtures');
-const navBtns = document.querySelectorAll('nav .tabs');
+const navBtns = document.querySelectorAll('nav .tabs a');
 
 
-let standingsData = JSON.parse(localStorage.getItem('standings')) || getStandings();
-let fixturesData = JSON.parse(localStorage.getItem('fixtures')) || getFixtures();
-let statsData = JSON.parse(localStorage.getItem('stats')) || getStats();
-console.log({standingsData, fixturesData, statsData});
+
+// let standingsData = JSON.parse(localStorage.getItem('standings')) || getStandings();
+// let fixturesData = JSON.parse(localStorage.getItem('fixtures')) || getFixtures();
+// let statsData = JSON.parse(localStorage.getItem('stats')) || getStats();
+
+// let standingsData = getStandings();
+// let fixturesData = getFixtures();
+// let statsData = getStats();
 
 async function getStandings() {
     const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2790", {
@@ -21,10 +27,11 @@ async function getStandings() {
     });
     const data = await response.json();
     localStorage.setItem('standings', JSON.stringify(data.api.standings[0]));
+    standingPop(data.api.standings[0]);
 }
 
 async function getFixtures() {
-    const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/2020-09-20", {
+    const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/2020-10-03", {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
@@ -33,6 +40,7 @@ async function getFixtures() {
     });
     const data = await response.json();
     localStorage.setItem('fixtures', JSON.stringify(data.api.fixtures));
+    fixturesPop(data.api.fixtures);
 }
 
 async function getStats() {
@@ -45,10 +53,10 @@ async function getStats() {
     });
     const data = await response.json();
     localStorage.setItem('stats', JSON.stringify(data.api.topscorers));
+    statsPop(data.api.topscorers);
 }
 
 function standingPop(standingsData) {
-    console.log(standingsData);
     let num = 0;
     let labels = `
     <div class="headings">
@@ -85,18 +93,19 @@ function fixturesPop(fixturesData) {
         return `
             <div className="match">
                 <span className="home">${fix.homeTeam.team_name}</span>
-                <span className="score">${fix.score.fulltime}</span>
+                <span className="score">${fix.score.fulltime || moment(fix.event_date).format('h:mm')}</span>
                 <span className="away">${fix.awayTeam.team_name}</span>
                 <div className="additional__info">
-                    <p className="referee">Referee: ${fix.referee}</p>
-                    <p className="venue">Venue: ${fix.venue}</p>
-                    <p className="eventDate">${moment(fix.event_date).format('MMMM Do YYYY, h:mm:ss a')}</p>
+                    <p className="referee">Referee: ${fix.referee || "N/A"}</p>
+                    <p className="venue">Venue: ${fix.venue || "N/A"}</p>
+                    <p className="eventDate">${moment(fix.event_date).format('MMMM Do YYYY, h:mm')}</p>
                 </div>
             </div>
         
         `;
     }).join('');
     fixturesSection.innerHTML = html;
+    
 }
 
 function statsPop(statsData) {
@@ -141,8 +150,20 @@ function animateTabs(e) {
     }
 }
 
+function highlightTab(e) {
+    console.log(e.target);
+}
 
-fixturesPop(fixturesData);
-standingPop(standingsData);
-statsPop(statsData);
+
+
 navBtns.forEach(btn => btn.addEventListener('click', e => animateTabs(e)))
+navBtns.forEach(btn => btn.addEventListener('click', e => highlightTab(e)))
+refreshButton.addEventListener('click', () => {
+    getFixtures();
+    getStandings();
+    getStats();
+})
+
+getFixtures();
+getStandings();
+getStats(); 

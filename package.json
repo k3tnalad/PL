@@ -1,0 +1,25 @@
+{
+  "name": "PL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "moment": "^2.29.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k3tnalad/PL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k3tnalad/PL/issues"
+  },
+  "homepage": "https://github.com/k3tnalad/PL#readme",
+  "browserslist": "last 1 Chrome version"
+}
