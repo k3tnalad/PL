@@ -11,8 +11,6 @@
   <header class="logo">
     <h1>EPL</h1>
     <img src="/logo.cecc779a.png" alt="PL-logo">
-  </header>
-  <main>
     <nav>
       <div class="tabs">
         <a class="fixturesBtn tab">Fixtures</a>
@@ -21,6 +19,8 @@
         <button class="refreshData">Refresh Data</button>
       </div>
     </nav>
+  </header>
+  <main>
     <div class="data">
       <section class="standings is_visible">
         <div class="headings">
@@ -33,7 +33,10 @@
           <span>Points</span>
       </div>
       </section>
-      <section class="fixtures">
+      <section class="fixtures_section">
+        <div class="prevWeekNavCont weekNavButton"><a class="prevWeek">Previous week</a></div>
+        <div class="nextWeekNavCont weekNavButton"><a class="nextWeek">Next week</a></div>
+        <div class="fixtures"></div>
       </section>
       <section class="statistics"></section>
     </div>
