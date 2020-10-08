@@ -133,18 +133,23 @@ body > main > div.data > section.fixtures_section {
   text-transform: uppercase;
   display: none;
   grid-template-columns: .2fr 1fr .2fr;
-  grid-template-rows: auto;
+  grid-template-rows: .125fr 1fr;
   gap: 1em;
   font-size: 1em;
   width: 100%;
   position: absolute;
   grid-template-areas: 
+    "prevWeek weekNum nextWeek"
     "prevWeek fixtures nextWeek"
   ;
 }
 
 body > main > div.data > section.fixtures_section.is_visible {
   display: grid;
+}
+
+body > main > div.data > section.fixtures_section > div[data-weekN] {
+  grid-area: weekNum;
 }
 
 body > main > div.data > section.fixtures_section > div.prevWeekNavCont,

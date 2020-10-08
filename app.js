@@ -19,56 +19,71 @@ const weekNavButtons = document.querySelectorAll('.fixtures_section .weekNavButt
 // let statsData = getStats();
 
 async function getStandings() {
-    const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2790", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-            "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
-        }
-    });
-    const data = await response.json();
-    localStorage.setItem('standings', JSON.stringify(data.api.standings[0]));
-    standingPop(data.api.standings[0]);
+    if (localStorage.getItem('standings')) {
+        standingPop(JSON.parse(localStorage.getItem('standings')));
+    } else {
+        const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2790", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
+            }
+        });
+        const data = await response.json();
+        localStorage.setItem('standings', JSON.stringify(data.api.standings[0]));
+        standingPop(JSON.parse(localStorage.getItem('standings')));
+    }
 }
 
 async function getFixtures() {
-    const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/last/10", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-            "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
-        }
-    });
-    const data = await response.json();
-    localStorage.setItem('fixtures', JSON.stringify(data.api.fixtures));
-    // console.log(data);
-    fixturesPop(data.api.fixtures);
+    if (localStorage.getItem(`fixtures`)) {
+        fixturesPop(JSON.parse(localStorage.getItem(`fixtures`)));
+    } else {
+        const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/last/10", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
+            }
+        });
+        const data = await response.json();
+        localStorage.setItem('fixtures', JSON.stringify(data.api.fixtures));
+        fixturesPop(JSON.parse(localStorage.getItem(`fixtures`)));
+    }
 }
 
 async function getFixturesByWeek(weekNum) {
-    fixturesPop(JSON.parse(localStorage.getItem(`week${weekNum}`)));
-    const response = await fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/Regular_Season_-_${weekNum}`, {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-            "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
-        }
-    });
-    const data = await response.json();
-    localStorage.setItem(`week${weekNum}`, JSON.stringify(data.api.fixtures));
+    if (localStorage.getItem(`week${weekNum}`)) {
+        fixturesPop(JSON.parse(localStorage.getItem(`week${weekNum}`)));
+    } else {
+        const response = await fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/Regular_Season_-_${weekNum}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
+            }
+        });
+        const data = await response.json();
+        localStorage.setItem(`week${weekNum}`, JSON.stringify(data.api.fixtures));
+        fixturesPop(JSON.parse(localStorage.getItem(`week${weekNum}`)));
+    }
 }
 
 async function getStats() {
-    const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/topscorers/2790", {
-	    "method": "GET",
-	    "headers": {
-		    "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-		    "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
-	    }
-    });
-    const data = await response.json();
-    localStorage.setItem('stats', JSON.stringify(data.api.topscorers));
-    statsPop(data.api.topscorers);
+    if (localStorage.getItem('stats')) {
+        statsPop(JSON.parse(localStorage.getItem('stats')));
+    } else {
+        const response = await fetch("https://api-football-v1.p.rapidapi.com/v2/topscorers/2790", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
+            }
+        });
+        const data = await response.json();
+        localStorage.setItem('stats', JSON.stringify(data.api.topscorers));
+        statsPop(JSON.parse(localStorage.getItem('stats')));
+    }   
 }
 
 function standingPop(standingsData) {
@@ -105,9 +120,9 @@ function standingPop(standingsData) {
 
 
 function fixturesPop(fixturesData) {
-    let weekNumber = fixturesData.find(fixture => fixture.round);
+    let weekNumber = (fixturesData[0].round).slice(17);
     let weekElem = `
-        <div><h3>Gameweek: ${weekNumber}</h3></div>
+        <h3 class="gameweek">Gameweek: ${weekNumber}</h3>
     `;
     let html = fixturesData.map(fix => {
         return `
@@ -124,7 +139,7 @@ function fixturesPop(fixturesData) {
         
         `;
     }).join('');
-    fixturesCont.innerHTML = [weekElem, html].join('');   
+    fixturesCont.innerHTML = html;  
 }
 
 function statsPop(statsData) {
