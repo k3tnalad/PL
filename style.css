@@ -148,8 +148,13 @@ body > main > div.data > section.fixtures_section.is_visible {
   display: grid;
 }
 
-body > main > div.data > section.fixtures_section > div[data-weekN] {
+body > main > div.data > section.fixtures_section > div.weekHeadingContainer {
   grid-area: weekNum;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--clr-accent2);
+  font-size: 1.5rem;
 }
 
 body > main > div.data > section.fixtures_section > div.prevWeekNavCont,

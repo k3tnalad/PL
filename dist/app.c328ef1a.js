@@ -5804,6 +5804,7 @@ const refreshButton = document.querySelector('.refreshData');
 const standingsSection = document.querySelector('.standings');
 const statsSection = document.querySelector('.statistics');
 const fixturesSection = document.querySelector('.fixtures_section');
+const weekHeading = fixturesSection.querySelector('.weekHeadingContainer');
 const fixturesCont = document.querySelector('.fixtures_section .fixtures');
 const navBtns = document.querySelectorAll('nav .tabs a');
 const weekNavButtons = document.querySelectorAll('.fixtures_section .weekNavButton'); // let standingsData = JSON.parse(localStorage.getItem('standings')) || getStandings();
@@ -5932,6 +5933,7 @@ function fixturesPop(fixturesData) {
         `;
   }).join('');
   fixturesCont.innerHTML = html;
+  weekHeading.innerHTML = weekElem;
 }
 
 function statsPop(statsData) {
