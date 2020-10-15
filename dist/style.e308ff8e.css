@@ -42,42 +42,39 @@ button:hover {
   opacity: .9;
 }
 
-body > header {
+header {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: var(--clr-bg-primary);
-  margin: 2em 4em;
 }
 
-body > header > h1 {
+header > h1 {
   font-size: 3rem;
   margin-bottom: 1em;
 }
 
-body > header img {
+header img {
   background: var(--clr-accent2);
   width: 80%;
-  margin: 0 1em;
-  border-radius: 40px;
 }
 
-body > main {
+main {
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-body > header > nav {
+nav {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-image: var(--clr-bg-primary);
+  background: var(--clr-bg-primary);
 }
 
-body > header > nav > .tabs {
+.tabs {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,66 +86,81 @@ body > header > nav > .tabs {
   position: relative;
 }
 
-body > header > nav > .tabs > a {
+a {
   text-decoration: none;
-  border-bottom: 4px solid purple;
+  border-bottom: 2px solid var(--clr-accent);
   cursor: pointer;
+  transition: opacity 250ms, transform 250ms;
 }
 
-body > header > nav > .tabs > a:hover {
+a:hover {
   border-bottom: 4px solid var(--clr-accent);
+  animation: highlight 250ms forwards;
 }
 
-body > main > .data {
+.data {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #12263A;
   position: relative;
-  margin-right: 2em;
-  width: 100%;
-  margin: 2em 4em;
+  width: 1000px;
+  text-transform: uppercase;
+  font-size: 1em;
+  color: #000;
 }
 
-body > main > div.data > section.standings {
+.data a {
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 250ms, transform 250ms;
+  border: none;
+}
+
+.data a:hover {
+  animation: highlight 250ms forwards;
+  color: rgb(85, 4, 4);
+}
+
+section.standings_section {
   display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 700px;
-  height: 100%;
-  position: absolute;
+  width: 1000px;
   font-weight: bold;
   gap: .2em;
+  opacity: 0;
+  transition: opacity 250ms, visibility 250ms, transform 250ms;
 }
 
-body > main > div.data > section.standings.is_visible {
+section.standings_section.is_visible {
   display: flex;
-  animation: slideIn 250ms ease-in 0;
+  animation: slideIn 250ms forwards;
 }
 
-body > main > div.data > section.fixtures_section {
+section.fixtures_section {
   color: #000000;
   font-weight: bold;
-  text-transform: uppercase;
   display: none;
   grid-template-columns: .2fr 1fr .2fr;
   grid-template-rows: .125fr 1fr;
   gap: 1em;
-  font-size: 1em;
   width: 100%;
-  position: absolute;
+  height: 780px;
+  opacity: 0;
   grid-template-areas: 
     "prevWeek weekNum nextWeek"
     "prevWeek fixtures nextWeek"
   ;
+  transition: opacity 250ms, transform 250ms, visibility 250ms;
 }
 
-body > main > div.data > section.fixtures_section.is_visible {
+section.fixtures_section.is_visible {
   display: grid;
+  animation: slideIn 250ms forwards;
 }
 
-body > main > div.data > section.fixtures_section > div.weekHeadingContainer {
+section.fixtures_section > div.weekHeadingContainer {
   grid-area: weekNum;
   display: flex;
   justify-content: center;
@@ -157,61 +169,51 @@ body > main > div.data > section.fixtures_section > div.weekHeadingContainer {
   font-size: 1.5rem;
 }
 
-body > main > div.data > section.fixtures_section > div.prevWeekNavCont,
-body > main > div.data > section.fixtures_section > div.nextWeekNavCont {
-  color: #fff;
+section.fixtures_section > div.prevWeekNavCont,
+section.fixtures_section > div.nextWeekNavCont {
   writing-mode: vertical-lr;
   text-orientation: upright;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 1.2em;
   background: var(--clr-accent2);
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-
 }
 
-body > main > div.data > section.fixtures_section > div.prevWeekNavCont {
+section.fixtures_section > div.prevWeekNavCont {
   grid-area: prevWeek;
 }
-
-body > main > div.data > section.fixtures_section > div.prevWeekNavCont:hover {
-  background: var(--clr-accent);
-  color: #000;
-}
-
-body > main > div.data > section.fixtures_section > div.nextWeekNavCont {
+section.fixtures_section > div.nextWeekNavCont {
   grid-area: nextWeek;
 }
 
-body > main > div.data > section.fixtures_section > div.nextWeekNavCont:hover {
-  background: var(--clr-accent);
-  color: #000;
+section.fixtures_section > div.prevWeekNavCont:hover,
+section.fixtures_section > div.nextWeekNavCont:hover {
+  background: #426149;
 }
 
 
-body > main > div.data > section.statistics {
+section.statistics_section {
   display: none;
-  width: 575px;
+  width: 1000px;
   height: 100%;
-  margin: auto;
-  font-size: 1.2em;
   gap: .2em;
+  transition: opacity 250ms, transform 250ms, visibility 250ms;
 }
 
-body > main > div.data > section.statistics.is_visible {
+section.statistics_section.is_visible {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-weight: bold;
-  color: #000;
+  animation: slideIn 250ms forwards;
 }
 
-body > main > div.data > section.statistics > div {
+section.statistics_section > div {
   background: var(--clr-accent2);
   width: 100%;
   display: grid;
@@ -219,26 +221,46 @@ body > main > div.data > section.statistics > div {
   padding: .2em;
 }
 
-body > main > div.data > section.statistics > div:first-child {
+section.statistics_section > div:first-child {
   background: #8EB897;
   font-size: .9em;
 }
 
-body > main > div.data > section.statistics > div > span:nth-of-type(1) {
+section.statistics_section > div > span:nth-of-type(1) {
   text-indent: 1em;
 } 
 
-body > main > div.data > section.statistics > div > span:nth-of-type(2),
-body > main > div.data > section.statistics > div > span:nth-of-type(3) {
+section.statistics_section > div > span:nth-of-type(2),
+section.statistics_section > div > span:nth-of-type(3) {
   text-align: center;
 }
 
-
-body > main > div.data > section.fixtures_section > div.fixtures {
+section.fixturesList  {
+  display: none;
   grid-area: fixtures;
+  transition: opacity 250ms, transform 250ms cubic-bezier(.33,.15,.55,.86);
 }
 
-body > main > div.data > section.fixtures_section > div.fixtures > div {
+section.fixturesList.skipped {
+  animation: reappear 250ms;
+}
+
+section.fixturesList.is_visible {
+  display: block;
+}
+
+@keyframes reappear {
+  0% {
+    opacity: .7;
+    transform: translateY(2%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section.fixturesList  > div {
   background: var(--clr-accent2);
   display: grid;
   grid-template-columns: 1fr .2fr 1fr;
@@ -249,119 +271,204 @@ body > main > div.data > section.fixtures_section > div.fixtures > div {
  ;
 }
 
-body > main > div.data > section.fixtures_section > div.fixtures > div > span:nth-of-type(1) {
-  grid-area: homeTeam;
-  text-align: center;
-  padding: 5px 0 5px 0;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1em;
-  margin-right: 1em;
-  align-items: center;
-  flex-direction: row;
+section.fixturesList  > div:hover {
+  cursor: pointer;
+  opacity: .8;
+  box-shadow: 3px 3px 3px var(--clr-bg-primary);
 }
 
-body > main > div.data > section.fixtures_section > div.fixtures > div > span:nth-of-type(2) {
-  grid-area: score;
+section.fixturesList  > div > span, section.fixturesList  > div > div {
   text-align: center;
-  background: var(--clr-accent);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-}
-body > main > div.data > section.fixtures_section > div.fixtures > div > span:nth-of-type(3) {
-  grid-area: awayTeam;
-  text-align: center;
+  gap: 1em;
   padding: 5px 0 5px 0;
-  display: flex;
+  flex-direction: row;
+}
+
+section.fixturesList  > div > span:nth-of-type(1) {
+  grid-area: homeTeam;
+  justify-content: flex-end;
+  margin-right: 1em;
+}
+
+section.fixturesList  > div > span:nth-of-type(2) {
+  grid-area: score;
+  background: var(--clr-accent);
+}
+section.fixturesList > div > span:nth-of-type(3) {
+  grid-area: awayTeam;
   justify-content: flex-start;
   margin-left: 1em;
-  gap: 1em;
-  align-items: center;
-  flex-direction: row;
 }
 
-body > main > div.data > section.fixtures_section > div.fixtures > div > div {
+section.fixturesList > div > div {
   grid-area: additionalInfo;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   background: #5B7553;
-  text-align: center;
-  gap: 1em;
-  padding: 5px 0 5px 0;
   font-size: small;
 }
 
-body > main > div.data > section.fixtures_section > div.fixtures > div > span > img {
-  width: 25px;
+section.fixturesList > div > span > img {
+  width: 30px;
   display: inline-block;
-  padding: 5px 0 5px 0;
 }
 
 
-div.data > section.standings > div {
+section.standings_section > div {
   display: grid;
   grid-template-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
   gap: 1em;
-  width: 700px;
+  width: 100%;
   color: #000;
   background: var(--clr-accent2);
   padding: .2em;
 }
 
-div.data > section.standings > div.headings {
+section.standings_section > div.headings {
+  font-size: .9em;
+  text-align: center;
   background: #8EB897;
 }
 
-div.data > section.standings > div.headings > span {
-  font-size: .9em;
+section.standings_section > div > span {
   text-align: center;
 }
 
-div.data > section.standings > div > span {
-  text-align: right;
-  font-size: 1.1em;
-}
-
-div.data > section.standings > div > span:first-of-type {
+section.standings_section > div > span:first-of-type {
   border-right: 1px solid white;
-  text-align: center;
 }
 
-div.data > section.standings > div > span:nth-of-type(2) {
+section.standings_section > div > span:nth-of-type(2) {
   border-right: 1px solid white;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
+  align-content: flex-start;
   gap: 1em;
 }
-div.data > section.standings > div > span:nth-of-type(2) > img {
+
+section.standings_section > div > span:nth-of-type(2) > img {
   width: 25px;
   display: inline-block;
 }
 
-
-div.data > section.standings > div > span:nth-of-type(3) {
-  text-align: center;
+div.fixtures {
+  display: block;
 }
 
-div.data > section.standings > div > span:nth-of-type(4) {
-  text-align: center;
+section.fixtureDataContainer {
+  display: none;
 }
 
-div.data > section.standings > div > span:nth-of-type(5) {
-  text-align: center;
-}
-div.data > section.standings > div > span:nth-of-type(6) {
-  text-align: center;
-}
-div.data > section.standings > div > span:nth-of-type(7) {
-  text-align: center;
+section.fixtureDataContainer.is_visible {
+  display: grid;
+  grid-template-rows: .1fr .07fr 1fr;
+  height: 100%;
+  gap: 1em;
 }
 
+section.fixtureDataContainer > div.header {
+  background: var(--clr-accent2);
+  display: grid;
+  grid-template-columns: 1fr .2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "gameWeek gameWeek gameWeek" 
+    "homeTeam score awayTeam"
+ ;
+}
+
+section.fixtureDataContainer > div.header > p {
+  display: flex;
+  padding: 5px 0 5px 0;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+
+section.fixtureDataContainer > div.header > p.home {
+  grid-area: homeTeam;
+  justify-content: flex-end;
+  margin-right: 1em;
+} 
+
+section.fixtureDataContainer > div.header > p.score {
+  grid-area: score;
+  background: var(--clr-accent);
+  display: flex;
+  font-size: 1.2rem;
+}
+
+section.fixtureDataContainer > div.header > p.away {
+  grid-area: awayTeam;
+  justify-content: flex-start;
+  margin-left: 1em;
+}
+
+section.fixtureDataContainer > div.header > p.gameWeek {
+  grid-area: gameWeek;
+  background: #5B7553;
+}
+
+section.fixtureDataContainer > div.tabsContainer {
+  background: var(--clr-accent-dark);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2em;
+  padding: 1em 0;
+}
+
+section.fixtureDataContainer > div.main {
+  display: grid;
+  background: var(--clr-accent2);
+  padding: 1em;
+  height: 100%;
+} 
+
+[data-tab-content] {
+  display: none;
+}
+
+.active[data-tab-content] {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: .2em;
+}
+
+article#timelineTab > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  width: 100%;
+}
+
+@keyframes highlight {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: .9;
+    transform: scale(.95);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

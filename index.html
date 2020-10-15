@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Premier League</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body>
   <header class="logo">
@@ -19,10 +20,10 @@
         <button class="refreshData">Refresh Data</button>
       </div>
     </nav>
-  </header>
+  </header> 
   <main>
     <div class="data">
-      <section class="standings is_visible">
+      <section class="standings_section is_visible">
         <div class="headings">
           <span>#</span>
           <span>Team</span>
@@ -37,9 +38,29 @@
         <div class="weekHeadingContainer"></div>
         <div class="prevWeekNavCont weekNavButton"><a class="prevWeek">Previous week</a></div>
         <div class="nextWeekNavCont weekNavButton"><a class="nextWeek">Next week</a></div>
-        <div class="fixtures"></div>
+        <div class="fixtures">
+          <section class="fixturesList is_visible"></section>
+          <section class="fixtureDataContainer">
+            <div class="header">
+                <p class="home"></p>
+                <p class="score"></p>
+                <p class="away"></p>
+                <p class="gameWeek"></p>
+            </div>
+            <div class="tabsContainer">
+              <a class="tab" data-tab-target="#timelineTab">Timeline</a>
+              <a class="tab" data-tab-target="#lineupsTab">Line-ups</a>
+              <a class="tab" data-tab-target="#matchStatsTab">Stats</a>
+            </div>
+            <div class="main">
+              <article class="tabContent active" id="timelineTab" data-tab-content>You will see a timeline here</article>
+              <article class="tabContent" id="lineupsTab" data-tab-content>Some line-ups</article>
+              <article class="tabContent" id="matchStatsTab" data-tab-content>Stats will be here</article>
+            </div>
+          </section>
+        </div>
       </section>
-      <section class="statistics"></section>
+      <section class="statistics_section"></section>
     </div>
   </main>
   <script src="./node_modules/moment/moment.js"></script>

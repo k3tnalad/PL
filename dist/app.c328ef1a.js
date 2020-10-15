@@ -5799,15 +5799,28 @@ var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const dataSection = document.querySelector('.data');
-const refreshButton = document.querySelector('.refreshData');
-const standingsSection = document.querySelector('.standings');
-const statsSection = document.querySelector('.statistics');
-const fixturesSection = document.querySelector('.fixtures_section');
+// Sections
+const standingsSection = document.querySelector('.standings_section');
+const statsSection = document.querySelector('.statistics_section');
+const fixturesSection = document.querySelector('.fixtures_section'); // fixture window 
+
+const fixturesList = fixturesSection.querySelector('.fixtures .fixturesList');
+const fixtureDataContainer = fixturesSection.querySelector('.fixtureDataContainer'); // fixture container inner elems
+
+const fixtureHeader = fixtureDataContainer.querySelector('.header');
+const fixtureTabsContainer = fixtureDataContainer.querySelector('.tabsContainer');
+const fixtureMainWindow = fixtureDataContainer.querySelector('.main'); // inner elems of the header
+
+const fixtureHeaderInners = [fixtureHeader.querySelector('.home'), fixtureHeader.querySelector('.score'), fixtureHeader.querySelector('.away'), fixtureHeader.querySelector('.gameWeek')]; // fixture data tabs and contents
+
+const fixtureDataTabs = fixtureTabsContainer.querySelectorAll("[data-tab-target]");
+const tabsContent = fixtureMainWindow.querySelectorAll("[data-tab-content]");
+const timelineTab = document.getElementById("timelineTab");
+const lineupsTab = document.getElementById("lineupsTab");
+const statsTab = document.getElementById("matchStatsTab");
 const weekHeading = fixturesSection.querySelector('.weekHeadingContainer');
-const fixturesCont = document.querySelector('.fixtures_section .fixtures');
 const navBtns = document.querySelectorAll('nav .tabs a');
-const weekNavButtons = document.querySelectorAll('.fixtures_section .weekNavButton'); // let standingsData = JSON.parse(localStorage.getItem('standings')) || getStandings();
+const weekNavButtons = fixturesSection.querySelectorAll('.weekNavButton'); // let standingsData = JSON.parse(localStorage.getItem('standings')) || getStandings();
 // let fixturesData = JSON.parse(localStorage.getItem('fixtures')) || getFixtures();
 // let statsData = JSON.parse(localStorage.getItem('stats')) || getStats();
 // let standingsData = getStandings();
@@ -5862,6 +5875,7 @@ async function getFixturesByWeek(weekNum) {
     const data = await response.json();
     localStorage.setItem(`week${weekNum}`, JSON.stringify(data.api.fixtures));
     fixturesPop(JSON.parse(localStorage.getItem(`week${weekNum}`)));
+    fixturesList.dispatchEvent('click');
   }
 }
 
@@ -5881,6 +5895,73 @@ async function getStats() {
     statsPop(JSON.parse(localStorage.getItem('stats')));
   }
 }
+
+async function getMatchData(matchId) {
+  if (localStorage.getItem(`match${matchId}`)) {
+    matchPop(JSON.parse(localStorage.getItem(`match${matchId}`)));
+  } else {
+    const response = await fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${matchId}`, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+        "x-rapidapi-key": "9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a"
+      }
+    });
+    const data = await response.json();
+    localStorage.setItem(`match${matchId}`, JSON.stringify(data.api.fixtures[0]));
+    return data.api.fixtures[0];
+  }
+}
+
+async function matchPop(e) {
+  // turning off the list of fixtures and displaying fixture data instead
+  // by removing and adding a class to respective elements.
+  fixturesList.classList.remove('is_visible');
+  fixtureDataContainer.classList.add('is_visible'); // ! TODO: turn weekHeading element into a back button
+
+  weekHeading.innerHTML = `<a>Back</a>`;
+  weekHeading.innerHTML === `<a>Back</a>` ? weekHeading.style.cursor = 'pointer' : weekHeading.style.cursor = 'default'; // getting a fixtureID to find the match data that was selected.
+
+  let matchID = e.currentTarget.dataset.id; // if there is no data for the match on the LS, it's gonna fetch it using the matchID.
+
+  let matchBlob = JSON.parse(localStorage.getItem(`match${matchID}`)) || (await getMatchData(matchID)); // creating an object with necessary data from api.
+
+  let matchObj = {
+    homeTeam: matchBlob.homeTeam.team_name,
+    awayTeam: matchBlob.awayTeam.team_name,
+    score: matchBlob.score.fulltime,
+    gameWeek: matchBlob.round.slice(17),
+    eventsArray: matchBlob.events,
+    possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
+    shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]]
+  }; // header data assignment
+
+  fixtureHeaderInners[0].textContent = matchObj.homeTeam;
+  fixtureHeaderInners[1].textContent = matchObj.score;
+  fixtureHeaderInners[2].textContent = matchObj.awayTeam;
+  fixtureHeaderInners[3].textContent = `Gameweek - ${matchObj.gameWeek}`; // TIMELINE DATA FILL
+
+  const eventsHtml = matchObj.eventsArray.map(i => {
+    return `
+            <div className="event">
+                <p className="elapsed">'${i.elapsed}</p>
+                <p className="type">${eventTypeHandler(i.type)}</p>
+                <p className="name">${i.player} - ${i.assist}</p>
+            </div>
+        `;
+  }).join('');
+  timelineTab.innerHTML = eventsHtml;
+}
+
+const eventTypeHandler = e => {
+  if (e == 'Goal') {
+    return `<i class="fas fa-futbol"></i>`;
+  } else if (e == 'subst') {
+    return `<i class="fas fa-people-arrows"></i>`;
+  } else if (e == 'Card') {
+    return `<i class="fas fa-square"></i>`;
+  }
+};
 
 function standingPop(standingsData) {
   let num = 0;
@@ -5919,7 +6000,7 @@ function fixturesPop(fixturesData) {
     `;
   let html = fixturesData.map(fix => {
     return `
-            <div className="match" data-week="${fix.round}">
+            <div className="match" data-week="${fix.round}" data-id="${fix.fixture_id}">
                 <span className="home">${fix.homeTeam.team_name}<img src="${fix.homeTeam.logo}"></img></span>
                 <span className="score"><p>${fix.score.fulltime || (0, _moment.default)(fix.event_date).format('h:mm')}</p></span>
                 <span className="away"><img src="${fix.awayTeam.logo}">${fix.awayTeam.team_name}</span>
@@ -5932,8 +6013,9 @@ function fixturesPop(fixturesData) {
         
         `;
   }).join('');
-  fixturesCont.innerHTML = html;
+  fixturesList.innerHTML = html;
   weekHeading.innerHTML = weekElem;
+  [...fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
 }
 
 function statsPop(statsData) {
@@ -5985,12 +6067,12 @@ function animateTabs(e) {
   }
 }
 
-function highlightTab(e) {
-  console.log(e.target);
+function animateWeeks(e) {
+  fixturesList.classList.add('skipped');
 }
 
 function weekHandler(e) {
-  let currentWeek = [...fixturesCont.children].map(elem => parseInt(elem.dataset.week.slice(elem.dataset.week.length - 2))).reduce((num, cur) => {
+  let currentWeek = [...fixturesList.children].map(elem => parseInt(elem.dataset.week.slice(elem.dataset.week.length - 2))).reduce((num, cur) => {
     if (cur == num) {
       return num;
     }
@@ -6010,8 +6092,23 @@ getFixtures();
 getStandings();
 getStats();
 navBtns.forEach(btn => btn.addEventListener('click', e => animateTabs(e)));
-navBtns.forEach(btn => btn.addEventListener('click', e => highlightTab(e)));
 weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
+weekNavButtons.forEach(btn => btn.addEventListener('click', () => fixturesList.classList.add('skipped')));
+fixturesList.addEventListener('animationend', () => fixturesList.classList.remove('skipped'));
+[...fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
+weekHeading.addEventListener('click', e => {
+  if (e.target.textContent == "Back") {
+    fixtureDataContainer.classList.remove('is_visible');
+    fixturesList.classList.add('is_visible');
+    fixturesPop(JSON.parse(localStorage.getItem(`fixtures`)));
+    [...fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
+  }
+});
+fixtureDataTabs.forEach(t => t.addEventListener('click', () => {
+  const target = document.querySelector(t.dataset.tabTarget);
+  tabsContent.forEach(tc => tc.classList.remove('active'));
+  target.classList.add('active');
+}));
 },{"moment":"node_modules/moment/moment.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -6040,7 +6137,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61204" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50725" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
