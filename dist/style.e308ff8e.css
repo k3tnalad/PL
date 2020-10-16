@@ -88,14 +88,12 @@ nav {
 
 a {
   text-decoration: none;
-  border-bottom: 2px solid var(--clr-accent);
+  border-bottom: 2px solid var(--clr-accent-dark);
   cursor: pointer;
-  transition: opacity 250ms, transform 250ms;
 }
 
 a:hover {
-  border-bottom: 4px solid var(--clr-accent);
-  animation: highlight 250ms forwards;
+  border-bottom: 2px solid var(--clr-accent);
 }
 
 .data {
@@ -117,7 +115,6 @@ a:hover {
 }
 
 .data a:hover {
-  animation: highlight 250ms forwards;
   color: rgb(85, 4, 4);
 }
 
@@ -193,6 +190,7 @@ section.fixtures_section > div.nextWeekNavCont {
 section.fixtures_section > div.prevWeekNavCont:hover,
 section.fixtures_section > div.nextWeekNavCont:hover {
   background: #426149;
+  color: rgb(85, 4, 4)
 }
 
 
@@ -445,17 +443,6 @@ article#timelineTab > div {
   align-items: center;
   gap: .5em;
   width: 100%;
-}
-
-@keyframes highlight {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: .9;
-    transform: scale(.95);
-  }
 }
 
 @keyframes slideIn {

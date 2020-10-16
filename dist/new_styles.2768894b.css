@@ -1,0 +1,660 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: #12263A;
+  font-family: 'Titillium Web', sans-serif;
+  color: #fff;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #12263A;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 1em;
+}
+
+header img {
+  background: #68A175;
+  width: 80%;
+}
+
+header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-image: #12263A;
+}
+
+header nav .tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 3em;
+  font-size: 2em;
+  padding: 1em 2em;
+  border-radius: 2em;
+  position: relative;
+}
+
+header nav .tabs a {
+  text-decoration: none;
+  border-bottom: 2px solid #5B7553;
+  cursor: pointer;
+}
+
+header nav .tabs a:hover {
+  border-bottom: 2px solid #FAFF81;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 2px solid var(--clr-accent-dark);
+  cursor: pointer;
+}
+
+a:hover {
+  border-bottom: 2px solid var(--clr-accent);
+}
+
+.data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 1000px;
+  text-transform: uppercase;
+  font-size: 1em;
+  color: #000;
+}
+
+.data section.standings_section {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  font-weight: bold;
+  gap: .2em;
+}
+
+.data section.standings_section .headings {
+  background: #8EB897;
+  font-size: .9em;
+  text-align: center;
+}
+
+.data section.standings_section div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
+      grid-template-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
+  gap: 1em;
+  width: 100%;
+  color: #000;
+  background: #68A175;
+  padding: .2em;
+}
+
+.data section.standings_section div span {
+  text-align: center;
+}
+
+.data section.standings_section div span:first-of-type {
+  border-right: 1px solid white;
+}
+
+.data section.standings_section div span:nth-of-type(2) {
+  border-right: 1px solid white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  gap: 1em;
+}
+
+.data section.standings_section div span:nth-of-type(2) img {
+  width: 25px;
+  display: inline-block;
+}
+
+.data section.standings_section.is_visible {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation: slideIn 250ms forwards;
+          animation: slideIn 250ms forwards;
+}
+
+.data section.fixtures_section {
+  color: #000;
+  font-weight: bold;
+  display: none;
+  -ms-grid-columns: .2fr 1fr .2fr;
+      grid-template-columns: .2fr 1fr .2fr;
+  -ms-grid-rows: .125fr 1fr;
+      grid-template-rows: .125fr 1fr;
+  gap: 1em;
+  width: 100%;
+  height: 780px;
+  opacity: 0;
+      grid-template-areas: "prevWeek weekNum nextWeek" "prevWeek fixtures nextWeek";
+  -webkit-transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
+  transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
+  transition: opacity 250ms, transform 250ms, visibility 250ms;
+  transition: opacity 250ms, transform 250ms, visibility 250ms, -webkit-transform 250ms;
+}
+
+.data section.fixtures_section div.weekHeadingContainer {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: weekNum;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #68A175;
+  font-size: 1.5rem;
+}
+
+.data section.fixtures_section div.prevWeekNavCont, .data section.fixtures_section div.nextWeekNavCont {
+  -webkit-writing-mode: vertical-lr;
+      -ms-writing-mode: tb-lr;
+          writing-mode: vertical-lr;
+  text-orientation: upright;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  background: #68A175;
+  -ms-user-select: none;
+      user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.data section.fixtures_section div.prevWeekNavCont {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: prevWeek;
+}
+
+.data section.fixtures_section div.nextWeekNavCont {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 3;
+  grid-area: nextWeek;
+}
+
+.data section.fixtures_section div.nextWeekNavCont:hover, .data section.fixtures_section div.prevWeekNavCont:hover {
+  background: #426149;
+  color: #550404;
+}
+
+.data section.fixtures_section div.fixtures {
+  display: block;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList {
+  display: none;
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: fixtures;
+  -webkit-transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86), -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div {
+  background: #68A175;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr .2fr 1fr;
+      grid-template-columns: 1fr .2fr 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "homeTeam score awayTeam" "additionalInfo additionalInfo additionalInfo";
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div span, .data section.fixtures_section div.fixtures section.fixturesList div div {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1em;
+  padding: 5px 0 5px 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div span img, .data section.fixtures_section div.fixtures section.fixturesList div div img {
+  width: 30px;
+  display: inline-block;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(1) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: homeTeam;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(2) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: score;
+  background: #FAFF81;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: awayTeam;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-left: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div div {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: additionalInfo;
+  background: #5B7553;
+  font-size: small;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList div:hover {
+  cursor: pointer;
+  opacity: .8;
+  -webkit-box-shadow: 3px 3px 3px #12263A;
+          box-shadow: 3px 3px 3px #12263A;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList.skipped {
+  -webkit-animation: reappear 250ms;
+          animation: reappear 250ms;
+}
+
+.data section.fixtures_section div.fixtures section.fixturesList.is_visible {
+  display: block;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer {
+  display: none;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
+  background: #68A175;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr .2fr 1fr;
+      grid-template-columns: 1fr .2fr 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "gameWeek gameWeek gameWeek"  "homeTeam score awayTeam";
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 0 5px 0;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.home {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: homeTeam;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.score {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: score;
+  background: #FAFF81;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.2rem;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.away {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: awayTeam;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-left: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.gameWeek {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: gameWeek;
+  background: #5B7553;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer {
+  background: #5B7553;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2em;
+  padding: 1em 0;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
+  display: -ms-grid;
+  display: grid;
+  background: #68A175;
+  padding: 1em;
+  height: 100%;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
+  display: none;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .2em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main article#timelineTab > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: .5em;
+  width: 100%;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer.is_visible {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: .1fr .07fr 1fr;
+      grid-template-rows: .1fr .07fr 1fr;
+  height: 100%;
+  gap: 1em;
+}
+
+.data section.fixtures_section.is_visible {
+  display: -ms-grid;
+  display: grid;
+  -webkit-animation: slideIn 250ms forwards;
+          animation: slideIn 250ms forwards;
+}
+
+.data section.statistics_section {
+  display: none;
+  width: 1000px;
+  height: 100%;
+  gap: .2em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-weight: bold;
+  -webkit-transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
+  transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
+  transition: opacity 250ms, transform 250ms, visibility 250ms;
+  transition: opacity 250ms, transform 250ms, visibility 250ms, -webkit-transform 250ms;
+}
+
+.data section.statistics_section div {
+  background: #68A175;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr .3fr .3fr;
+      grid-template-columns: 1fr .3fr .3fr;
+  padding: .2em;
+}
+
+.data section.statistics_section div span:nth-of-type(1) {
+  text-indent: 1em;
+}
+
+.data section.statistics_section div span:nth-of-type(2), .data section.statistics_section div span:nth-of-type(3) {
+  text-align: center;
+}
+
+.data section.statistics_section div:first-child {
+  background: #8EB897;
+  font-size: .9em;
+}
+
+.data section.statistics_section.is_visible {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation: slideIn 250ms forwards;
+          animation: slideIn 250ms forwards;
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes highlight {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: .9;
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+}
+
+@keyframes highlight {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: .9;
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+}
+
+@-webkit-keyframes reappear {
+  0% {
+    opacity: .7;
+    -webkit-transform: translateY(2%);
+            transform: translateY(2%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes reappear {
+  0% {
+    opacity: .7;
+    -webkit-transform: translateY(2%);
+            transform: translateY(2%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+
+/*# sourceMappingURL=/new_styles.2768894b.css.map */
