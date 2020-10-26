@@ -37,9 +37,13 @@ header {
   background: #12263A;
 }
 
-header h1 {
+header h1, header h3 {
   font-size: 3rem;
   margin-bottom: 1em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 header img {
@@ -85,16 +89,6 @@ header nav .tabs {
   position: relative;
 }
 
-header nav .tabs a {
-  text-decoration: none;
-  border-bottom: 2px solid #5B7553;
-  cursor: pointer;
-}
-
-header nav .tabs a:hover {
-  border-bottom: 2px solid #FAFF81;
-}
-
 main {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -108,12 +102,12 @@ main {
 
 a {
   text-decoration: none;
-  border-bottom: 2px solid var(--clr-accent-dark);
+  border-bottom: 2px solid #5B7553;
   cursor: pointer;
 }
 
 a:hover {
-  border-bottom: 2px solid var(--clr-accent);
+  border-bottom: 2px solid #FAFF81;
 }
 
 .data {
