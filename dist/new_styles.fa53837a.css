@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Teko&display=swap");
 *,
 *::after,
 *::before {
@@ -11,7 +12,7 @@
 body {
   width: 100%;
   height: 100vh;
-  background: #12263A;
+  background: #1D1E2C;
   font-family: 'Titillium Web', sans-serif;
   color: #fff;
   display: -ms-grid;
@@ -34,11 +35,19 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: center;
           flex-direction: center;
-  background: #12263A;
+  background: #1D1E2C;
+  color: #000;
+  font-size: 2em;
 }
 
-header h1, header h3 {
-  font-size: 3rem;
+header h1 {
+  margin-right: 3em;
+  color: #DDBDD5;
+  font-family: 'Teko', sans-serif;
+  letter-spacing: .3em;
+}
+
+header h3 {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -60,10 +69,27 @@ header nav .tabs {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: 3em;
-  font-size: 2em;
-  padding: 1em 2em;
-  border-radius: 2em;
+  border-radius: 1rem;
   position: relative;
+  color: #DDBDD5;
+  font-family: 'Teko', sans-serif;
+}
+
+header nav .tabs a {
+  text-decoration: none;
+  -webkit-box-shadow: -4px -4px 7px #DDBDD5, 2px 2px 5px #DDBDD5;
+          box-shadow: -4px -4px 7px #DDBDD5, 2px 2px 5px #DDBDD5;
+  border-radius: 4px;
+  padding: .5rem 1em;
+  text-transform: uppercase;
+}
+
+header nav .tabs a:hover {
+  cursor: pointer;
+  -webkit-box-shadow: -2px -2px 5px #DDBDD5, 4px 4px 7px #DDBDD5;
+          box-shadow: -2px -2px 5px #DDBDD5, 4px 4px 7px #DDBDD5;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 main {
@@ -75,16 +101,6 @@ main {
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-}
-
-a {
-  text-decoration: none;
-  border-bottom: 2px solid #5B7553;
-  cursor: pointer;
-}
-
-a:hover {
-  border-bottom: 2px solid #FAFF81;
 }
 
 .data {
@@ -122,9 +138,10 @@ a:hover {
 }
 
 .data section.standings_section .headings {
-  background: #8EB897;
+  background: #322A3C;
   font-size: .9em;
   text-align: center;
+  color: #fff;
 }
 
 .data section.standings_section div {
@@ -135,7 +152,7 @@ a:hover {
   gap: 1em;
   width: 100%;
   color: #000;
-  background: #68A175;
+  background: #DDBDD5;
   padding: .2em;
 }
 
@@ -202,7 +219,7 @@ a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #68A175;
+  background: #DDBDD5;
   font-size: 1.5rem;
 }
 
@@ -221,7 +238,7 @@ a:hover {
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
-  background: #68A175;
+  background: #DDBDD5;
   -ms-user-select: none;
       user-select: none;
   -moz-user-select: none;
@@ -243,8 +260,8 @@ a:hover {
 }
 
 .data section.fixtures_section div.nextWeekNavCont:hover, .data section.fixtures_section div.prevWeekNavCont:hover {
-  background: #426149;
-  color: #550404;
+  background: #322A3C;
+  color: #fff;
 }
 
 .data section.fixtures_section div.fixtures {
@@ -263,7 +280,7 @@ a:hover {
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div {
-  background: #68A175;
+  background: #DDBDD5;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
@@ -311,7 +328,7 @@ a:hover {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #FAFF81;
+  background: #F7EBEC;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
@@ -329,15 +346,16 @@ a:hover {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: additionalInfo;
-  background: #5B7553;
+  background: #322A3C;
   font-size: small;
+  color: #fff;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div:hover {
   cursor: pointer;
   opacity: .8;
-  -webkit-box-shadow: 3px 3px 3px #12263A;
-          box-shadow: 3px 3px 3px #12263A;
+  -webkit-box-shadow: 3px 3px 3px #1D1E2C;
+          box-shadow: 3px 3px 3px #1D1E2C;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList.skipped {
@@ -354,7 +372,7 @@ a:hover {
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
-  background: #68A175;
+  background: #DDBDD5;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
@@ -393,7 +411,7 @@ a:hover {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #FAFF81;
+  background: #F7EBEC;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -415,11 +433,11 @@ a:hover {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: gameWeek;
-  background: #5B7553;
+  background: #DDBDD5;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer {
-  background: #5B7553;
+  background: #322A3C;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -436,7 +454,7 @@ a:hover {
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
   display: -ms-grid;
   display: grid;
-  background: #68A175;
+  background: #DDBDD5;
   padding: 1em;
   height: 100%;
 }
@@ -515,7 +533,7 @@ a:hover {
 }
 
 .data section.statistics_section div {
-  background: #68A175;
+  background: #DDBDD5;
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -533,8 +551,9 @@ a:hover {
 }
 
 .data section.statistics_section div:first-child {
-  background: #8EB897;
+  background: #322A3C;
   font-size: .9em;
+  color: #fff;
 }
 
 .data section.statistics_section.is_visible {
@@ -583,8 +602,8 @@ a:hover {
   }
   100% {
     opacity: .9;
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
   }
 }
 
@@ -596,8 +615,8 @@ a:hover {
   }
   100% {
     opacity: .9;
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
   }
 }
 

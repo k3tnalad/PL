@@ -32,3 +32,4 @@ export const statsTab = document.getElementById("matchStatsTab");
 export const weekHeading = fixturesSection.querySelector('.weekHeadingContainer');
 export const navBtns = document.querySelectorAll('nav .tabs a');
 export const weekNavButtons = fixturesSection.querySelectorAll('.weekNavButton');
+

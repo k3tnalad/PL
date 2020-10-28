@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
 
 *,
 *::after,
@@ -9,12 +9,12 @@
   box-sizing: border-box;
 }
 
-$clr-bg-primary: #12263A;
-$clr-bg-secondary-light: #23231A;
+$clr-bg-primary: #1D1E2C;
+$clr-bg-secondary-light: #59656F;
 $clr-text: #fff;
-$clr-accent: #FAFF81;
-$clr-accent2: #68A175;
-$clr-accent-dark: #5B7553;
+$clr-accent: #F7EBEC;
+$clr-accent2: #DDBDD5;
+$clr-accent-dark: #322A3C;
 
 body {
     width: 100%;
@@ -32,9 +32,17 @@ header {
     align-items: center;
     flex-direction: center;
     background: $clr-bg-primary;
-    
-    h1, h3 {
-        font-size: 3rem;
+    color: #000;
+    font-size: 2em;
+
+    h1 {
+        margin-right: 3em;
+        color: $clr-accent2;
+        font-family: 'Teko', sans-serif;
+        letter-spacing: .3em;
+    }
+
+    h3 {
         user-select: none;
     }
 
@@ -45,10 +53,26 @@ header {
             align-items: center;
             flex-direction: row;
             gap: 3em;
-            font-size: 2em;
-            padding: 1em 2em;
-            border-radius: 2em;
-            position: relative; 
+            border-radius: 1rem;
+            position: relative;
+            color: $clr-accent2;
+            font-family: 'Teko', sans-serif;
+            a {
+                text-decoration: none;
+                box-shadow: -4px -4px 7px $clr-accent2,
+                            2px 2px 5px $clr-accent2
+                ;
+                border-radius: 4px;
+                padding: .5rem 1em;
+                text-transform: uppercase;
+            }
+            a:hover {
+                cursor: pointer;
+                box-shadow: -2px -2px 5px $clr-accent2,
+                            4px 4px 7px $clr-accent2,
+                ;
+                transform: scale(.9);
+            }
         }
     }
 
@@ -59,17 +83,6 @@ main {
     justify-content: center;
     align-content: center;
 }
-
-a {
-    text-decoration: none;
-    border-bottom: 2px solid $clr-accent-dark;
-    cursor: pointer;
-}
-  
-a:hover {
-    border-bottom: 2px solid $clr-accent;
-}
-
 
 .data {
     display: flex;
@@ -91,9 +104,10 @@ a:hover {
         gap: .2em;
         
         .headings {
-            background: #8EB897;
+            background: $clr-accent-dark;
             font-size: .9em;
             text-align: center;
+            color: $clr-text;
         }
 
         div {
@@ -180,8 +194,8 @@ a:hover {
         }
 
         div.nextWeekNavCont:hover, div.prevWeekNavCont:hover {
-            background: #426149;
-            color: rgb(85, 4, 4);
+            background: $clr-accent-dark;
+            color: $clr-text;
         }
 
         div.fixtures {
@@ -232,8 +246,9 @@ a:hover {
                     }
                     div {
                         grid-area: additionalInfo;
-                        background: #5B7553;
+                        background: $clr-accent-dark;
                         font-size: small;
+                        color: $clr-text;
                     }
                 }
                 div:hover {
@@ -289,7 +304,7 @@ a:hover {
                   }
                   p.gameWeek {
                     grid-area: gameWeek;
-                    background: #5B7553;
+                    background: $clr-accent2;
                   }
                 }
                 div.tabsContainer {
@@ -370,8 +385,9 @@ a:hover {
         }
 
         div:first-child {
-            background: #8EB897;
+            background: $clr-accent-dark;
             font-size: .9em;
+            color: #fff;
         }
     }
 
@@ -404,7 +420,7 @@ a:hover {
     }
     100% {
       opacity: .9;
-      transform: scale(.95);
+      transform: scale(.9);
     }
   }
 

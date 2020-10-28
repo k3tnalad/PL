@@ -5921,8 +5921,9 @@ const fetchAllData = async weekNum => {
   localStorage.setItem('table', JSON.stringify(tableData.api.standings[0]));
   localStorage.setItem('last10', JSON.stringify(last10Data.api.fixtures));
   localStorage.setItem('stats', JSON.stringify(statsData.api.topscorers));
-}; // fetchAllData();
+};
 
+fetchAllData();
 
 const getFixturesByWeek = async weekNum => {
   const response = await fetch(`${apiUrls.fixByWeek}${weekNum}`, apiUrls.inits);
@@ -6134,7 +6135,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53282" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50207" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

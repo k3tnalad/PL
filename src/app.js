@@ -34,7 +34,7 @@ const fetchAllData = async (weekNum) => {
     localStorage.setItem('stats', JSON.stringify(statsData.api.topscorers));
 }
 
-// fetchAllData();
+fetchAllData();
 
 
 const getFixturesByWeek = async (weekNum) => {
