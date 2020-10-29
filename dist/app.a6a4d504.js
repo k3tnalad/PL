@@ -5855,7 +5855,7 @@ const eventTypeHandler = e => {
   } else if (e == 'subst') {
     return `<i class="fas fa-people-arrows"></i>`;
   } else if (e == 'Card') {
-    return `<i class="fas fa-square"></i>`;
+    return `<i class="fas fa-square" style="color: yellow"></i>`;
   }
 };
 
@@ -5893,16 +5893,7 @@ const setGWHeader = weekNum => {
 };
 
 exports.setGWHeader = setGWHeader;
-},{"./elements":"src/elements.js"}],"src/weeks.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.weeks = void 0;
-const weeks = [];
-exports.weeks = weeks;
-},{}],"src/app.js":[function(require,module,exports) {
+},{"./elements":"src/elements.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _moment = _interopRequireDefault(require("moment"));
@@ -5910,8 +5901,6 @@ var _moment = _interopRequireDefault(require("moment"));
 var _elements = require("./elements");
 
 var _utils = require("./utils");
-
-var _weeks = require("./weeks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5946,6 +5935,10 @@ const fetchAllData = async weekNum => {
 }; // fetchAllData();
 
 
+standingPop(JSON.parse(localStorage.getItem('table')));
+fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
+statsPop(JSON.parse(localStorage.getItem('stats')));
+
 const getFixturesByWeek = async weekNum => {
   let weekResponse = await fetch(`${apiUrls.fixByWeek}${weekNum}`, apiUrls.inits);
   let weekData = await weekResponse.json();
@@ -5967,11 +5960,6 @@ const matchPop = async e => {
 
   _elements.fixtureDataContainer.classList.add('is_visible');
 
-  _elements.weekNavButtons.forEach(btn => {
-    btn.style.opacity = '0';
-    btn.style.pointerEvents = 'none';
-  });
-
   (0, _utils.setGWHeader)(`<a data-back>Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
 
   let matchID = e.currentTarget.dataset.id; // if there is no data for the match on the LS, it's gonna fetch it using the matchID.
@@ -5982,7 +5970,7 @@ const matchPop = async e => {
   let matchObj; // header data assignment
 
   _elements.fixtureHeaderInners[0].textContent = matchBlob.homeTeam.team_name;
-  _elements.fixtureHeaderInners[1].textContent = `n/a`;
+  _elements.fixtureHeaderInners[1].textContent = matchBlob.score.fulltime || `n/a`;
   _elements.fixtureHeaderInners[2].textContent = matchBlob.awayTeam.team_name;
   _elements.fixtureHeaderInners[3].textContent = `Gameweek - ${matchBlob.round.slice(17)}`; // if the match hasn't started yet
 
@@ -5998,19 +5986,79 @@ const matchPop = async e => {
       gameWeek: matchBlob.round.slice(17),
       eventsArray: matchBlob.events,
       possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
-      shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]]
-    }; // filling the dat of the timeline stuff
+      shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]],
+      lineups: [matchBlob.lineups[matchBlob.homeTeam.team_name], matchBlob.lineups[matchBlob.awayTeam.team_name]]
+    };
+    console.log(matchObj.eventsArray);
+    let homeEvents = [],
+        awayEvents = []; // filling the dat of the timeline stuff
 
-    const eventsHtml = matchObj.eventsArray.map(i => {
+    matchObj.eventsArray.forEach(eve => {
+      if (eve.teamName == matchObj.homeTeam) {
+        homeEvents.push(eve);
+      } else {
+        awayEvents.push(eve);
+      }
+    });
+    let eventsHtml = `
+            <section class="homeEvents home">
+                ${homeEvents.map(i => {
       return `
-                <div className="event">
-                    <p className="elapsed">'${i.elapsed}</p>
-                    <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
-                    <p className="name">${i.player} - ${i.assist}</p>
-                </div>
-            `;
-    }).join('');
-    _elements.timelineTab.innerHTML = eventsHtml;
+                    <div className="homeEvent">
+                        <p className="time" style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                    </div>
+                    `;
+    }).join('')}
+            </section>
+            <section class="awayEvents away">
+                ${awayEvents.map(i => {
+      return `
+                    <div className="homeEvent">
+                        <p className="time"  style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                    </div>
+                    `;
+    }).join('')}
+            </section>
+        `;
+    _elements.timelineTab.innerHTML = eventsHtml; // lineups
+
+    let lineupsHTML = `
+                <section class="homeLineups home">
+                        ${matchObj.lineups[0]["startXI"].map(plr => {
+      return `
+                                <div className="player_cont">
+                                    <p className="player">${plr.player}</p>
+                                    <p className="number">${plr.number}</p>
+                                </div>   
+                            `;
+    }).join('')}
+                        <div className="extraData">
+                            <p className="coach" style="font-size: 1rem">Coach: ${matchObj.lineups[0].coach}</p>
+                            <p className="formation">Probable formation: ${matchObj.lineups[0].formation}</p>
+                        </div>
+                </section>
+                <section class="awayLineups away">
+                    ${matchObj.lineups[1]["startXI"].map(plr => {
+      return `
+                            <div className="player_cont">
+                                <p className="player">${plr.player}</p>
+                                <p className="number">${plr.number}</p>
+                            </div>
+                        `;
+    }).join('')}
+                    <div className="extraData">
+                            <p className="coach" style="font-size: 1rem">Coach: ${matchObj.lineups[1].coach}</p>
+                            <p className="formation">Probable formation: ${matchObj.lineups[1].formation}</p>
+                    </div>
+                </section>
+        `;
+    _elements.lineupsTab.innerHTML = lineupsHTML;
   }
 };
 
@@ -6111,10 +6159,6 @@ async function weekHandler(e) {
   }
 }
 
-standingPop(JSON.parse(localStorage.getItem('table')));
-fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
-statsPop(JSON.parse(localStorage.getItem('stats')));
-
 _elements.navBtns.forEach(btn => btn.addEventListener('click', e => (0, _utils.animateTabs)(e)));
 
 _elements.weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
@@ -6123,7 +6167,9 @@ _elements.weekNavButtons.forEach(btn => btn.addEventListener('click', () => _ele
 
 _elements.fixturesList.addEventListener('animationend', () => _elements.fixturesList.classList.remove('skipped'));
 
-[..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
+[..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => {
+  matchPop(e);
+}));
 
 _elements.headingCont.addEventListener('click', e => {
   if (e.target.textContent == "Back to fixtures") {
@@ -6132,14 +6178,6 @@ _elements.headingCont.addEventListener('click', e => {
     _elements.fixturesList.classList.add('is_visible');
 
     (0, _utils.setGWHeader)(currentGW);
-
-    _elements.weekNavButtons.forEach(btn => {
-      btn.style.opacity = '1';
-      btn.style.pointerEvents = 'all';
-    });
-
-    _elements.weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
-
     [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
   } else return;
 });
@@ -6151,7 +6189,7 @@ _elements.fixtureDataTabs.forEach(t => t.addEventListener('click', () => {
 
   target.classList.add('active');
 }));
-},{"moment":"node_modules/moment/moment.js","./elements":"src/elements.js","./utils":"src/utils.js","./weeks":"src/weeks.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"moment":"node_modules/moment/moment.js","./elements":"src/elements.js","./utils":"src/utils.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -6179,7 +6217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64067" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59776" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

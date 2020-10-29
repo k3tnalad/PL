@@ -3,7 +3,6 @@ import { standingsSection, statsSection, fixturesSection, fixturesList,
          fixtureDataContainer, fixtureHeaderInners, fixtureDataTabs, tabsContent, timelineTab,
          lineupsTab, statsTab, navBtns, weekNavButtons, headingCont} from './elements';
 import { eventTypeHandler, animateTabs, wait, setGWHeader } from "./utils";
-import { weeks } from "./weeks";
 
 let currentGW = 6;
 
@@ -36,9 +35,13 @@ const fetchAllData = async (weekNum) => {
     localStorage.setItem('table', JSON.stringify(tableData.api.standings[0]));
     localStorage.setItem(`week${currentGW}`, JSON.stringify(weekData.api.fixtures));
     localStorage.setItem('stats', JSON.stringify(statsData.api.topscorers));
-}
 
+}
 // fetchAllData();
+standingPop(JSON.parse(localStorage.getItem('table')));
+fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
+statsPop(JSON.parse(localStorage.getItem('stats')));
+
 
 
 const getFixturesByWeek = async (weekNum) => {
@@ -60,10 +63,7 @@ const matchPop = async (e) => {
     // by removing and adding a class to respective elements.
     fixturesList.classList.remove('is_visible');
     fixtureDataContainer.classList.add('is_visible');
-    weekNavButtons.forEach(btn => { 
-        btn.style.opacity = '0';
-        btn.style.pointerEvents = 'none'
-    });
+
     setGWHeader(`<a data-back>Back to fixtures</a>`)
     
     // getting a fixtureID to find the match data that was selected.
@@ -78,7 +78,7 @@ const matchPop = async (e) => {
     
     // header data assignment
     fixtureHeaderInners[0].textContent = matchBlob.homeTeam.team_name;
-    fixtureHeaderInners[1].textContent = `n/a`;
+    fixtureHeaderInners[1].textContent = matchBlob.score.fulltime || `n/a`;
     fixtureHeaderInners[2].textContent = matchBlob.awayTeam.team_name;
     fixtureHeaderInners[3].textContent = `Gameweek - ${(matchBlob.round).slice(17)}`;
     
@@ -96,19 +96,79 @@ const matchPop = async (e) => {
             eventsArray: matchBlob.events,
             possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
             shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]],
+            lineups: [matchBlob.lineups[matchBlob.homeTeam.team_name], matchBlob.lineups[matchBlob.awayTeam.team_name]],
         }
-        
+        console.log(matchObj.eventsArray);
+        let homeEvents = [], awayEvents = [];
         // filling the dat of the timeline stuff
-        const eventsHtml = matchObj.eventsArray.map(i => {
-            return `
-                <div className="event">
-                    <p className="elapsed">'${i.elapsed}</p>
-                    <p className="type">${eventTypeHandler(i.type)}</p>
-                    <p className="name">${i.player} - ${i.assist}</p>
-                </div>
-            `
-        }).join('');
+        matchObj.eventsArray.forEach(eve => {
+            if(eve.teamName == matchObj.homeTeam) {
+                homeEvents.push(eve);
+            } else {
+                awayEvents.push(eve);
+            }
+        })
+        let eventsHtml = `
+            <section class="homeEvents home">
+                ${homeEvents.map(i => {
+                    return `
+                    <div className="homeEvent">
+                        <p className="time" style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="type">${eventTypeHandler(i.type)}</p>
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                    </div>
+                    `
+                }).join('')}
+            </section>
+            <section class="awayEvents away">
+                ${awayEvents.map(i => {
+                    return `
+                    <div className="homeEvent">
+                        <p className="time"  style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="type">${eventTypeHandler(i.type)}</p>
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                    </div>
+                    `
+                }
+                ).join('')}
+            </section>
+        `;
         timelineTab.innerHTML = eventsHtml;
+
+        // lineups
+        let lineupsHTML =  `
+                <section class="homeLineups home">
+                        ${matchObj.lineups[0]["startXI"].map(plr => {
+                            return `
+                                <div className="player_cont">
+                                    <p className="player">${plr.player}</p>
+                                    <p className="number">${plr.number}</p>
+                                </div>   
+                            `;
+                        }).join('')}
+                        <div className="extraData">
+                            <p className="coach" style="font-size: 1rem">Coach: ${matchObj.lineups[0].coach}</p>
+                            <p className="formation">Probable formation: ${matchObj.lineups[0].formation}</p>
+                        </div>
+                </section>
+                <section class="awayLineups away">
+                    ${matchObj.lineups[1]["startXI"].map(plr => {
+                        return `
+                            <div className="player_cont">
+                                <p className="player">${plr.player}</p>
+                                <p className="number">${plr.number}</p>
+                            </div>
+                        `;
+                    }).join('')}
+                    <div className="extraData">
+                            <p className="coach" style="font-size: 1rem">Coach: ${matchObj.lineups[1].coach}</p>
+                            <p className="formation">Probable formation: ${matchObj.lineups[1].formation}</p>
+                    </div>
+                </section>
+        `;
+        lineupsTab.innerHTML = lineupsHTML;
     }
 }
 
@@ -212,26 +272,22 @@ async function weekHandler(e) {
     } 
 }
 
-standingPop(JSON.parse(localStorage.getItem('table')));
-fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
-statsPop(JSON.parse(localStorage.getItem('stats')));
+
+
 
 
 navBtns.forEach(btn => btn.addEventListener('click', e => animateTabs(e)));
 weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
 weekNavButtons.forEach(btn => btn.addEventListener('click', () => fixturesList.classList.add('skipped')));
 fixturesList.addEventListener('animationend', () => fixturesList.classList.remove('skipped'));
-[...fixturesList.children].forEach(child => child.addEventListener('click', (e) => matchPop(e)));
+[...fixturesList.children].forEach(child => child.addEventListener('click', (e) => {
+    matchPop(e);
+}));
 headingCont.addEventListener('click', (e) => {
     if(e.target.textContent == "Back to fixtures") {
         fixtureDataContainer.classList.remove('is_visible');
         fixturesList.classList.add('is_visible');
         setGWHeader(currentGW);
-        weekNavButtons.forEach(btn => { 
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'all';
-        });
-        weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
         [...fixturesList.children].forEach(child => child.addEventListener('click', (e) => matchPop(e)));
     } else return;
 });

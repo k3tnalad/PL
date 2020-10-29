@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap');
 
 *,
 *::after,
@@ -9,12 +9,12 @@
   box-sizing: border-box;
 }
 
-$clr-bg-primary: #011627;
-$clr-bg-secondary-light: #616567;
+$clr-bg-primary: #264653;
+$clr-bg-secondary-light: #e76f51;
 $clr-text: #FDFFFC;
-$clr-accent: #ac0017;
-$clr-accent2: #41EAD4;
-$clr-accent-dark: #610e3d;
+$clr-accent: #2a9d8f;
+$clr-accent2: #e9c46a;
+$clr-accent-dark: #f4a261;
 
 body {
     width: 100%;
@@ -23,20 +23,21 @@ body {
     font-family: 'Titillium Web', sans-serif;
     color: #fff;
     display: grid;
-    grid-template-rows: 15% 80% 5%;
+    grid-template-rows: 10% 85% 5%;
 }
 
 header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: center;
     background: $clr-bg-primary;
     color: #000;
-    font-size: 2em;
+    font-size: 1.5em;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    padding: 1em 1em;
     h1 {
         margin-right: 3em;
         color: $clr-accent2;
@@ -61,19 +62,16 @@ header {
             font-family: 'Teko', sans-serif;
             a {
                 text-decoration: none;
-                box-shadow: -4px -4px 7px $clr-accent2,
-                            2px 2px 5px $clr-accent2
-                ;
-                border-radius: 4px;
-                padding: .5rem 1em;
-                text-transform: uppercase;
+                border: 3px solid $clr-accent-dark;
+                padding: .2em .5em;
+                background: transparent;
+                color: $clr-text;
             }
+    
             a:hover {
                 cursor: pointer;
-                box-shadow: -2px -2px 5px $clr-accent2,
-                            4px 4px 7px $clr-accent2,
-                ;
-                transform: scale(.9);
+                border: 3px solid #ff8191;
+                border-radius: 5px;
             }
         }
     }
@@ -173,10 +171,10 @@ main {
         font-weight: bold;
         display: none;
         grid-template-columns: .1fr 1fr .1fr;
-        grid-template-rows: .125fr 1fr;
-        gap: 1em;
+        grid-template-rows: .1fr 1fr;
         width: 100%;
         height: 780px;
+        gap: .5em;
         opacity: 0;
         grid-template-areas: 
             "prevWeek weekNum nextWeek"
@@ -191,25 +189,22 @@ main {
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1.3rem;
             background: $clr-accent2;
-            font-size: 1.5rem;
-            
+            letter-spacing: .1rem;
+            font-family: 'Teko', sans-serif;
             a {
                 text-decoration: none;
-                box-shadow: -5px -5px 10px $clr-bg-primary,
-                            3px 3px 7px $clr-bg-primary
-                ;
-                border-radius: 4px;
-                padding: .5em .5em;
-                text-transform: uppercase;
-                cursor: pointer;
+                border: 3px solid $clr-accent-dark;
+                padding: .5em;
+                background: transparent;
+                color: $clr-text;
             }
     
             a:hover {
-                box-shadow: -3px -3px 7px $clr-bg-primary,
-                            5px 5px 10px $clr-bg-primary,
-                ;
-                transform: scale(.95);
+                cursor: pointer;
+                border: 3px solid #ff8191;
+                border-radius: 5px;
             }
         }
 
@@ -310,12 +305,22 @@ main {
 
             section.fixtureDataContainer {
                 display: none;
+                height: 100%;
+                grid-template-rows: 10% 10% auto;
+                grid-template-areas: 
+                    "tabsContainer"
+                    "header"
+                    "main"
+                ;
+                gap: .5em;
 
                 div.header {
+                    grid-area: header;
+                    height: 100%;
                     background: $clr-accent2;
                     display: grid;
                     grid-template-columns: 1fr .2fr 1fr;
-                    grid-template-rows: 1fr;
+                    grid-template-rows: 1fr 1fr;
                     grid-template-areas:
                       "gameWeek gameWeek gameWeek" 
                       "homeTeam score awayTeam"
@@ -325,10 +330,12 @@ main {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding: .5rem 3rem;
+                        padding: .3em;
                     }
                     p.home {
                         grid-area: homeTeam;
+                        justify-content: flex-end;
+                        padding-right: 1em;
                     } 
                     p.score {
                         grid-area: score;
@@ -336,70 +343,116 @@ main {
                     }
                     p.away {
                         grid-area: awayTeam;
+                        justify-content: flex-start;
+                        padding-left: 1em;
                     }
                     p.gameWeek {
                         grid-area: gameWeek;
                         background: $clr-accent-dark;
+                        color: $clr-text;
                     }
                 }
                 div.tabsContainer {
+                    grid-area: tabsContainer;
+                    background: $clr-accent2;
                     display: flex;
-                    justify-content: space-evenly;
+                    justify-content: center;
                     align-items: center;
-                    gap: 2em;
-                    padding: 1em 0;
-                    font-size: 2rem;
+                    gap: 1em;
+                    font-size: 1.2rem;
+                    font-family: 'Teko', sans-serif;
                     a {
                         text-decoration: none;
-                        box-shadow: -5px -5px 10px $clr-accent2,
-                                    3px 3px 7px $clr-accent2
-                        ;
-                        border-radius: 4px;
-                        padding: .1em .5em;
-                        text-transform: uppercase;
-                        cursor: pointer;
-                        color: $clr-accent2;
-                        font-family: 'Teko', sans-serif;
+                        border: 3px solid $clr-accent-dark;
+                        padding: .2em .5em;
+                        background: transparent;
+                        color: $clr-text;
                     }
             
                     a:hover {
-                        box-shadow: -3px -3px 7px $clr-accent2,
-                                    5px 5px 10px $clr-accent2,
-                        ;
-                        transform: scale(.95);
+                        cursor: pointer;
+                        border: 3px solid #ff8191;
+                        border-radius: 5px;
                     }
                 }
                 div.main {
-                    display: grid;
-                    background: $clr-accent2;
-                    padding: 1em;
-                    height: 100%;
+                    grid-area: main;
+                    background: $clr-accent-dark;
+                    padding: .5em;
+                    font-size: .8rem;
+                    color: $clr-text;
 
                     [data-tab-content] {
                     display: none;
                     }
 
                     .active[data-tab-content] {
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: auto;
+                        grid-template-areas: 
+                            "home away"
+                            ;
+                        gap: 1em;
+                    }
+
+                    .active[data-tab-content] {
+                        display: grid;
+                        section.homeLineups > div {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: column;
+                            gap: .5em;
+                            padding: .2em; 
+                        }
+                        section.awayLineups > div {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: column;
+                            gap: .5em;
+                            padding: .2em; 
+                        }
+                    }
+                    
+                    
+                    .active[data-tab-content] > section.home {
+                        grid-area: home;
                         display: flex;
-                        justify-content: flex-start;
+                        flex-direction: column;
+                        background: $clr-accent2;
+                        color: #000;
+                        gap: .5em;
+                        div {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: row-reverse;
+                            gap: .5em;
+                        }
+
+                    }
+                    .active[data-tab-content] > section.away {
+                        grid-area: away;
+                        display: flex;
+                        flex-direction: column;
+                        background: $clr-accent2;                        
+                        color: #000;
+                        gap: .5em;
+                        div {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: row;
+                            gap: .5em;
+                        }
+                    }
+                    section.homeLineups > div {
+                        display: flex;
                         align-items: center;
                         flex-direction: column;
-                        gap: .2em;
-                    }
-                    article#timelineTab > div {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
                         gap: .5em;
-                        width: 100%;
                     }
                 }  
             }
             section.fixtureDataContainer.is_visible {
                 display: grid;
-                grid-template-rows: .1fr .07fr 1fr;
-                height: 100%;
-                gap: 1em;
             }
 
         }

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Teko&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap");
 *,
 *::after,
 *::before {
@@ -12,22 +12,22 @@
 body {
   width: 100%;
   height: 100vh;
-  background: #011627;
+  background: #264653;
   font-family: 'Titillium Web', sans-serif;
   color: #fff;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 15% 80% 5%;
-      grid-template-rows: 15% 80% 5%;
+  -ms-grid-rows: 10% 85% 5%;
+      grid-template-rows: 10% 85% 5%;
 }
 
 header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -35,18 +35,19 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: center;
           flex-direction: center;
-  background: #011627;
+  background: #264653;
   color: #000;
-  font-size: 2em;
+  font-size: 1.5em;
   -ms-user-select: none;
       user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  padding: 1em 1em;
 }
 
 header h1 {
   margin-right: 3em;
-  color: #41EAD4;
+  color: #e9c46a;
   font-family: 'Teko', sans-serif;
   letter-spacing: .3em;
 }
@@ -75,25 +76,22 @@ header nav .tabs {
   gap: 3em;
   border-radius: 1rem;
   position: relative;
-  color: #41EAD4;
+  color: #e9c46a;
   font-family: 'Teko', sans-serif;
 }
 
 header nav .tabs a {
   text-decoration: none;
-  -webkit-box-shadow: -4px -4px 7px #41EAD4, 2px 2px 5px #41EAD4;
-          box-shadow: -4px -4px 7px #41EAD4, 2px 2px 5px #41EAD4;
-  border-radius: 4px;
-  padding: .5rem 1em;
-  text-transform: uppercase;
+  border: 3px solid #f4a261;
+  padding: .2em .5em;
+  background: transparent;
+  color: #FDFFFC;
 }
 
 header nav .tabs a:hover {
   cursor: pointer;
-  -webkit-box-shadow: -2px -2px 5px #41EAD4, 4px 4px 7px #41EAD4;
-          box-shadow: -2px -2px 5px #41EAD4, 4px 4px 7px #41EAD4;
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  border: 3px solid #ff8191;
+  border-radius: 5px;
 }
 
 footer {
@@ -165,7 +163,7 @@ main {
 }
 
 .data section.standings_section .headings {
-  background: #610e3d;
+  background: #f4a261;
   font-size: .9em;
   text-align: center;
   color: #FDFFFC;
@@ -179,7 +177,7 @@ main {
   gap: 1em;
   width: 100%;
   color: #000;
-  background: #41EAD4;
+  background: #e9c46a;
   padding: .2em;
 }
 
@@ -220,11 +218,11 @@ main {
   display: none;
   -ms-grid-columns: .1fr 1fr .1fr;
       grid-template-columns: .1fr 1fr .1fr;
-  -ms-grid-rows: .125fr 1fr;
-      grid-template-rows: .125fr 1fr;
-  gap: 1em;
+  -ms-grid-rows: .1fr 1fr;
+      grid-template-rows: .1fr 1fr;
   width: 100%;
   height: 780px;
+  gap: .5em;
   opacity: 0;
       grid-template-areas: "prevWeek weekNum nextWeek" "prevWeek fixtures nextWeek";
   -webkit-transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
@@ -246,25 +244,24 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #41EAD4;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  background: #e9c46a;
+  letter-spacing: .1rem;
+  font-family: 'Teko', sans-serif;
 }
 
 .data section.fixtures_section div.weekHeadingContainer a {
   text-decoration: none;
-  -webkit-box-shadow: -5px -5px 10px #011627, 3px 3px 7px #011627;
-          box-shadow: -5px -5px 10px #011627, 3px 3px 7px #011627;
-  border-radius: 4px;
-  padding: .5em .5em;
-  text-transform: uppercase;
-  cursor: pointer;
+  border: 3px solid #f4a261;
+  padding: .5em;
+  background: transparent;
+  color: #FDFFFC;
 }
 
 .data section.fixtures_section div.weekHeadingContainer a:hover {
-  -webkit-box-shadow: -3px -3px 7px #011627, 5px 5px 10px #011627;
-          box-shadow: -3px -3px 7px #011627, 5px 5px 10px #011627;
-  -webkit-transform: scale(0.95);
-          transform: scale(0.95);
+  cursor: pointer;
+  border: 3px solid #ff8191;
+  border-radius: 5px;
 }
 
 .data section.fixtures_section div.prevWeekNavCont, .data section.fixtures_section div.nextWeekNavCont {
@@ -282,7 +279,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
-  background: #41EAD4;
+  background: #e9c46a;
   -ms-user-select: none;
       user-select: none;
   -moz-user-select: none;
@@ -306,8 +303,8 @@ main {
 
 .data section.fixtures_section div.nextWeekNavCont:hover, .data section.fixtures_section div.prevWeekNavCont:hover {
   opacity: .6;
-  -webkit-box-shadow: 3px 3px 3px #610e3d;
-          box-shadow: 3px 3px 3px #610e3d;
+  -webkit-box-shadow: 3px 3px 3px #f4a261;
+          box-shadow: 3px 3px 3px #f4a261;
 }
 
 .data section.fixtures_section div.fixtures {
@@ -326,7 +323,7 @@ main {
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div {
-  background: #41EAD4;
+  background: #e9c46a;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
@@ -374,7 +371,7 @@ main {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #ac0017;
+  background: #2a9d8f;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
@@ -392,7 +389,7 @@ main {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: additionalInfo;
-  background: #610e3d;
+  background: #f4a261;
   font-size: small;
   color: #FDFFFC;
   pointer-events: none;
@@ -401,8 +398,8 @@ main {
 .data section.fixtures_section div.fixtures section.fixturesList div:hover {
   cursor: pointer;
   opacity: .6;
-  -webkit-box-shadow: 3px 3px 3px #610e3d;
-          box-shadow: 3px 3px 3px #610e3d;
+  -webkit-box-shadow: 3px 3px 3px #f4a261;
+          box-shadow: 3px 3px 3px #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList.skipped {
@@ -416,16 +413,25 @@ main {
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer {
   display: none;
+  height: 100%;
+  -ms-grid-rows: 10% 10% auto;
+      grid-template-rows: 10% 10% auto;
+      grid-template-areas: "tabsContainer" "header" "main";
+  gap: .5em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
-  background: #41EAD4;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: header;
+  height: 100%;
+  background: #e9c46a;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
       grid-template-columns: 1fr .2fr 1fr;
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
       grid-template-areas: "gameWeek gameWeek gameWeek"  "homeTeam score awayTeam";
 }
 
@@ -439,26 +445,34 @@ main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: .5rem 3rem;
+  padding: .3em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.home {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: homeTeam;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.score {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #ac0017;
+  background: #2a9d8f;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.away {
   -ms-grid-row: 2;
   -ms-grid-column: 3;
   grid-area: awayTeam;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.gameWeek {
@@ -466,73 +480,15 @@ main {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: gameWeek;
-  background: #610e3d;
+  background: #f4a261;
+  color: #FDFFFC;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 2em;
-  padding: 1em 0;
-  font-size: 2rem;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a {
-  text-decoration: none;
-  -webkit-box-shadow: -5px -5px 10px #41EAD4, 3px 3px 7px #41EAD4;
-          box-shadow: -5px -5px 10px #41EAD4, 3px 3px 7px #41EAD4;
-  border-radius: 4px;
-  padding: .1em .5em;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: #41EAD4;
-  font-family: 'Teko', sans-serif;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
-  -webkit-box-shadow: -3px -3px 7px #41EAD4, 5px 5px 10px #41EAD4;
-          box-shadow: -3px -3px 7px #41EAD4, 5px 5px 10px #41EAD4;
-  -webkit-transform: scale(0.95);
-          transform: scale(0.95);
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
-  display: -ms-grid;
-  display: grid;
-  background: #41EAD4;
-  padding: 1em;
-  height: 100%;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
-  display: none;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: .2em;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main article#timelineTab > div {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: tabsContainer;
+  background: #e9c46a;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -542,17 +498,160 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 1em;
+  font-size: 1.2rem;
+  font-family: 'Teko', sans-serif;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a {
+  text-decoration: none;
+  border: 3px solid #f4a261;
+  padding: .2em .5em;
+  background: transparent;
+  color: #FDFFFC;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
+  cursor: pointer;
+  border: 3px solid #ff8191;
+  border-radius: 5px;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: main;
+  background: #f4a261;
+  padding: .5em;
+  font-size: .8rem;
+  color: #FDFFFC;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
+  display: none;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "home away";
+  gap: 1em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
+  display: -ms-grid;
+  display: grid;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.homeLineups > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: .5em;
-  width: 100%;
+  padding: .2em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.awayLineups > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .5em;
+  padding: .2em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] > section.home {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: home;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #e9c46a;
+  color: #000;
+  gap: .5em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] > section.home div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  gap: .5em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] > section.away {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: away;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #e9c46a;
+  color: #000;
+  gap: .5em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] > section.away div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: .5em;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main section.homeLineups > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .5em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer.is_visible {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: .1fr .07fr 1fr;
-      grid-template-rows: .1fr .07fr 1fr;
-  height: 100%;
-  gap: 1em;
 }
 
 .data section.fixtures_section.is_visible {
@@ -585,7 +684,7 @@ main {
 }
 
 .data section.statistics_section div {
-  background: #41EAD4;
+  background: #e9c46a;
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -603,7 +702,7 @@ main {
 }
 
 .data section.statistics_section div:first-child {
-  background: #610e3d;
+  background: #f4a261;
   font-size: .9em;
   color: #fff;
 }

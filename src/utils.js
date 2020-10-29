@@ -6,7 +6,7 @@ export const eventTypeHandler = (e) => {
     } else if (e == 'subst') {
         return `<i class="fas fa-people-arrows"></i>`;
     } else if (e == 'Card') {
-        return `<i class="fas fa-square"></i>`;
+        return `<i class="fas fa-square" style="color: yellow"></i>`;
     }
 }
 
