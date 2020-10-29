@@ -33,22 +33,22 @@
       </div>
       </section>
       <section class="fixtures_section">
-        <div class="weekHeadingContainer"></div>
+        <div class="weekHeadingContainer"><p id="heading"></p></div>
         <div class="prevWeekNavCont weekNavButton"><a class="prevWeek">Previous week</a></div>
         <div class="nextWeekNavCont weekNavButton"><a class="nextWeek">Next week</a></div>
         <div class="fixtures">
           <section class="fixturesList is_visible"></section>
           <section class="fixtureDataContainer">
+            <div class="tabsContainer">
+              <a class="tab" data-tab-target="#timelineTab">Timeline</a>
+              <a class="tab" data-tab-target="#lineupsTab">Line-ups</a>
+              <a class="tab" data-tab-target="#matchStatsTab">Stats</a>
+            </div>
             <div class="header">
                 <p class="home"></p>
                 <p class="score"></p>
                 <p class="away"></p>
                 <p class="gameWeek"></p>
-            </div>
-            <div class="tabsContainer">
-              <a class="tab" data-tab-target="#timelineTab">Timeline</a>
-              <a class="tab" data-tab-target="#lineupsTab">Line-ups</a>
-              <a class="tab" data-tab-target="#matchStatsTab">Stats</a>
             </div>
             <div class="main">
               <article class="tabContent active" id="timelineTab" data-tab-content>You will see a timeline here</article>
@@ -61,6 +61,9 @@
       <section class="statistics_section"></section>
     </div>
   </main>
+  <footer>
+    <h3>Done by <a href="https://twitter.com/k3tna_">k3tna</a></h3>
+  </footer>
   <script src="./node_modules/moment/moment.js"></script>
   <script src="./src/app.js"></script>
 </body>

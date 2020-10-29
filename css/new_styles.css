@@ -12,13 +12,13 @@
 body {
   width: 100%;
   height: 100vh;
-  background: #1D1E2C;
+  background: #011627;
   font-family: 'Titillium Web', sans-serif;
   color: #fff;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 10% 90%;
-      grid-template-rows: 10% 90%;
+  -ms-grid-rows: 15% 80% 5%;
+      grid-template-rows: 15% 80% 5%;
 }
 
 header {
@@ -35,14 +35,18 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: center;
           flex-direction: center;
-  background: #1D1E2C;
+  background: #011627;
   color: #000;
   font-size: 2em;
+  -ms-user-select: none;
+      user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 header h1 {
   margin-right: 3em;
-  color: #DDBDD5;
+  color: #41EAD4;
   font-family: 'Teko', sans-serif;
   letter-spacing: .3em;
 }
@@ -71,14 +75,14 @@ header nav .tabs {
   gap: 3em;
   border-radius: 1rem;
   position: relative;
-  color: #DDBDD5;
+  color: #41EAD4;
   font-family: 'Teko', sans-serif;
 }
 
 header nav .tabs a {
   text-decoration: none;
-  -webkit-box-shadow: -4px -4px 7px #DDBDD5, 2px 2px 5px #DDBDD5;
-          box-shadow: -4px -4px 7px #DDBDD5, 2px 2px 5px #DDBDD5;
+  -webkit-box-shadow: -4px -4px 7px #41EAD4, 2px 2px 5px #41EAD4;
+          box-shadow: -4px -4px 7px #41EAD4, 2px 2px 5px #41EAD4;
   border-radius: 4px;
   padding: .5rem 1em;
   text-transform: uppercase;
@@ -86,10 +90,33 @@ header nav .tabs a {
 
 header nav .tabs a:hover {
   cursor: pointer;
-  -webkit-box-shadow: -2px -2px 5px #DDBDD5, 4px 4px 7px #DDBDD5;
-          box-shadow: -2px -2px 5px #DDBDD5, 4px 4px 7px #DDBDD5;
+  -webkit-box-shadow: -2px -2px 5px #41EAD4, 4px 4px 7px #41EAD4;
+          box-shadow: -2px -2px 5px #41EAD4, 4px 4px 7px #41EAD4;
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
+}
+
+footer {
+  padding: 0 2em;
+  position: relative;
+}
+
+footer h3 {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+  font-size: small;
+  cursor: default;
+}
+
+footer h3 a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #FDFFFC;
+}
+
+footer h3 a:hover {
+  opacity: .9;
 }
 
 main {
@@ -138,10 +165,10 @@ main {
 }
 
 .data section.standings_section .headings {
-  background: #322A3C;
+  background: #610e3d;
   font-size: .9em;
   text-align: center;
-  color: #fff;
+  color: #FDFFFC;
 }
 
 .data section.standings_section div {
@@ -152,7 +179,7 @@ main {
   gap: 1em;
   width: 100%;
   color: #000;
-  background: #DDBDD5;
+  background: #41EAD4;
   padding: .2em;
 }
 
@@ -219,8 +246,25 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #DDBDD5;
+  background: #41EAD4;
   font-size: 1.5rem;
+}
+
+.data section.fixtures_section div.weekHeadingContainer a {
+  text-decoration: none;
+  -webkit-box-shadow: -5px -5px 10px #011627, 3px 3px 7px #011627;
+          box-shadow: -5px -5px 10px #011627, 3px 3px 7px #011627;
+  border-radius: 4px;
+  padding: .5em .5em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.data section.fixtures_section div.weekHeadingContainer a:hover {
+  -webkit-box-shadow: -3px -3px 7px #011627, 5px 5px 10px #011627;
+          box-shadow: -3px -3px 7px #011627, 5px 5px 10px #011627;
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 .data section.fixtures_section div.prevWeekNavCont, .data section.fixtures_section div.nextWeekNavCont {
@@ -238,11 +282,12 @@ main {
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
-  background: #DDBDD5;
+  background: #41EAD4;
   -ms-user-select: none;
       user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  opacity: 1;
 }
 
 .data section.fixtures_section div.prevWeekNavCont {
@@ -260,8 +305,9 @@ main {
 }
 
 .data section.fixtures_section div.nextWeekNavCont:hover, .data section.fixtures_section div.prevWeekNavCont:hover {
-  background: #322A3C;
-  color: #fff;
+  opacity: .6;
+  -webkit-box-shadow: 3px 3px 3px #610e3d;
+          box-shadow: 3px 3px 3px #610e3d;
 }
 
 .data section.fixtures_section div.fixtures {
@@ -280,7 +326,7 @@ main {
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div {
-  background: #DDBDD5;
+  background: #41EAD4;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
@@ -328,7 +374,7 @@ main {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #F7EBEC;
+  background: #ac0017;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
@@ -346,16 +392,17 @@ main {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: additionalInfo;
-  background: #322A3C;
+  background: #610e3d;
   font-size: small;
-  color: #fff;
+  color: #FDFFFC;
+  pointer-events: none;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div:hover {
   cursor: pointer;
-  opacity: .8;
-  -webkit-box-shadow: 3px 3px 3px #1D1E2C;
-          box-shadow: 3px 3px 3px #1D1E2C;
+  opacity: .6;
+  -webkit-box-shadow: 3px 3px 3px #610e3d;
+          box-shadow: 3px 3px 3px #610e3d;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList.skipped {
@@ -372,7 +419,7 @@ main {
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
-  background: #DDBDD5;
+  background: #41EAD4;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr .2fr 1fr;
@@ -386,46 +433,32 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 5px 0 5px 0;
-  text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 1em;
+  padding: .5rem 3rem;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.home {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: homeTeam;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  margin-right: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.score {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #F7EBEC;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 1.2rem;
+  background: #ac0017;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.away {
   -ms-grid-row: 2;
   -ms-grid-column: 3;
   grid-area: awayTeam;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  margin-left: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.gameWeek {
@@ -433,11 +466,10 @@ main {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: gameWeek;
-  background: #DDBDD5;
+  background: #610e3d;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer {
-  background: #322A3C;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -449,12 +481,32 @@ main {
           align-items: center;
   gap: 2em;
   padding: 1em 0;
+  font-size: 2rem;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a {
+  text-decoration: none;
+  -webkit-box-shadow: -5px -5px 10px #41EAD4, 3px 3px 7px #41EAD4;
+          box-shadow: -5px -5px 10px #41EAD4, 3px 3px 7px #41EAD4;
+  border-radius: 4px;
+  padding: .1em .5em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #41EAD4;
+  font-family: 'Teko', sans-serif;
+}
+
+.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
+  -webkit-box-shadow: -3px -3px 7px #41EAD4, 5px 5px 10px #41EAD4;
+          box-shadow: -3px -3px 7px #41EAD4, 5px 5px 10px #41EAD4;
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
   display: -ms-grid;
   display: grid;
-  background: #DDBDD5;
+  background: #41EAD4;
   padding: 1em;
   height: 100%;
 }
@@ -533,7 +585,7 @@ main {
 }
 
 .data section.statistics_section div {
-  background: #DDBDD5;
+  background: #41EAD4;
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -551,7 +603,7 @@ main {
 }
 
 .data section.statistics_section div:first-child {
-  background: #322A3C;
+  background: #610e3d;
   font-size: .9em;
   color: #fff;
 }

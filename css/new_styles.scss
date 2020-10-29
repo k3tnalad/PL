@@ -9,12 +9,12 @@
   box-sizing: border-box;
 }
 
-$clr-bg-primary: #1D1E2C;
-$clr-bg-secondary-light: #59656F;
-$clr-text: #fff;
-$clr-accent: #F7EBEC;
-$clr-accent2: #DDBDD5;
-$clr-accent-dark: #322A3C;
+$clr-bg-primary: #011627;
+$clr-bg-secondary-light: #616567;
+$clr-text: #FDFFFC;
+$clr-accent: #ac0017;
+$clr-accent2: #41EAD4;
+$clr-accent-dark: #610e3d;
 
 body {
     width: 100%;
@@ -23,7 +23,7 @@ body {
     font-family: 'Titillium Web', sans-serif;
     color: #fff;
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 15% 80% 5%;
 }
 
 header {
@@ -34,7 +34,9 @@ header {
     background: $clr-bg-primary;
     color: #000;
     font-size: 2em;
-
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
     h1 {
         margin-right: 3em;
         color: $clr-accent2;
@@ -76,6 +78,26 @@ header {
         }
     }
 
+}
+
+footer {
+    padding: 0 2em;
+    position: relative;
+    h3 {
+        position: absolute;
+        right: 2em;
+        bottom: 2em;
+        font-size: small;
+        cursor: default;
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            color: $clr-text;
+        }
+        a:hover {
+            opacity: .9;
+        }
+    }
 }
 
 main {
@@ -162,6 +184,8 @@ main {
         ;
         transition: opacity 250ms, transform 250ms, visibility 250ms;
 
+        
+
         div.weekHeadingContainer {
             grid-area: weekNum;
             display: flex;
@@ -170,6 +194,23 @@ main {
             background: $clr-accent2;
             font-size: 1.5rem;
             
+            a {
+                text-decoration: none;
+                box-shadow: -5px -5px 10px $clr-bg-primary,
+                            3px 3px 7px $clr-bg-primary
+                ;
+                border-radius: 4px;
+                padding: .5em .5em;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+    
+            a:hover {
+                box-shadow: -3px -3px 7px $clr-bg-primary,
+                            5px 5px 10px $clr-bg-primary,
+                ;
+                transform: scale(.95);
+            }
         }
 
         div.prevWeekNavCont, div.nextWeekNavCont {
@@ -183,6 +224,7 @@ main {
             user-select: none;
             -moz-user-select: none;
             -webkit-user-select: none;
+            opacity: 1;
         }
         
         div.prevWeekNavCont {
@@ -194,8 +236,8 @@ main {
         }
 
         div.nextWeekNavCont:hover, div.prevWeekNavCont:hover {
-            background: $clr-accent-dark;
-            color: $clr-text;
+            opacity: .6;
+            box-shadow: 3px 3px 3px $clr-accent-dark;
         }
 
         div.fixtures {
@@ -249,12 +291,13 @@ main {
                         background: $clr-accent-dark;
                         font-size: small;
                         color: $clr-text;
+                        pointer-events: none;
                     }
                 }
                 div:hover {
                     cursor: pointer;
-                    opacity: .8;
-                    box-shadow: 3px 3px 3px $clr-bg-primary;
+                    opacity: .6;
+                    box-shadow: 3px 3px 3px $clr-accent-dark;
                 }
             }
             section.fixturesList.skipped {
@@ -278,42 +321,53 @@ main {
                       "homeTeam score awayTeam"
                    ;
 
-                   p {
-                    display: flex;
-                    padding: 5px 0 5px 0;
-                    text-align: center;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1em;
-                  }
-                  p.home {
-                    grid-area: homeTeam;
-                    justify-content: flex-end;
-                    margin-right: 1em;
-                  } 
-                  p.score {
-                    grid-area: score;
-                    background: $clr-accent;
-                    display: flex;
-                    font-size: 1.2rem;
-                  }
-                  p.away {
-                    grid-area: awayTeam;
-                    justify-content: flex-start;
-                    margin-left: 1em;
-                  }
-                  p.gameWeek {
-                    grid-area: gameWeek;
-                    background: $clr-accent2;
-                  }
+                    p {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: .5rem 3rem;
+                    }
+                    p.home {
+                        grid-area: homeTeam;
+                    } 
+                    p.score {
+                        grid-area: score;
+                        background: $clr-accent;
+                    }
+                    p.away {
+                        grid-area: awayTeam;
+                    }
+                    p.gameWeek {
+                        grid-area: gameWeek;
+                        background: $clr-accent-dark;
+                    }
                 }
                 div.tabsContainer {
-                    background: $clr-accent-dark;
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
                     gap: 2em;
                     padding: 1em 0;
+                    font-size: 2rem;
+                    a {
+                        text-decoration: none;
+                        box-shadow: -5px -5px 10px $clr-accent2,
+                                    3px 3px 7px $clr-accent2
+                        ;
+                        border-radius: 4px;
+                        padding: .1em .5em;
+                        text-transform: uppercase;
+                        cursor: pointer;
+                        color: $clr-accent2;
+                        font-family: 'Teko', sans-serif;
+                    }
+            
+                    a:hover {
+                        box-shadow: -3px -3px 7px $clr-accent2,
+                                    5px 5px 10px $clr-accent2,
+                        ;
+                        transform: scale(.95);
+                    }
                 }
                 div.main {
                     display: grid;

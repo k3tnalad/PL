@@ -1,4 +1,4 @@
-import { standingsSection, statsSection, fixturesSection } from './elements';
+import { standingsSection, statsSection, fixturesSection, headingCont } from './elements';
 
 export const eventTypeHandler = (e) => {
     if (e == 'Goal') {
@@ -29,4 +29,14 @@ export const animateTabs = (e) => {
         [standingsSection, fixturesSection].forEach(elem => hideElem(elem));
         showElem(statsSection);
     }
+}
+
+
+export const setGWHeader = (weekNum) => {
+    if (Number.isInteger(weekNum)) {
+        headingCont.innerHTML = `<p>Gameweek - ${weekNum}`; 
+    } else {
+        headingCont.innerHTML = `${weekNum}`;
+    }
+
 }

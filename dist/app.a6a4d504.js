@@ -5798,7 +5798,7 @@ var global = arguments[3];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.weekNavButtons = exports.navBtns = exports.weekHeading = exports.statsTab = exports.lineupsTab = exports.timelineTab = exports.tabsContent = exports.fixtureDataTabs = exports.fixtureHeaderInners = exports.fixtureMainWindow = exports.fixtureTabsContainer = exports.fixtureHeader = exports.fixtureDataContainer = exports.fixturesList = exports.fixturesSection = exports.statsSection = exports.standingsSection = void 0;
+exports.weekNavButtons = exports.navBtns = exports.headingCont = exports.statsTab = exports.lineupsTab = exports.timelineTab = exports.tabsContent = exports.fixtureDataTabs = exports.fixtureHeaderInners = exports.fixtureMainWindow = exports.fixtureTabsContainer = exports.fixtureHeader = exports.fixtureDataContainer = exports.fixturesList = exports.fixturesSection = exports.statsSection = exports.standingsSection = void 0;
 // Main Sections
 const standingsSection = document.querySelector('.standings_section');
 exports.standingsSection = standingsSection;
@@ -5833,8 +5833,8 @@ exports.lineupsTab = lineupsTab;
 const statsTab = document.getElementById("matchStatsTab"); // other elements
 
 exports.statsTab = statsTab;
-const weekHeading = fixturesSection.querySelector('.weekHeadingContainer');
-exports.weekHeading = weekHeading;
+const headingCont = fixturesSection.querySelector(".weekHeadingContainer");
+exports.headingCont = headingCont;
 const navBtns = document.querySelectorAll('nav .tabs a');
 exports.navBtns = navBtns;
 const weekNavButtons = fixturesSection.querySelectorAll('.weekNavButton');
@@ -5845,7 +5845,7 @@ exports.weekNavButtons = weekNavButtons;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.animateTabs = exports.eventTypeHandler = void 0;
+exports.setGWHeader = exports.animateTabs = exports.eventTypeHandler = void 0;
 
 var _elements = require("./elements");
 
@@ -5883,7 +5883,26 @@ const animateTabs = e => {
 };
 
 exports.animateTabs = animateTabs;
-},{"./elements":"src/elements.js"}],"src/app.js":[function(require,module,exports) {
+
+const setGWHeader = weekNum => {
+  if (Number.isInteger(weekNum)) {
+    _elements.headingCont.innerHTML = `<p>Gameweek - ${weekNum}`;
+  } else {
+    _elements.headingCont.innerHTML = `${weekNum}`;
+  }
+};
+
+exports.setGWHeader = setGWHeader;
+},{"./elements":"src/elements.js"}],"src/weeks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.weeks = void 0;
+const weeks = [];
+exports.weeks = weeks;
+},{}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _moment = _interopRequireDefault(require("moment"));
@@ -5892,8 +5911,11 @@ var _elements = require("./elements");
 
 var _utils = require("./utils");
 
+var _weeks = require("./weeks");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+let currentGW = 6;
 const apiUrls = {
   table: "https://api-football-v1.p.rapidapi.com/v2/leagueTable/2790",
   last10: "https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2790/last/10",
@@ -5912,24 +5934,23 @@ const apiUrls = {
 const fetchAllData = async weekNum => {
   // immediate promises
   let tablePromise = fetch(apiUrls.table, apiUrls.inits);
-  let last10Promise = fetch(apiUrls.last10, apiUrls.inits);
+  let weekPromise = fetch(`${apiUrls.fixByWeek}${currentGW}`, apiUrls.inits);
   let statsPromise = fetch(apiUrls.stats, apiUrls.inits); // getting responses and data respectively
 
-  const [tableResponse, last10Response, statsResponse] = await Promise.all([tablePromise, last10Promise, statsPromise]);
-  const [tableData, last10Data, statsData] = await Promise.all([tableResponse.json(), last10Response.json(), statsResponse.json()]); // storing data on the localStorage
+  const [tableResponse, weekResponse, statsResponse] = await Promise.all([tablePromise, weekPromise, statsPromise]);
+  const [tableData, weekData, statsData] = await Promise.all([tableResponse.json(), weekResponse.json(), statsResponse.json()]); // storing data on the localStorage
 
   localStorage.setItem('table', JSON.stringify(tableData.api.standings[0]));
-  localStorage.setItem('last10', JSON.stringify(last10Data.api.fixtures));
+  localStorage.setItem(`week${currentGW}`, JSON.stringify(weekData.api.fixtures));
   localStorage.setItem('stats', JSON.stringify(statsData.api.topscorers));
-};
+}; // fetchAllData();
 
-fetchAllData();
 
 const getFixturesByWeek = async weekNum => {
-  const response = await fetch(`${apiUrls.fixByWeek}${weekNum}`, apiUrls.inits);
-  const data = await response.json();
-  localStorage.setItem(`week${weekNum}`, JSON.stringify(data.api.fixtures));
-  fixturesPop(JSON.parse(localStorage.getItem(`week${weekNum}`)));
+  let weekResponse = await fetch(`${apiUrls.fixByWeek}${weekNum}`, apiUrls.inits);
+  let weekData = await weekResponse.json();
+  localStorage.setItem(`week${weekNum}`, JSON.stringify(weekData.api.fixtures));
+  return weekData.api.fixtures;
 };
 
 const getMatchData = async matchId => {
@@ -5946,38 +5967,51 @@ const matchPop = async e => {
 
   _elements.fixtureDataContainer.classList.add('is_visible');
 
-  _elements.weekHeading.innerHTML = `<a>Back</a>`;
-  _elements.weekHeading.innerHTML === `<a>Back</a>` ? _elements.weekHeading.style.cursor = 'pointer' : _elements.weekHeading.style.cursor = 'default'; // getting a fixtureID to find the match data that was selected.
+  _elements.weekNavButtons.forEach(btn => {
+    btn.style.opacity = '0';
+    btn.style.pointerEvents = 'none';
+  });
+
+  (0, _utils.setGWHeader)(`<a data-back>Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
 
   let matchID = e.currentTarget.dataset.id; // if there is no data for the match on the LS, it's gonna fetch it using the matchID.
 
-  let matchBlob = JSON.parse(localStorage.getItem(`match${matchID}`)) || (await getMatchData(matchID)); // creating an object with necessary data from api.
+  let matchBlob = JSON.parse(localStorage.getItem(`match${matchID}`)) || (await getMatchData(matchID));
+  console.log(matchBlob); // creating an object that will take specific data of the match.
 
-  let matchObj = {
-    homeTeam: matchBlob.homeTeam.team_name,
-    awayTeam: matchBlob.awayTeam.team_name,
-    score: matchBlob.score.fulltime,
-    gameWeek: matchBlob.round.slice(17),
-    eventsArray: matchBlob.events,
-    possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
-    shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]]
-  }; // header data assignment
+  let matchObj; // header data assignment
 
-  _elements.fixtureHeaderInners[0].textContent = matchObj.homeTeam;
-  _elements.fixtureHeaderInners[1].textContent = matchObj.score;
-  _elements.fixtureHeaderInners[2].textContent = matchObj.awayTeam;
-  _elements.fixtureHeaderInners[3].textContent = `Gameweek - ${matchObj.gameWeek}`; // TIMELINE DATA FILL
+  _elements.fixtureHeaderInners[0].textContent = matchBlob.homeTeam.team_name;
+  _elements.fixtureHeaderInners[1].textContent = `n/a`;
+  _elements.fixtureHeaderInners[2].textContent = matchBlob.awayTeam.team_name;
+  _elements.fixtureHeaderInners[3].textContent = `Gameweek - ${matchBlob.round.slice(17)}`; // if the match hasn't started yet
 
-  const eventsHtml = matchObj.eventsArray.map(i => {
-    return `
-            <div className="event">
-                <p className="elapsed">'${i.elapsed}</p>
-                <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
-                <p className="name">${i.player} - ${i.assist}</p>
-            </div>
+  if (matchBlob.statusShort === "NS") {
+    _elements.timelineTab.innerHTML = `
+            <h3>Match ig going to be played ${(0, _moment.default)(matchBlob.event_timestamp).format('MMMM Do YYYY, h:mm')}</h3>
         `;
-  }).join('');
-  _elements.timelineTab.innerHTML = eventsHtml;
+  } else {
+    matchObj = {
+      homeTeam: matchBlob.homeTeam.team_name,
+      awayTeam: matchBlob.awayTeam.team_name,
+      score: matchBlob.score.fulltime,
+      gameWeek: matchBlob.round.slice(17),
+      eventsArray: matchBlob.events,
+      possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
+      shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]]
+    }; // filling the dat of the timeline stuff
+
+    const eventsHtml = matchObj.eventsArray.map(i => {
+      return `
+                <div className="event">
+                    <p className="elapsed">'${i.elapsed}</p>
+                    <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
+                    <p className="name">${i.player} - ${i.assist}</p>
+                </div>
+            `;
+    }).join('');
+    _elements.timelineTab.innerHTML = eventsHtml;
+  }
 };
 
 function standingPop(standingsData) {
@@ -6010,14 +6044,10 @@ function standingPop(standingsData) {
   _elements.standingsSection.innerHTML = [labels, html].join('');
 }
 
-function fixturesPop(fixturesData) {
-  console.log(fixturesData);
-  let weekNumber = fixturesData[0].round.slice(17);
-  console.log(weekNumber);
-  let weekElem = `
-        <h3 class="gameweek">Gameweek: ${Number(weekNumber)}</h3>
-    `;
-  let html = fixturesData.map(fix => {
+async function fixturesPop(fixturesData) {
+  let fixtures = fixturesData;
+  (0, _utils.setGWHeader)(currentGW);
+  let html = fixtures.map(fix => {
     return `
             <div className="match" data-week="${Number(fix.round.slice(17))}" data-id="${fix.fixture_id}">
                 <span className="home">${fix.homeTeam.team_name}<img src="${fix.homeTeam.logo}"></img></span>
@@ -6032,8 +6062,8 @@ function fixturesPop(fixturesData) {
         
         `;
   }).join('');
-  _elements.fixturesList.innerHTML = html;
-  _elements.weekHeading.innerHTML = weekElem;
+  _elements.fixturesList.innerHTML = html; // weekHeading.innerHTML = weekElem;
+
   [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
 }
 
@@ -6061,22 +6091,28 @@ function animateWeeks(e) {
   _elements.fixturesList.classList.add('skipped');
 }
 
-function weekHandler(e) {
-  // ! BRING THE NUMBER OF THE WEEK IN A PROPER WAY HERE.
-  console.log(_elements.fixturesList.firstChild.dataset.week);
-
-  if (currentWeek - 1 == 0 && e.currentTarget.classList.contains('prevWeekNavCont')) {
-    console.log(`That's the FIRST WEEK, YOU DUMB`);
-    return;
-  } else if (currentWeek !== 0 && e.currentTarget.classList.contains('prevWeekNavCont')) {
-    fixturesPop(JSON.parse(localStorage.getItem(`week${currentWeek - 1}`)) || getFixturesByWeek(currentWeek - 1));
-  } else if (currentWeek !== 0 && e.currentTarget.classList.contains('nextWeekNavCont')) {
-    fixturesPop(JSON.parse(localStorage.getItem(`week${currentWeek + 1}`)) || getFixturesByWeek(currentWeek + 1));
+async function weekHandler(e) {
+  // DONE
+  // TODO: a notificaation that there is no week 0
+  if (currentGW == 1 && e.currentTarget.classList.contains('prevWeekNavCont')) {
+    console.log(currentGW);
+  } else if (currentGW == 1 && e.currentTarget.classList.contains('nextWeekNavCont')) {
+    currentGW = currentGW + 1;
+    let dataToPop = JSON.parse(localStorage.getItem(`week${currentGW}`)) || (await getFixturesByWeek(currentGW));
+    fixturesPop(dataToPop);
+  } else if (currentGW > 1 && e.currentTarget.classList.contains('nextWeekNavCont')) {
+    currentGW = currentGW + 1;
+    let dataToPop = JSON.parse(localStorage.getItem(`week${currentGW}`)) || (await getFixturesByWeek(currentGW));
+    fixturesPop(dataToPop);
+  } else if (currentGW > 1 && e.currentTarget.classList.contains('prevWeekNavCont')) {
+    currentGW = currentGW - 1;
+    let dataToPop = JSON.parse(localStorage.getItem(`week${currentGW}`)) || (await getFixturesByWeek(currentGW));
+    fixturesPop(dataToPop);
   }
 }
 
 standingPop(JSON.parse(localStorage.getItem('table')));
-fixturesPop(JSON.parse(localStorage.getItem('last10')));
+fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
 statsPop(JSON.parse(localStorage.getItem('stats')));
 
 _elements.navBtns.forEach(btn => btn.addEventListener('click', e => (0, _utils.animateTabs)(e)));
@@ -6089,15 +6125,23 @@ _elements.fixturesList.addEventListener('animationend', () => _elements.fixtures
 
 [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
 
-_elements.weekHeading.addEventListener('click', e => {
-  if (e.target.textContent == "Back") {
+_elements.headingCont.addEventListener('click', e => {
+  if (e.target.textContent == "Back to fixtures") {
     _elements.fixtureDataContainer.classList.remove('is_visible');
 
     _elements.fixturesList.classList.add('is_visible');
 
-    fixturesPop(JSON.parse(localStorage.getItem(`fixtures`)));
+    (0, _utils.setGWHeader)(currentGW);
+
+    _elements.weekNavButtons.forEach(btn => {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'all';
+    });
+
+    _elements.weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e)));
+
     [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
-  }
+  } else return;
 });
 
 _elements.fixtureDataTabs.forEach(t => t.addEventListener('click', () => {
@@ -6107,7 +6151,7 @@ _elements.fixtureDataTabs.forEach(t => t.addEventListener('click', () => {
 
   target.classList.add('active');
 }));
-},{"moment":"node_modules/moment/moment.js","./elements":"src/elements.js","./utils":"src/utils.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"moment":"node_modules/moment/moment.js","./elements":"src/elements.js","./utils":"src/utils.js","./weeks":"src/weeks.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -6135,7 +6179,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64067" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
