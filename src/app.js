@@ -37,7 +37,15 @@ const fetchAllData = async (weekNum) => {
     localStorage.setItem('stats', JSON.stringify(statsData.api.topscorers));
 
 }
-// fetchAllData();
+
+if (localStorage.getItem('table')) {
+    standingPop(JSON.parse(localStorage.getItem('table')));
+    fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
+    statsPop(JSON.parse(localStorage.getItem('stats')));
+} else {
+    fetchAllData();
+}
+
 standingPop(JSON.parse(localStorage.getItem('table')));
 fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
 statsPop(JSON.parse(localStorage.getItem('stats')));
