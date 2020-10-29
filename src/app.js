@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { standingsSection, statsSection, fixturesSection, fixturesList, 
          fixtureDataContainer, fixtureHeaderInners, fixtureDataTabs, tabsContent, timelineTab,
          lineupsTab, statsTab, navBtns, weekNavButtons, headingCont} from './elements';
