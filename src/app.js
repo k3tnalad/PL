@@ -1,11 +1,10 @@
+import moment from 'moment';
 import { standingsSection, statsSection, fixturesSection, fixturesList, 
          fixtureDataContainer, fixtureHeaderInners, fixtureDataTabs, tabsContent, timelineTab,
          lineupsTab, statsTab, navBtns, weekNavButtons, headingCont} from './elements';
 import { eventTypeHandler, animateTabs, wait, setGWHeader } from "./utils";
 
 let currentGW = 6;
-
-
 
 const apiUrls = {
     table: "https://api-football-v1.p.rapidapi.com/v2/leagueTable/2790",
@@ -48,7 +47,7 @@ if (localStorage.getItem('table')) {
 standingPop(JSON.parse(localStorage.getItem('table')));
 fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
 statsPop(JSON.parse(localStorage.getItem('stats')));
-
+console.log(JSON.parse(localStorage.getItem('stats')));
 
 
 const getFixturesByWeek = async (weekNum) => {
@@ -92,7 +91,7 @@ const matchPop = async (e) => {
     // if the match hasn't started yet
     if (matchBlob.statusShort === "NS") {
         timelineTab.innerHTML = `
-            <h3>Match ig going to be played ${moment(matchBlob.event_timestamp).format('MMMM Do YYYY, h:mm')}</h3>
+            <h3 style="text-align:center">Match ig going to be played ${moment(matchBlob.event_timestamp).format('MMMM Do YYYY, h:mm')}</h3>
         `
     } else {
         matchObj = {
@@ -101,11 +100,11 @@ const matchPop = async (e) => {
             score: matchBlob.score.fulltime,
             gameWeek: (matchBlob.round).slice(17),
             eventsArray: matchBlob.events,
-            possession: [matchBlob.statistics["Ball Possession"]["home"], matchBlob.statistics["Ball Possession"]["away"]],
+            stats: matchBlob.statistics,
             shots: [matchBlob.statistics["Total Shots"]["home"], matchBlob.statistics["Total Shots"]["away"]],
             lineups: [matchBlob.lineups[matchBlob.homeTeam.team_name], matchBlob.lineups[matchBlob.awayTeam.team_name]],
         }
-        console.log(matchObj.eventsArray);
+        console.log(matchObj.stats);
         let homeEvents = [], awayEvents = [];
         // filling the dat of the timeline stuff
         matchObj.eventsArray.forEach(eve => {
@@ -121,9 +120,9 @@ const matchPop = async (e) => {
                     return `
                     <div className="homeEvent">
                         <p className="time" style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
                         <p className="type">${eventTypeHandler(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `
                 }).join('')}
@@ -133,9 +132,9 @@ const matchPop = async (e) => {
                     return `
                     <div className="homeEvent">
                         <p className="time"  style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
                         <p className="type">${eventTypeHandler(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `
                 }
@@ -176,6 +175,16 @@ const matchPop = async (e) => {
                 </section>
         `;
         lineupsTab.innerHTML = lineupsHTML;
+        let statsHTML = `
+                    <div><span>${matchObj.stats["Ball Possession"].home}</span> <span>Possession</span> <span>${matchObj.stats["Ball Possession"].away}</span></div>
+                    <div><span>${matchObj.stats["Total passes"].home}</span> <span>Passes Completed</span> <span>${matchObj.stats["Total passes"].away}</span></div>
+                    <div><span>${matchObj.stats["Passes %"].home}</span> <span>Pass success</span> <span>${matchObj.stats["Passes %"].away}</span></div>
+                    <div><span>${matchObj.stats["Total Shots"].home}</span> <span>Total Shots</span> <span>${matchObj.stats["Total Shots"].away}</span></div>
+                    <div><span>${matchObj.stats["Shots on Goal"].home}</span> <span>On target</span> <span>${matchObj.stats["Shots on Goal"].away}</span></div>
+                    <div><span>${matchObj.stats["Shots off Goal"].home}</span> <span>Off target</span> <span>${matchObj.stats["Shots off Goal"].away}</span></div>
+                    <div><span>${matchObj.stats["Fouls"].home}</span> <span>Fouls</span> <span>${matchObj.stats["Fouls"].away}</span></div>
+        `
+        statsTab.innerHTML = statsHTML;
     }
 }
 
@@ -239,15 +248,19 @@ function statsPop(statsData) {
     let labels = `
         <div className="headings">
             <span>Player</span>
-            <span>Goals</span>
+            <span>Goals(pens)</span>
+            <span>Assists</span>
+            <span>Appearences</span>
             <span>Mins played</span>
         </div>
     `;
     let html = statsData.map(scorer => {
         return `
             <div className="scorer">
-                <span><img src="">${scorer.player_name}</span>
-                <span className="goals">${scorer.goals.total}</span>
+                <span>${scorer.player_name}</span>
+                <span className="goals">${scorer.goals.total}(${scorer.penalty.success})</span>
+                <span className="assists">${scorer.goals.assists}</span>
+                <span className="apps">${scorer.games.appearences}</span>
                 <span className="minsPlayed">${scorer.games.minutes_played}</span>
             </div>
         `;
@@ -288,6 +301,7 @@ weekNavButtons.forEach(btn => btn.addEventListener('click', e => weekHandler(e))
 weekNavButtons.forEach(btn => btn.addEventListener('click', () => fixturesList.classList.add('skipped')));
 fixturesList.addEventListener('animationend', () => fixturesList.classList.remove('skipped'));
 [...fixturesList.children].forEach(child => child.addEventListener('click', (e) => {
+    
     matchPop(e);
 }));
 headingCont.addEventListener('click', (e) => {

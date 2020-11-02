@@ -15,13 +15,25 @@ $clr-text: #FDFFFC;
 $clr-accent: #2a9d8f;
 $clr-accent2: #e9c46a;
 $clr-accent-dark: #f4a261;
+$font: 'Teko', sans-serif;
+$font-main: 'Titillium Web', sans-serif;
+$font-size-md: 1em;
+$font-size-lg: 1.3em;
+$font-size-sm: 0.8em;
+
+@mixin uS {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 
 body {
     width: 100%;
     height: 100vh;
     background: $clr-bg-primary;
-    font-family: 'Titillium Web', sans-serif;
-    color: #fff;
+    font-family: $font-main;
+    color: $clr-text;
     display: grid;
     grid-template-rows: 10% 85% 5%;
 }
@@ -34,19 +46,17 @@ header {
     background: $clr-bg-primary;
     color: #000;
     font-size: 1.5em;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    @include uS();
     padding: 1em 1em;
     h1 {
         margin-right: 3em;
         color: $clr-accent2;
-        font-family: 'Teko', sans-serif;
+        font-family: $font;
         letter-spacing: .3em;
     }
 
     h3 {
-        user-select: none;
+        @include uS();
     }
 
     nav {
@@ -59,19 +69,19 @@ header {
             border-radius: 1rem;
             position: relative;
             color: $clr-accent2;
-            font-family: 'Teko', sans-serif;
+            font-family: $font;
             a {
                 text-decoration: none;
                 border: 3px solid $clr-accent-dark;
                 padding: .2em .5em;
                 background: transparent;
                 color: $clr-text;
-            }
-    
-            a:hover {
                 cursor: pointer;
-                border: 3px solid #ff8191;
-                border-radius: 5px;
+                transition: 250ms border-radius ease-in;
+                &:hover{
+                    border: 3px dashed #ff8191;
+                    border-radius: 10px;
+                }
             }
         }
     }
@@ -91,9 +101,9 @@ footer {
             text-decoration: none;
             cursor: pointer;
             color: $clr-text;
-        }
-        a:hover {
-            opacity: .9;
+            &:hover {
+                opacity: .9;
+            }
         }
     }
 }
@@ -199,27 +209,27 @@ main {
                 padding: .5em;
                 background: transparent;
                 color: $clr-text;
-            }
-    
-            a:hover {
-                cursor: pointer;
-                border: 3px solid #ff8191;
-                border-radius: 5px;
+                &:hover {
+                    cursor: pointer;
+                    border: 3px solid #ff8191;
+                    border-radius: 5px;
+                }
             }
         }
 
         div.prevWeekNavCont, div.nextWeekNavCont {
+            background: $clr-accent2;
             writing-mode: vertical-lr;
             text-orientation: upright;
             display: flex;
-            justify-content: center;
+            place-content: center;
             align-items: center;
             cursor: pointer;
-            background: $clr-accent2;
-            user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            opacity: 1;
+            @include uS();
+            &:hover {
+                opacity: .6;
+                box-shadow: 3px 3px 3px $clr-accent-dark;
+            }
         }
         
         div.prevWeekNavCont {
@@ -228,11 +238,6 @@ main {
 
         div.nextWeekNavCont {
             grid-area: nextWeek;
-        }
-
-        div.nextWeekNavCont:hover, div.prevWeekNavCont:hover {
-            opacity: .6;
-            box-shadow: 3px 3px 3px $clr-accent-dark;
         }
 
         div.fixtures {
@@ -367,87 +372,93 @@ main {
                         padding: .2em .5em;
                         background: transparent;
                         color: $clr-text;
-                    }
-            
-                    a:hover {
-                        cursor: pointer;
-                        border: 3px solid #ff8191;
-                        border-radius: 5px;
+                        &:hover {
+                                cursor: pointer;
+                                border: 3px solid #ff8191;
+                                border-radius: 5px;
+                        }
                     }
                 }
                 div.main {
                     grid-area: main;
                     background: $clr-accent-dark;
                     padding: .5em;
-                    font-size: .8rem;
+                    font-size: 1em;
                     color: $clr-text;
 
                     [data-tab-content] {
-                    display: none;
-                    }
-
-                    .active[data-tab-content] {
-                        grid-template-columns: 1fr 1fr;
-                        grid-template-rows: auto;
-                        grid-template-areas: 
-                            "home away"
-                            ;
-                        gap: 1em;
+                        display: none;
+                        width: 100%;
+                        height: 100%;
+                        padding: .5em;
                     }
 
                     .active[data-tab-content] {
                         display: grid;
-                        section.homeLineups > div {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                            gap: .5em;
-                            padding: .2em; 
-                        }
-                        section.awayLineups > div {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                            gap: .5em;
-                            padding: .2em; 
-                        }
-                    }
-                    
-                    
-                    .active[data-tab-content] > section.home {
-                        grid-area: home;
-                        display: flex;
-                        flex-direction: column;
-                        background: $clr-accent2;
-                        color: #000;
-                        gap: .5em;
-                        div {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: row-reverse;
-                            gap: .5em;
-                        }
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 1fr;
+                        grid-template-areas: 
+                            "home away"
+                            ;
 
-                    }
-                    .active[data-tab-content] > section.away {
-                        grid-area: away;
-                        display: flex;
-                        flex-direction: column;
-                        background: $clr-accent2;                        
-                        color: #000;
-                        gap: .5em;
-                        div {
+                        section.homeLineups > div, section.awayLineups > div {
                             display: flex;
                             align-items: center;
-                            flex-direction: row;
+                            flex-direction: column;
                             gap: .5em;
+                            padding: .2em; 
+                        }
+                        section {
+                            display: flex;
+                            align-items: center;
+                            background: $clr-accent-dark;
+                            color: #000;
+                            gap: .5em;
+                            padding: 1em;
+                            &.home {
+                                grid-area: home;
+                                flex-direction: column;
+                                border-right: 2px solid black;
+                                div {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    flex-direction: row-reverse;
+                                    gap: .5em;
+                                }
+                            }
+                            &.away {
+                                grid-area: away;
+                                display: flex;
+                                flex-direction: column;
+                                border-left: 2px solid black;
+                                div {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    flex-direction: row;
+                                    gap: .5em;
+                                }
+                            } 
                         }
                     }
-                    section.homeLineups > div {
+
+                    #matchStatsTab {
+                        display: none;
+                    }
+
+                    #matchStatsTab.active[data-tab-content] {
                         display: flex;
+                        justify-content: flex-start;
                         align-items: center;
                         flex-direction: column;
-                        gap: .5em;
+                        color: #000;
+                        div {
+                            width: 27%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }
                     }
                 }  
             }
@@ -480,15 +491,16 @@ main {
             background: $clr-accent2;
             width: 100%;
             display: grid;
-            grid-template-columns: 1fr .3fr .3fr;
+            grid-template-columns: 1fr repeat(4, .2fr);
             padding: .2em;
+
+            span {
+                text-align: center;
+            }
 
             span:nth-of-type(1) {
                 text-indent: 1em;
             }
-            span:nth-of-type(2), span:nth-of-type(3) {
-                text-align: center;
-            } 
         }
 
         div:first-child {
