@@ -5945,7 +5945,6 @@ if (localStorage.getItem('table')) {
 standingPop(JSON.parse(localStorage.getItem('table')));
 fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
 statsPop(JSON.parse(localStorage.getItem('stats')));
-console.log(JSON.parse(localStorage.getItem('stats')));
 
 const getFixturesByWeek = async weekNum => {
   let weekResponse = await fetch(`${apiUrls.fixByWeek}${weekNum}`, apiUrls.inits);
@@ -6012,11 +6011,11 @@ const matchPop = async e => {
             <section class="homeEvents home">
                 ${homeEvents.map(i => {
       return `
-                    <div className="homeEvent">
+                    <div className="homeEvent" data-type="${i.type}>
                         <p className="time" style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
                         <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `;
     }).join('')}
@@ -6024,11 +6023,11 @@ const matchPop = async e => {
             <section class="awayEvents away">
                 ${awayEvents.map(i => {
       return `
-                    <div className="homeEvent">
+                    <div className="homeEvent" data-type="${i.type}">
                         <p className="time"  style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
                         <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `;
     }).join('')}
@@ -6239,7 +6238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52187" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57077" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

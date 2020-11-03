@@ -520,10 +520,12 @@ main {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: main;
-  background: #f4a261;
+  background: #e9c46a;
   padding: .5em;
   font-size: 1em;
-  color: #FDFFFC;
+  color: #000;
+  border: 0.5em solid #f4a261;
+  font-size: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
@@ -565,9 +567,8 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #f4a261;
-  color: #000;
-  gap: .5em;
+  background: #e9c46a;
+  gap: .2em;
   padding: 1em;
 }
 
@@ -579,7 +580,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-right: 2px solid black;
+  border-right: 2px solid #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.home div {
@@ -595,6 +596,7 @@ main {
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
   gap: .5em;
+  border-bottom: 3px solid #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.away {
@@ -608,7 +610,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-left: 2px solid black;
+  border-left: 2px solid #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.away div {
@@ -624,6 +626,7 @@ main {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: .5em;
+  border-bottom: 3px solid #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main #matchStatsTab {
@@ -644,11 +647,12 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  color: #000;
+  gap: 1em;
+  padding: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main #matchStatsTab.active[data-tab-content] div {
-  width: 27%;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -658,6 +662,12 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: .5em;
+  border-bottom: 3px solid #f4a261;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer.is_visible {

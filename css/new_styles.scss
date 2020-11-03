@@ -381,10 +381,12 @@ main {
                 }
                 div.main {
                     grid-area: main;
-                    background: $clr-accent-dark;
+                    background: $clr-accent2;
                     padding: .5em;
                     font-size: 1em;
-                    color: $clr-text;
+                    color: #000;
+                    border: .5em solid $clr-accent-dark;
+                    font-size: 1em;
 
                     [data-tab-content] {
                         display: none;
@@ -399,7 +401,7 @@ main {
                         grid-template-rows: 1fr;
                         grid-template-areas: 
                             "home away"
-                            ;
+                        ;
 
                         section.homeLineups > div, section.awayLineups > div {
                             display: flex;
@@ -411,33 +413,34 @@ main {
                         section {
                             display: flex;
                             align-items: center;
-                            background: $clr-accent-dark;
-                            color: #000;
-                            gap: .5em;
+                            background: $clr-accent2;
+                            gap: .2em;
                             padding: 1em;
                             &.home {
                                 grid-area: home;
                                 flex-direction: column;
-                                border-right: 2px solid black;
+                                border-right: 2px solid $clr-accent-dark;
                                 div {
                                     width: 100%;
                                     display: flex;
                                     align-items: center;
                                     flex-direction: row-reverse;
                                     gap: .5em;
+                                    border-bottom: 3px solid $clr-accent-dark;
                                 }
                             }
                             &.away {
                                 grid-area: away;
                                 display: flex;
                                 flex-direction: column;
-                                border-left: 2px solid black;
+                                border-left: 2px solid $clr-accent-dark;
                                 div {
                                     width: 100%;
                                     display: flex;
                                     align-items: center;
                                     flex-direction: row;
                                     gap: .5em;
+                                    border-bottom: 3px solid $clr-accent-dark;
                                 }
                             } 
                         }
@@ -452,12 +455,16 @@ main {
                         justify-content: flex-start;
                         align-items: center;
                         flex-direction: column;
-                        color: #000;
+                        gap: 1em;
+                        padding: 1em;
                         div {
-                            width: 27%;
+                            width: 100%;
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
+                            flex-direction: row;
+                            gap: .5em;
+                            border-bottom: 3px solid $clr-accent-dark;
                         }
                     }
                 }  

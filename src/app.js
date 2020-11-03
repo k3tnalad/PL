@@ -47,7 +47,6 @@ if (localStorage.getItem('table')) {
 standingPop(JSON.parse(localStorage.getItem('table')));
 fixturesPop(JSON.parse(localStorage.getItem(`week${currentGW}`)));
 statsPop(JSON.parse(localStorage.getItem('stats')));
-console.log(JSON.parse(localStorage.getItem('stats')));
 
 
 const getFixturesByWeek = async (weekNum) => {
@@ -118,11 +117,11 @@ const matchPop = async (e) => {
             <section class="homeEvents home">
                 ${homeEvents.map(i => {
                     return `
-                    <div className="homeEvent">
+                    <div className="homeEvent" data-type="${i.type}>
                         <p className="time" style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
                         <p className="type">${eventTypeHandler(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `
                 }).join('')}
@@ -130,11 +129,11 @@ const matchPop = async (e) => {
             <section class="awayEvents away">
                 ${awayEvents.map(i => {
                     return `
-                    <div className="homeEvent">
+                    <div className="homeEvent" data-type="${i.type}">
                         <p className="time"  style="font-size: 1rem; font-weight: bold;">${i.elapsed}'</p>
-                        <p className="player" ${i.type === "subst" ? `style="color:green"` : ''}>${i.player}</p>
+                        <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
                         <p className="type">${eventTypeHandler(i.type)}</p>
-                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:red"` : ''}>${i.assist}</p>` : ''}
+                        ${i.assist ? `<p className="assist" ${i.type === "subst" ? `style="color:green"` : ''}>${i.assist}</p>` : ''}
                     </div>
                     `
                 }
