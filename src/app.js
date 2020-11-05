@@ -258,7 +258,7 @@ function statsPop(statsData) {
             <div className="scorer">
                 <span>${scorer.player_name}</span>
                 <span className="goals">${scorer.goals.total}(${scorer.penalty.success})</span>
-                <span className="assists">${scorer.goals.assists}</span>
+                <span className="assists">${scorer.goals.assists == 'NULL' ? '0' : scorer.goals.assists}</span>
                 <span className="apps">${scorer.games.appearences}</span>
                 <span className="minsPlayed">${scorer.games.minutes_played}</span>
             </div>
