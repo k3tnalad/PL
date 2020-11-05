@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^4.7.0",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "moment": "^2.29.1"
   },
   "devDependencies": {},
