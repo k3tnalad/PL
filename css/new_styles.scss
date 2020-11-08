@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700&display=swap');
+
 
 *,
 *::after,
@@ -29,55 +31,32 @@ $font-size-sm: 0.8em;
 
 
 body {
-    width: 100%;
-    height: 100vh;
     background: $clr-bg-primary;
     font-family: $font-main;
-    color: $clr-text;
-    display: grid;
-    grid-template-rows: 10% 85% 5%;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: center;
-    background: $clr-bg-primary;
-    color: #000;
-    font-size: 1.5em;
     @include uS();
-    padding: 1em 1em;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
     h1 {
-        margin-right: 3em;
-        color: $clr-accent2;
-        font-family: $font;
-        letter-spacing: .3em;
+        text-align: center;
     }
-
-    h3 {
-        @include uS();
-    }
-
     nav {
         .tabs {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: row;
-            gap: 3em;
-            border-radius: 1rem;
-            position: relative;
-            color: $clr-accent2;
+            color: $clr-text;
             font-family: $font;
+            gap: 1em;
+            cursor: pointer;
             a {
                 text-decoration: none;
                 border: 3px solid $clr-accent-dark;
+                transition: 150ms border-radius ease-in;
                 padding: .2em .5em;
-                background: transparent;
-                color: $clr-text;
-                cursor: pointer;
-                transition: 250ms border-radius ease-in;
                 &:hover{
                     border: 3px dashed #ff8191;
                     border-radius: 10px;
@@ -89,40 +68,38 @@ header {
 }
 
 footer {
-    padding: 0 2em;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1em;
     h3 {
-        position: absolute;
-        right: 2em;
-        bottom: 2em;
+        float: right;
         font-size: small;
-        cursor: default;
         a {
-            text-decoration: none;
             cursor: pointer;
             color: $clr-text;
             &:hover {
                 opacity: .9;
+                color: $clr-accent;
             }
         }
     }
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    display: grid;
+    place-items: center;
+    padding: 2.5em 0;
 }
 
 .data {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    width: 1300px;
+    width: 85%;
     text-transform: uppercase;
     font-size: 1em;
-    color: #000;
 
     section.standings_section {
         display: none;
@@ -131,43 +108,50 @@ main {
         flex-direction: column;
         width: 100%;
         font-weight: bold;
-        gap: .2em;
         
-        .headings {
+        div:first-child {
             background: $clr-accent-dark;
-            font-size: .9em;
+            font-size: .7em;
             text-align: center;
             color: $clr-text;
+            span:first-child,
+            span:nth-child(2) {
+                border: none;
+                text-align: center;
+            }
         }
 
         div {
             display: grid;
-            grid-template-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
-            gap: 1em;
+            grid-template-columns: .2fr .8fr repeat(5, .2fr);
             width: 100%;
             color: #000;
             background: $clr-accent2;
             padding: .2em;
+            border-bottom: 1px solid #fff;
 
             span {
-                text-align: center;
-            }
-            span:first-of-type {
-                border-right: 1px solid white;
-            }
-            span:nth-of-type(2) {
-                border-right: 1px solid white;
-                display: flex;
-                align-content: flex-start;
-                gap: 1em;
-
+                display: grid;
+                place-items: center;
+                font-size: .7em;
+                &:first-of-type {
+                    border-right: 1px solid white;
+                }
+                &:nth-child(2) {
+                    border-right: 1px solid white;
+                    display: flex;
+                    justify-content: flex-start;
+                    gap: 1em;
+                    padding-left: 1em;
+                }
                 img {
-                    width: 25px;
+                    width: 20px;
                     display: inline-block;
                 }
             }
-
+                
         }
+
 
     }
     
@@ -177,18 +161,18 @@ main {
     }
 
     section.fixtures_section {
-        color: #000;
         font-weight: bold;
         display: none;
-        grid-template-columns: .1fr 1fr .1fr;
-        grid-template-rows: .1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: .05fr 1fr .08fr;
         width: 100%;
-        height: 780px;
         gap: .5em;
         opacity: 0;
+        font-size: .7em;
         grid-template-areas: 
-            "prevWeek weekNum nextWeek"
-            "prevWeek fixtures nextWeek"
+            "weekNum weekNum"
+            "fixtures fixtures"
+            "prevWeek nextWeek"
         ;
         transition: opacity 250ms, transform 250ms, visibility 250ms;
 
@@ -196,13 +180,10 @@ main {
 
         div.weekHeadingContainer {
             grid-area: weekNum;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.3rem;
+            display: grid;
+            place-items: center;
             background: $clr-accent2;
-            letter-spacing: .1rem;
-            font-family: 'Teko', sans-serif;
+            font-family: $font;
             a {
                 text-decoration: none;
                 border: 3px solid $clr-accent-dark;
@@ -219,11 +200,8 @@ main {
 
         div.prevWeekNavCont, div.nextWeekNavCont {
             background: $clr-accent2;
-            writing-mode: vertical-lr;
-            text-orientation: upright;
-            display: flex;
-            place-content: center;
-            align-items: center;
+            display: grid;
+            place-items: center;
             cursor: pointer;
             @include uS();
             &:hover {
@@ -241,18 +219,20 @@ main {
         }
 
         div.fixtures {
+            grid-area: fixtures;
             display: block;
+            height: 100%;
+            width: 100%;
 
             section.fixturesList  {
                 display: none;
-                grid-area: fixtures;
                 transition: opacity 250ms, transform 250ms cubic-bezier(.33,.15,.55,.86);
 
                 div {
                     background: $clr-accent2;
                     display: grid;
-                    grid-template-columns: 1fr .2fr 1fr;
-                    grid-template-rows: 1fr;
+                    grid-template-columns: 1fr .4fr 1fr;
+                    grid-template-rows: 1fr .8fr;
                     grid-template-areas: 
                         "homeTeam score awayTeam"
                         "additionalInfo additionalInfo additionalInfo"
@@ -264,10 +244,10 @@ main {
                         justify-content: center;
                         align-items: center;
                         gap: 1em;
-                        padding: 5px 0 5px 0;
+                        font-size: 1em;
                         flex-direction: row;
                         img {
-                            width: 30px;
+                            width: 20px;
                             display: inline-block; 
                         }
                     }
@@ -276,22 +256,25 @@ main {
                         grid-area: homeTeam;
                         justify-content: flex-end;
                         margin-right: 1em;
+                        padding: .4em 0;
                     }
                     span:nth-of-type(2) {
                         grid-area: score;
                         background: $clr-accent;
+                        padding: .4em 0;
                     }
                     span:nth-of-type(3) {
                         grid-area: awayTeam;
                         justify-content: flex-start;
                         margin-left: 1em;
+                        padding: .4em 0;
                     }
                     div {
                         grid-area: additionalInfo;
                         background: $clr-accent-dark;
-                        font-size: small;
                         color: $clr-text;
                         pointer-events: none;
+                        font-size: .8em;
                     }
                 }
                 div:hover {
@@ -310,8 +293,8 @@ main {
 
             section.fixtureDataContainer {
                 display: none;
-                height: 100%;
-                grid-template-rows: 10% 10% auto;
+                height: 50vh;
+                grid-template-rows: 10% 15% auto;
                 grid-template-areas: 
                     "tabsContainer"
                     "header"
@@ -320,8 +303,10 @@ main {
                 gap: .5em;
 
                 div.header {
-                    grid-area: header;
+                    width: 100%;
                     height: 100%;
+                    font-size: 1em;
+                    grid-area: header;
                     background: $clr-accent2;
                     display: grid;
                     grid-template-columns: 1fr .2fr 1fr;
@@ -364,7 +349,7 @@ main {
                     justify-content: center;
                     align-items: center;
                     gap: 1em;
-                    font-size: 1.2rem;
+                    font-size: 1em;
                     font-family: 'Teko', sans-serif;
                     a {
                         text-decoration: none;
@@ -383,16 +368,14 @@ main {
                     grid-area: main;
                     background: $clr-accent2;
                     padding: .5em;
-                    font-size: 1em;
                     color: #000;
                     border: .5em solid $clr-accent-dark;
-                    font-size: 1em;
 
                     [data-tab-content] {
                         display: none;
                         width: 100%;
                         height: 100%;
-                        padding: .5em;
+                        font-size: .8em;
                     }
 
                     .active[data-tab-content] {
@@ -485,9 +468,7 @@ main {
 
     section.statistics_section {
         display: none;
-        width: 1000px;
-        height: 100%;
-        gap: .2em;
+        width: 100%;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -498,21 +479,32 @@ main {
             background: $clr-accent2;
             width: 100%;
             display: grid;
-            grid-template-columns: 1fr repeat(4, .2fr);
+            grid-template-columns: .2fr 1fr repeat(4, .2fr);
+            border-bottom: 1px solid #fff;
+            place-items: center;
             padding: .2em;
-
+            font-size: .7em;
             span {
                 text-align: center;
             }
 
             span:nth-of-type(1) {
+                display: grid;
+                place-items: center;
+                img {
+                    width: 20px;
+                    display: inline-block;
+                }
+            }
+            span:nth-of-type(2) {
+                justify-self: start;
                 text-indent: 1em;
             }
         }
 
         div:first-child {
             background: $clr-accent-dark;
-            font-size: .9em;
+            font-size: .7em;
             color: #fff;
         }
     }
@@ -523,8 +515,6 @@ main {
     }
 
 }
-
-
 
 @keyframes slideIn {
     0% {
@@ -559,4 +549,20 @@ main {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+
+  @media (min-width: 641px) {
+      .fixture_section .fixtures .fixturesList {
+        div {
+            background: $clr-accent2;
+            display: grid;
+            grid-template-columns: 1fr .2fr 1fr;
+            grid-template-rows: 1fr .8fr;
+            grid-template-areas: 
+                "homeTeam score awayTeam"
+                "additionalInfo additionalInfo additionalInfo"
+            ;
+        }
+      }
   }

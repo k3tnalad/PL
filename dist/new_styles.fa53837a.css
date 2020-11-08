@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700&display=swap");
 *,
 *::after,
 *::before {
@@ -10,53 +11,23 @@
 }
 
 body {
-  width: 100%;
-  height: 100vh;
   background: #264653;
   font-family: "Titillium Web", sans-serif;
-  color: #FDFFFC;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 10% 85% 5%;
-      grid-template-rows: 10% 85% 5%;
 }
 
 header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: center;
-          flex-direction: center;
-  background: #264653;
-  color: #000;
-  font-size: 1.5em;
   -ms-user-select: none;
       user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-  padding: 1em 1em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
 }
 
 header h1 {
-  margin-right: 3em;
-  color: #e9c46a;
-  font-family: "Teko", sans-serif;
-  letter-spacing: .3em;
-}
-
-header h3 {
-  -ms-user-select: none;
-      user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
+  text-align: center;
 }
 
 header nav .tabs {
@@ -73,22 +44,18 @@ header nav .tabs {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  gap: 3em;
-  border-radius: 1rem;
-  position: relative;
-  color: #e9c46a;
+  color: #FDFFFC;
   font-family: "Teko", sans-serif;
+  gap: 1em;
+  cursor: pointer;
 }
 
 header nav .tabs a {
   text-decoration: none;
   border: 3px solid #f4a261;
+  -webkit-transition: 150ms border-radius ease-in;
+  transition: 150ms border-radius ease-in;
   padding: .2em .5em;
-  background: transparent;
-  color: #FDFFFC;
-  cursor: pointer;
-  -webkit-transition: 250ms border-radius ease-in;
-  transition: 250ms border-radius ease-in;
 }
 
 header nav .tabs a:hover {
@@ -97,37 +64,33 @@ header nav .tabs a:hover {
 }
 
 footer {
-  padding: 0 2em;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
 }
 
 footer h3 {
-  position: absolute;
-  right: 2em;
-  bottom: 2em;
+  float: right;
   font-size: small;
-  cursor: default;
 }
 
 footer h3 a {
-  text-decoration: none;
   cursor: pointer;
   color: #FDFFFC;
 }
 
 footer h3 a:hover {
   opacity: .9;
+  color: #2a9d8f;
 }
 
 main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  padding: 2.5em 0;
 }
 
 .data {
@@ -140,11 +103,9 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: relative;
-  width: 1300px;
+  width: 85%;
   text-transform: uppercase;
   font-size: 1em;
-  color: #000;
 }
 
 .data section.standings_section {
@@ -161,48 +122,58 @@ main {
           flex-direction: column;
   width: 100%;
   font-weight: bold;
-  gap: .2em;
 }
 
-.data section.standings_section .headings {
+.data section.standings_section div:first-child {
   background: #f4a261;
-  font-size: .9em;
+  font-size: .7em;
   text-align: center;
   color: #FDFFFC;
+}
+
+.data section.standings_section div:first-child span:first-child,
+.data section.standings_section div:first-child span:nth-child(2) {
+  border: none;
+  text-align: center;
 }
 
 .data section.standings_section div {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
-      grid-template-columns: .2fr 1fr .2fr .2fr .2fr .2fr .2fr;
-  gap: 1em;
+  -ms-grid-columns: 0.2fr 0.8fr (0.2fr)[5];
+      grid-template-columns: 0.2fr 0.8fr repeat(5, 0.2fr);
   width: 100%;
   color: #000;
   background: #e9c46a;
   padding: .2em;
+  border-bottom: 1px solid #fff;
 }
 
 .data section.standings_section div span {
-  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  font-size: .7em;
 }
 
 .data section.standings_section div span:first-of-type {
   border-right: 1px solid white;
 }
 
-.data section.standings_section div span:nth-of-type(2) {
+.data section.standings_section div span:nth-child(2) {
   border-right: 1px solid white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-line-pack: start;
-      align-content: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   gap: 1em;
+  padding-left: 1em;
 }
 
-.data section.standings_section div span:nth-of-type(2) img {
-  width: 25px;
+.data section.standings_section div span img {
+  width: 20px;
   display: inline-block;
 }
 
@@ -215,18 +186,17 @@ main {
 }
 
 .data section.fixtures_section {
-  color: #000;
   font-weight: bold;
   display: none;
-  -ms-grid-columns: .1fr 1fr .1fr;
-      grid-template-columns: .1fr 1fr .1fr;
-  -ms-grid-rows: .1fr 1fr;
-      grid-template-rows: .1fr 1fr;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: .05fr 1fr .08fr;
+      grid-template-rows: .05fr 1fr .08fr;
   width: 100%;
-  height: 780px;
   gap: .5em;
   opacity: 0;
-      grid-template-areas: "prevWeek weekNum nextWeek" "prevWeek fixtures nextWeek";
+  font-size: .7em;
+      grid-template-areas: "weekNum weekNum" "fixtures fixtures" "prevWeek nextWeek";
   -webkit-transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
   transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
   transition: opacity 250ms, transform 250ms, visibility 250ms;
@@ -235,21 +205,14 @@ main {
 
 .data section.fixtures_section div.weekHeadingContainer {
   -ms-grid-row: 1;
-  -ms-grid-column: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
   grid-area: weekNum;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 1.3rem;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
   background: #e9c46a;
-  letter-spacing: .1rem;
-  font-family: 'Teko', sans-serif;
+  font-family: "Teko", sans-serif;
 }
 
 .data section.fixtures_section div.weekHeadingContainer a {
@@ -268,17 +231,9 @@ main {
 
 .data section.fixtures_section div.prevWeekNavCont, .data section.fixtures_section div.nextWeekNavCont {
   background: #e9c46a;
-  -webkit-writing-mode: vertical-lr;
-      -ms-writing-mode: tb-lr;
-          writing-mode: vertical-lr;
-  text-orientation: upright;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  place-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
   cursor: pointer;
   -ms-user-select: none;
       user-select: none;
@@ -293,28 +248,29 @@ main {
 }
 
 .data section.fixtures_section div.prevWeekNavCont {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
+  -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: prevWeek;
 }
 
 .data section.fixtures_section div.nextWeekNavCont {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 3;
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
   grid-area: nextWeek;
 }
 
 .data section.fixtures_section div.fixtures {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: fixtures;
   display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList {
   display: none;
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: fixtures;
   -webkit-transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
   transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
   transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
@@ -325,10 +281,10 @@ main {
   background: #e9c46a;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr .2fr 1fr;
-      grid-template-columns: 1fr .2fr 1fr;
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
+  -ms-grid-columns: 1fr .4fr 1fr;
+      grid-template-columns: 1fr .4fr 1fr;
+  -ms-grid-rows: 1fr .8fr;
+      grid-template-rows: 1fr .8fr;
       grid-template-areas: "homeTeam score awayTeam" "additionalInfo additionalInfo additionalInfo";
 }
 
@@ -344,7 +300,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   gap: 1em;
-  padding: 5px 0 5px 0;
+  font-size: 1em;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -352,7 +308,7 @@ main {
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span img, .data section.fixtures_section div.fixtures section.fixturesList div div img {
-  width: 30px;
+  width: 20px;
   display: inline-block;
 }
 
@@ -364,6 +320,7 @@ main {
       -ms-flex-pack: end;
           justify-content: flex-end;
   margin-right: 1em;
+  padding: .4em 0;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(2) {
@@ -371,6 +328,7 @@ main {
   -ms-grid-column: 2;
   grid-area: score;
   background: #2a9d8f;
+  padding: .4em 0;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
@@ -381,6 +339,7 @@ main {
       -ms-flex-pack: start;
           justify-content: flex-start;
   margin-left: 1em;
+  padding: .4em 0;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div div {
@@ -389,9 +348,9 @@ main {
   -ms-grid-column-span: 3;
   grid-area: additionalInfo;
   background: #f4a261;
-  font-size: small;
   color: #FDFFFC;
   pointer-events: none;
+  font-size: .8em;
 }
 
 .data section.fixtures_section div.fixtures section.fixturesList div:hover {
@@ -412,18 +371,20 @@ main {
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer {
   display: none;
-  height: 100%;
-  -ms-grid-rows: 10% 10% auto;
-      grid-template-rows: 10% 10% auto;
+  height: 50vh;
+  -ms-grid-rows: 10% 15% auto;
+      grid-template-rows: 10% 15% auto;
       grid-template-areas: "tabsContainer" "header" "main";
   gap: .5em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
+  width: 100%;
+  height: 100%;
+  font-size: 1em;
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: header;
-  height: 100%;
   background: #e9c46a;
   display: -ms-grid;
   display: grid;
@@ -498,7 +459,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   gap: 1em;
-  font-size: 1.2rem;
+  font-size: 1em;
   font-family: 'Teko', sans-serif;
 }
 
@@ -522,17 +483,15 @@ main {
   grid-area: main;
   background: #e9c46a;
   padding: .5em;
-  font-size: 1em;
   color: #000;
   border: 0.5em solid #f4a261;
-  font-size: 1em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
   display: none;
   width: 100%;
   height: 100%;
-  padding: .5em;
+  font-size: .8em;
 }
 
 .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
@@ -684,9 +643,7 @@ main {
 
 .data section.statistics_section {
   display: none;
-  width: 1000px;
-  height: 100%;
-  gap: .2em;
+  width: 100%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -709,9 +666,12 @@ main {
   width: 100%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr (0.2fr)[4];
-      grid-template-columns: 1fr repeat(4, 0.2fr);
+  -ms-grid-columns: 0.2fr 1fr (0.2fr)[4];
+      grid-template-columns: 0.2fr 1fr repeat(4, 0.2fr);
+  border-bottom: 1px solid #fff;
+  place-items: center;
   padding: .2em;
+  font-size: .7em;
 }
 
 .data section.statistics_section div span {
@@ -719,12 +679,25 @@ main {
 }
 
 .data section.statistics_section div span:nth-of-type(1) {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.data section.statistics_section div span:nth-of-type(1) img {
+  width: 20px;
+  display: inline-block;
+}
+
+.data section.statistics_section div span:nth-of-type(2) {
+  -ms-grid-column-align: start;
+      justify-self: start;
   text-indent: 1em;
 }
 
 .data section.statistics_section div:first-child {
   background: #f4a261;
-  font-size: .9em;
+  font-size: .7em;
   color: #fff;
 }
 
@@ -815,6 +788,19 @@ main {
     opacity: 1;
     -webkit-transform: translateY(0);
             transform: translateY(0);
+  }
+}
+
+@media (min-width: 641px) {
+  .fixture_section .fixtures .fixturesList div {
+    background: #e9c46a;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr .2fr 1fr;
+        grid-template-columns: 1fr .2fr 1fr;
+    -ms-grid-rows: 1fr .8fr;
+        grid-template-rows: 1fr .8fr;
+        grid-template-areas: "homeTeam score awayTeam" "additionalInfo additionalInfo additionalInfo";
   }
 }
 
