@@ -103,7 +103,7 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 85%;
+  width: 95%;
   text-transform: uppercase;
   font-size: 1em;
 }
@@ -140,8 +140,8 @@ main {
 .data section.standings_section div {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 0.2fr 0.8fr (0.2fr)[5];
-      grid-template-columns: 0.2fr 0.8fr repeat(5, 0.2fr);
+  -ms-grid-columns: 0.2fr 0.8fr (0.15fr)[5];
+      grid-template-columns: 0.2fr 0.8fr repeat(5, 0.15fr);
   width: 100%;
   color: #000;
   background: #e9c46a;
@@ -169,7 +169,7 @@ main {
       -ms-flex-pack: start;
           justify-content: flex-start;
   gap: 1em;
-  padding-left: 1em;
+  padding-left: .5em;
 }
 
 .data section.standings_section div span img {
@@ -299,7 +299,7 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 1em;
+  gap: .5em;
   font-size: 1em;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;

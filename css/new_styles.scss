@@ -97,7 +97,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 85%;
+    width: 95%;
     text-transform: uppercase;
     font-size: 1em;
 
@@ -123,7 +123,7 @@ main {
 
         div {
             display: grid;
-            grid-template-columns: .2fr .8fr repeat(5, .2fr);
+            grid-template-columns: .2fr .8fr repeat(5, .15fr);
             width: 100%;
             color: #000;
             background: $clr-accent2;
@@ -142,7 +142,7 @@ main {
                     display: flex;
                     justify-content: flex-start;
                     gap: 1em;
-                    padding-left: 1em;
+                    padding-left: .5em;
                 }
                 img {
                     width: 20px;
@@ -243,7 +243,7 @@ main {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        gap: 1em;
+                        gap: .5em;
                         font-size: 1em;
                         flex-direction: row;
                         img {
