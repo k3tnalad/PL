@@ -24,6 +24,7 @@ header {
   display: grid;
   -ms-grid-rows: (1fr)[2];
       grid-template-rows: repeat(2, 1fr);
+  gap: .5em;
 }
 
 header h1 {
@@ -56,6 +57,7 @@ header nav .tabs a {
   -webkit-transition: 150ms border-radius ease-in;
   transition: 150ms border-radius ease-in;
   padding: .2em .5em;
+  font-size: 1.3em;
 }
 
 header nav .tabs a:hover {
@@ -63,34 +65,11 @@ header nav .tabs a:hover {
   border-radius: 10px;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1em;
-}
-
-footer h3 {
-  float: right;
-  font-size: small;
-}
-
-footer h3 a {
-  cursor: pointer;
-  color: #FDFFFC;
-}
-
-footer h3 a:hover {
-  opacity: .9;
-  color: #2a9d8f;
-}
-
 main {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  padding: 2.5em 0;
+  padding: 2em 0;
 }
 
 .data {
@@ -105,10 +84,9 @@ main {
           align-items: center;
   width: 95%;
   text-transform: uppercase;
-  font-size: 1em;
 }
 
-.data section.standings_section {
+section.standings_section {
   display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -124,24 +102,17 @@ main {
   font-weight: bold;
 }
 
-.data section.standings_section div:first-child {
+section.standings_section div:first-child {
   background: #f4a261;
-  font-size: .7em;
-  text-align: center;
+  font-size: .9em;
   color: #FDFFFC;
 }
 
-.data section.standings_section div:first-child span:first-child,
-.data section.standings_section div:first-child span:nth-child(2) {
-  border: none;
-  text-align: center;
-}
-
-.data section.standings_section div {
+section.standings_section div {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 0.2fr 0.8fr (0.15fr)[5];
-      grid-template-columns: 0.2fr 0.8fr repeat(5, 0.15fr);
+  -ms-grid-columns: 0.1fr 0.8fr (0.15fr)[5];
+      grid-template-columns: 0.1fr 0.8fr repeat(5, 0.15fr);
   width: 100%;
   color: #000;
   background: #e9c46a;
@@ -149,18 +120,18 @@ main {
   border-bottom: 1px solid #fff;
 }
 
-.data section.standings_section div span {
+section.standings_section div span {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  font-size: .7em;
+  font-size: .9em;
 }
 
-.data section.standings_section div span:first-of-type {
-  border-right: 1px solid white;
+section.standings_section div span:first-of-type {
+  font-size: smaller;
 }
 
-.data section.standings_section div span:nth-child(2) {
+section.standings_section div span:nth-child(2) {
   border-right: 1px solid white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -168,16 +139,16 @@ main {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  gap: 1em;
-  padding-left: .5em;
+  gap: .5em;
+  padding-left: 1em;
 }
 
-.data section.standings_section div span img {
+section.standings_section div span img {
   width: 20px;
   display: inline-block;
 }
 
-.data section.standings_section.is_visible {
+section.standings_section.is_visible {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -185,51 +156,32 @@ main {
           animation: slideIn 250ms forwards;
 }
 
-.data section.fixtures_section {
-  font-weight: bold;
+section.fixtures_section {
   display: none;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: .05fr 1fr .08fr;
-      grid-template-rows: .05fr 1fr .08fr;
   width: 100%;
-  gap: .5em;
   opacity: 0;
-  font-size: .7em;
-      grid-template-areas: "weekNum weekNum" "fixtures fixtures" "prevWeek nextWeek";
+  font-size: .9em;
   -webkit-transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
   transition: opacity 250ms, visibility 250ms, -webkit-transform 250ms;
   transition: opacity 250ms, transform 250ms, visibility 250ms;
   transition: opacity 250ms, transform 250ms, visibility 250ms, -webkit-transform 250ms;
 }
 
-.data section.fixtures_section div.weekHeadingContainer {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: weekNum;
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
-  background: #e9c46a;
-  font-family: "Teko", sans-serif;
+section.fixtures_section.is_visible {
+  display: block;
+  -webkit-animation: slideIn 250ms forwards;
+          animation: slideIn 250ms forwards;
 }
 
-.data section.fixtures_section div.weekHeadingContainer a {
-  text-decoration: none;
-  border: 3px solid #f4a261;
-  padding: .5em;
-  background: transparent;
-  color: #FDFFFC;
+div.fixtures {
+  grid-area: fixtures;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
-.data section.fixtures_section div.weekHeadingContainer a:hover {
-  cursor: pointer;
-  border: 3px solid #ff8191;
-  border-radius: 5px;
-}
-
-.data section.fixtures_section div.prevWeekNavCont, .data section.fixtures_section div.nextWeekNavCont {
+div.fixtures div.prevWeekNavCont, div.fixtures div.nextWeekNavCont {
+  margin-top: .5em;
   background: #e9c46a;
   display: -ms-grid;
   display: grid;
@@ -239,146 +191,36 @@ main {
       user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  padding: 1em 0;
+  width: 48.5%;
+  font-weight: bold;
 }
 
-.data section.fixtures_section div.prevWeekNavCont:hover, .data section.fixtures_section div.nextWeekNavCont:hover {
+div.fixtures div.prevWeekNavCont:hover, div.fixtures div.nextWeekNavCont:hover {
   opacity: .6;
   -webkit-box-shadow: 3px 3px 3px #f4a261;
           box-shadow: 3px 3px 3px #f4a261;
 }
 
-.data section.fixtures_section div.prevWeekNavCont {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
+div.fixtures div.prevWeekNavCont {
   grid-area: prevWeek;
+  float: left;
 }
 
-.data section.fixtures_section div.nextWeekNavCont {
-  -ms-grid-row: 3;
-  -ms-grid-column: 2;
+div.fixtures div.nextWeekNavCont {
   grid-area: nextWeek;
+  float: right;
 }
 
-.data section.fixtures_section div.fixtures {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: fixtures;
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList {
+div.fixtures section.fixtureDataContainer {
   display: none;
-  -webkit-transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
-  transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
-  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
-  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86), -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div {
-  background: #e9c46a;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr .4fr 1fr;
-      grid-template-columns: 1fr .4fr 1fr;
-  -ms-grid-rows: 1fr .8fr;
-      grid-template-rows: 1fr .8fr;
-      grid-template-areas: "homeTeam score awayTeam" "additionalInfo additionalInfo additionalInfo";
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div span, .data section.fixtures_section div.fixtures section.fixturesList div div {
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: .5em;
-  font-size: 1em;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div span img, .data section.fixtures_section div.fixtures section.fixturesList div div img {
-  width: 20px;
-  display: inline-block;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(1) {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: homeTeam;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  margin-right: 1em;
-  padding: .4em 0;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(2) {
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: score;
-  background: #2a9d8f;
-  padding: .4em 0;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div span:nth-of-type(3) {
-  -ms-grid-row: 2;
-  -ms-grid-column: 3;
-  grid-area: awayTeam;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  margin-left: 1em;
-  padding: .4em 0;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div div {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  grid-area: additionalInfo;
-  background: #f4a261;
-  color: #FDFFFC;
-  pointer-events: none;
-  font-size: .8em;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList div:hover {
-  cursor: pointer;
-  opacity: .6;
-  -webkit-box-shadow: 3px 3px 3px #f4a261;
-          box-shadow: 3px 3px 3px #f4a261;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList.skipped {
-  -webkit-animation: reappear 250ms;
-          animation: reappear 250ms;
-}
-
-.data section.fixtures_section div.fixtures section.fixturesList.is_visible {
-  display: block;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer {
-  display: none;
-  height: 50vh;
-  -ms-grid-rows: 10% 15% auto;
-      grid-template-rows: 10% 15% auto;
+  -ms-grid-rows: 42.39px 63.59px auto;
+      grid-template-rows: 42.39px 63.59px auto;
       grid-template-areas: "tabsContainer" "header" "main";
   gap: .5em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header {
+div.fixtures section.fixtureDataContainer div.header {
   width: 100%;
   height: 100%;
   font-size: 1em;
@@ -388,6 +230,7 @@ main {
   background: #e9c46a;
   display: -ms-grid;
   display: grid;
+  font-weight: bold;
   -ms-grid-columns: 1fr .2fr 1fr;
       grid-template-columns: 1fr .2fr 1fr;
   -ms-grid-rows: 1fr 1fr;
@@ -395,7 +238,7 @@ main {
       grid-template-areas: "gameWeek gameWeek gameWeek"  "homeTeam score awayTeam";
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p {
+div.fixtures section.fixtureDataContainer div.header p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -408,8 +251,8 @@ main {
   padding: .3em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.home {
-  -ms-grid-row: 2;
+div.fixtures section.fixtureDataContainer div.header p.home {
+  -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: homeTeam;
   -webkit-box-pack: end;
@@ -418,15 +261,15 @@ main {
   padding-right: 1em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.score {
-  -ms-grid-row: 2;
+div.fixtures section.fixtureDataContainer div.header p.score {
+  -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: score;
   background: #2a9d8f;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.away {
-  -ms-grid-row: 2;
+div.fixtures section.fixtureDataContainer div.header p.away {
+  -ms-grid-row: 1;
   -ms-grid-column: 3;
   grid-area: awayTeam;
   -webkit-box-pack: start;
@@ -435,16 +278,15 @@ main {
   padding-left: 1em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.header p.gameWeek {
+div.fixtures section.fixtureDataContainer div.header p.gameWeek {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: gameWeek;
   background: #f4a261;
-  color: #FDFFFC;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer {
+div.fixtures section.fixtureDataContainer div.tabsContainer {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: tabsContainer;
@@ -463,40 +305,35 @@ main {
   font-family: 'Teko', sans-serif;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a {
+div.fixtures section.fixtureDataContainer div.tabsContainer a {
   text-decoration: none;
   border: 3px solid #f4a261;
-  padding: .2em .5em;
+  padding: .1em .5em;
   background: transparent;
-  color: #FDFFFC;
+  font-size: 1.3em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
+div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
   cursor: pointer;
   border: 3px solid #ff8191;
   border-radius: 5px;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main {
+div.fixtures section.fixtureDataContainer div.main {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: main;
   background: #e9c46a;
   padding: .5em;
   color: #000;
-  border: 0.5em solid #f4a261;
+  font-weight: bold;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
+div.fixtures section.fixtureDataContainer div.main [data-tab-content] {
   display: none;
   width: 100%;
   height: 100%;
   font-size: .8em;
-}
-
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
-  display: -ms-grid;
-  display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   -ms-grid-rows: 1fr;
@@ -504,7 +341,12 @@ main {
       grid-template-areas: "home away";
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.homeLineups > div, .data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.awayLineups > div {
+div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] {
+  display: -ms-grid;
+  display: grid;
+}
+
+div.fixtures section.fixtureDataContainer div.main section.homeLineups > div, div.fixtures section.fixtureDataContainer div.main section.awayLineups > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -515,11 +357,10 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: .5em;
   padding: .2em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section {
+div.fixtures section.fixtureDataContainer div.main section {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -527,11 +368,11 @@ main {
       -ms-flex-align: center;
           align-items: center;
   background: #e9c46a;
-  gap: .2em;
-  padding: 1em;
+  padding: .5em;
+  gap: 1em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.home {
+div.fixtures section.fixtureDataContainer div.main section.home {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: home;
@@ -542,7 +383,7 @@ main {
   border-right: 2px solid #f4a261;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.home div {
+div.fixtures section.fixtureDataContainer div.main section.home div {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -558,7 +399,7 @@ main {
   border-bottom: 3px solid #f4a261;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.away {
+div.fixtures section.fixtureDataContainer div.main section.away {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: away;
@@ -572,7 +413,7 @@ main {
   border-left: 2px solid #f4a261;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main .active[data-tab-content] section.away div {
+div.fixtures section.fixtureDataContainer div.main section.away div {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -588,11 +429,11 @@ main {
   border-bottom: 3px solid #f4a261;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main #matchStatsTab {
+div.fixtures section.fixtureDataContainer div.main #matchStatsTab {
   display: none;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main #matchStatsTab.active[data-tab-content] {
+div.fixtures section.fixtureDataContainer div.main #matchStatsTab.tabContent.active[data-tab-content] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -606,11 +447,11 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 1em;
+  gap: 2em;
   padding: 1em;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer div.main #matchStatsTab.active[data-tab-content] div {
+div.fixtures section.fixtureDataContainer div.main #matchStatsTab.tabContent.active[data-tab-content] div {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -629,19 +470,154 @@ main {
   border-bottom: 3px solid #f4a261;
 }
 
-.data section.fixtures_section div.fixtures section.fixtureDataContainer.is_visible {
+div.fixtures section.fixtureDataContainer.is_visible {
   display: -ms-grid;
   display: grid;
 }
 
-.data section.fixtures_section.is_visible {
+div.weekHeadingContainer {
   display: -ms-grid;
   display: grid;
-  -webkit-animation: slideIn 250ms forwards;
-          animation: slideIn 250ms forwards;
+  place-items: center;
+  background: #e9c46a;
+  font-family: "Teko", sans-serif;
+  font-size: 1.5em;
+  border: 5px solid #f4a261;
+  margin-bottom: .5em;
 }
 
-.data section.statistics_section {
+div.weekHeadingContainer a {
+  text-decoration: none;
+  border: 3px solid #f4a261;
+  padding: .5em;
+  background: transparent;
+  color: #FDFFFC;
+}
+
+div.weekHeadingContainer a:hover {
+  cursor: pointer;
+  border: 3px solid #ff8191;
+  border-radius: 5px;
+}
+
+section.fixturesList {
+  display: none;
+  -webkit-transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  transition: opacity 250ms, transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86), -webkit-transform 250ms cubic-bezier(0.33, 0.15, 0.55, 0.86);
+  gap: .4em;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+section.fixturesList div {
+  background: #e9c46a;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr .4fr 1fr;
+      grid-template-columns: 1fr .4fr 1fr;
+  -ms-grid-rows: 1fr .5fr;
+      grid-template-rows: 1fr .5fr;
+      grid-template-areas: "homeTeam score awayTeam" "info info info";
+}
+
+section.fixturesList div span, section.fixturesList div div {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: .5em;
+  font-size: 1em;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-weight: bold;
+}
+
+section.fixturesList div span img, section.fixturesList div div img {
+  width: 20px;
+  display: inline-block;
+}
+
+section.fixturesList div span:nth-of-type(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: homeTeam;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: .5em;
+  padding: .4em 0;
+}
+
+section.fixturesList div span:nth-of-type(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: score;
+  background: #2a9d8f;
+  padding: .4em 0;
+}
+
+section.fixturesList div span:nth-of-type(3) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: awayTeam;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-left: .5em;
+  padding: .4em 0;
+}
+
+section.fixturesList div div {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: info;
+  background: #f4a261;
+  pointer-events: none;
+  font-size: .8em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1em;
+}
+
+section.fixturesList div:hover {
+  cursor: pointer;
+  opacity: .6;
+  -webkit-box-shadow: 3px 3px 3px #f4a261;
+          box-shadow: 3px 3px 3px #f4a261;
+}
+
+section.fixturesList.skipped {
+  -webkit-animation: reappear 250ms;
+          animation: reappear 250ms;
+}
+
+section.fixturesList.is_visible {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+section.statistics_section {
   display: none;
   width: 100%;
   -webkit-box-pack: center;
@@ -661,47 +637,59 @@ main {
   transition: opacity 250ms, transform 250ms, visibility 250ms, -webkit-transform 250ms;
 }
 
-.data section.statistics_section div {
+section.statistics_section div {
   background: #e9c46a;
   width: 100%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 0.2fr 1fr (0.2fr)[4];
-      grid-template-columns: 0.2fr 1fr repeat(4, 0.2fr);
-  border-bottom: 1px solid #fff;
+  -ms-grid-columns: 1fr (0.2fr)[4];
+      grid-template-columns: 1fr repeat(4, 0.2fr);
+  border-bottom: 1px solid #264653;
   place-items: center;
   padding: .2em;
-  font-size: .7em;
+  font-size: .9em;
 }
 
-.data section.statistics_section div span {
-  text-align: center;
+section.statistics_section div span:first-child {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding-left: 1em;
+  gap: 1em;
 }
 
-.data section.statistics_section div span:nth-of-type(1) {
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
-}
-
-.data section.statistics_section div span:nth-of-type(1) img {
+section.statistics_section div span:first-child img {
   width: 20px;
+  height: 22px;
   display: inline-block;
 }
 
-.data section.statistics_section div span:nth-of-type(2) {
+section.statistics_section div span {
+  text-align: center;
+}
+
+section.statistics_section div span:nth-of-type(2) {
   -ms-grid-column-align: start;
       justify-self: start;
   text-indent: 1em;
 }
 
-.data section.statistics_section div:first-child {
+section.statistics_section div:first-child {
   background: #f4a261;
-  font-size: .7em;
   color: #fff;
 }
 
-.data section.statistics_section.is_visible {
+section.statistics_section div:first-child span {
+  font-size: .7em;
+}
+
+section.statistics_section.is_visible {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -792,15 +780,22 @@ main {
 }
 
 @media (min-width: 641px) {
-  .fixture_section .fixtures .fixturesList div {
-    background: #e9c46a;
+  body {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr .2fr 1fr;
-        grid-template-columns: 1fr .2fr 1fr;
-    -ms-grid-rows: 1fr .8fr;
-        grid-template-rows: 1fr .8fr;
-        grid-template-areas: "homeTeam score awayTeam" "additionalInfo additionalInfo additionalInfo";
+    -ms-grid-rows: auto 1fr auto;
+        grid-template-rows: auto 1fr auto;
+    height: 100vh;
+  }
+  img {
+    width: 25px;
+  }
+  header {
+    font-size: 1.3em;
+  }
+  .data {
+    width: 75%;
+    height: 75%;
   }
 }
 /*# sourceMappingURL=new_styles.css.map */

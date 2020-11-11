@@ -19,9 +19,6 @@ $clr-accent2: #e9c46a;
 $clr-accent-dark: #f4a261;
 $font: 'Teko', sans-serif;
 $font-main: 'Titillium Web', sans-serif;
-$font-size-md: 1em;
-$font-size-lg: 1.3em;
-$font-size-sm: 0.8em;
 
 @mixin uS {
     user-select: none;
@@ -39,6 +36,7 @@ header {
     @include uS();
     display: grid;
     grid-template-rows: repeat(2, 1fr);
+    gap: .5em;
     h1 {
         text-align: center;
     }
@@ -57,6 +55,7 @@ header {
                 border: 3px solid $clr-accent-dark;
                 transition: 150ms border-radius ease-in;
                 padding: .2em .5em;
+                font-size: 1.3em;
                 &:hover{
                     border: 3px dashed #ff8191;
                     border-radius: 10px;
@@ -67,30 +66,10 @@ header {
 
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1em;
-    h3 {
-        float: right;
-        font-size: small;
-        a {
-            cursor: pointer;
-            color: $clr-text;
-            &:hover {
-                opacity: .9;
-                color: $clr-accent;
-            }
-        }
-    }
-}
-
 main {
     display: grid;
     place-items: center;
-    padding: 2.5em 0;
+    padding: 2em 0;
 }
 
 .data {
@@ -99,422 +78,426 @@ main {
     align-items: center;
     width: 95%;
     text-transform: uppercase;
-    font-size: 1em;
-
-    section.standings_section {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        font-weight: bold;
-        
-        div:first-child {
-            background: $clr-accent-dark;
-            font-size: .7em;
-            text-align: center;
-            color: $clr-text;
-            span:first-child,
-            span:nth-child(2) {
-                border: none;
-                text-align: center;
-            }
-        }
-
-        div {
-            display: grid;
-            grid-template-columns: .2fr .8fr repeat(5, .15fr);
-            width: 100%;
-            color: #000;
-            background: $clr-accent2;
-            padding: .2em;
-            border-bottom: 1px solid #fff;
-
-            span {
-                display: grid;
-                place-items: center;
-                font-size: .7em;
-                &:first-of-type {
-                    border-right: 1px solid white;
-                }
-                &:nth-child(2) {
-                    border-right: 1px solid white;
-                    display: flex;
-                    justify-content: flex-start;
-                    gap: 1em;
-                    padding-left: .5em;
-                }
-                img {
-                    width: 20px;
-                    display: inline-block;
-                }
-            }
-                
-        }
+}
 
 
-    }
+section.standings_section {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    font-weight: bold;
     
-    section.standings_section.is_visible {
-        display: flex;
-        animation: slideIn 250ms forwards;
+    div:first-child {
+        background: $clr-accent-dark;
+        font-size: .9em;
+        color: $clr-text;
+        
     }
 
-    section.fixtures_section {
-        font-weight: bold;
-        display: none;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: .05fr 1fr .08fr;
+    div {
+        display: grid;
+        grid-template-columns: .1fr .8fr repeat(5, .15fr);
         width: 100%;
-        gap: .5em;
-        opacity: 0;
-        font-size: .7em;
-        grid-template-areas: 
-            "weekNum weekNum"
-            "fixtures fixtures"
-            "prevWeek nextWeek"
-        ;
-        transition: opacity 250ms, transform 250ms, visibility 250ms;
+        color: #000;
+        background: $clr-accent2;
+        padding: .2em;
+        border-bottom: 1px solid #fff;
 
-        
-
-        div.weekHeadingContainer {
-            grid-area: weekNum;
+        span {
             display: grid;
             place-items: center;
-            background: $clr-accent2;
-            font-family: $font;
-            a {
-                text-decoration: none;
-                border: 3px solid $clr-accent-dark;
-                padding: .5em;
-                background: transparent;
-                color: $clr-text;
-                &:hover {
+            font-size: .9em;
+            &:first-of-type {
+                font-size: smaller;
+            }
+            &:nth-child(2) {
+                border-right: 1px solid white;
+                display: flex;
+                justify-content: flex-start;
+                gap: .5em;
+                padding-left: 1em;
+            }
+            img {
+                width: 20px;
+                display: inline-block;
+            }
+        }
+            
+    }
+
+
+}
+
+section.standings_section.is_visible {
+    display: flex;
+    animation: slideIn 250ms forwards;
+}
+
+section.fixtures_section {
+    display: none;
+    width: 100%;
+    opacity: 0;
+    font-size: .9em;
+    transition: opacity 250ms, transform 250ms, visibility 250ms;
+}
+
+section.fixtures_section.is_visible {
+    display: block;
+    animation: slideIn 250ms forwards;
+}
+
+div.fixtures {
+        grid-area: fixtures;
+        display: block;
+        height: 100%;
+        width: 100%;
+
+    div.prevWeekNavCont, div.nextWeekNavCont {
+        margin-top: .5em;
+        background: $clr-accent2;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        @include uS();
+        padding: 1em 0;
+        width: 48.5%;
+        font-weight: bold;
+        &:hover {
+            opacity: .6;
+            box-shadow: 3px 3px 3px $clr-accent-dark;
+        }
+    }
+    
+    div.prevWeekNavCont {
+        grid-area: prevWeek;
+        float: left;
+    }
+
+    div.nextWeekNavCont {
+        grid-area: nextWeek;
+        float: right;
+    }
+
+section.fixtureDataContainer {
+    display: none;
+    grid-template-rows: 42.39px 63.59px auto;
+    grid-template-areas: 
+        "tabsContainer"
+        "header"
+        "main"
+    ;
+    gap: .5em;
+
+    div.header {
+        width: 100%;
+        height: 100%;
+        font-size: 1em;
+        grid-area: header;
+        background: $clr-accent2;
+        display: grid;
+        font-weight: bold;
+        grid-template-columns: 1fr .2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            "gameWeek gameWeek gameWeek" 
+            "homeTeam score awayTeam"
+        ;
+
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .3em;
+        }
+        p.home {
+            grid-area: homeTeam;
+            justify-content: flex-end;
+            padding-right: 1em;
+        } 
+        p.score {
+            grid-area: score;
+            background: $clr-accent;
+        }
+        p.away {
+            grid-area: awayTeam;
+            justify-content: flex-start;
+            padding-left: 1em;
+        }
+        p.gameWeek {
+            grid-area: gameWeek;
+            background: $clr-accent-dark;
+        }
+    }
+    div.tabsContainer {
+        grid-area: tabsContainer;
+        background: $clr-accent2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+        font-size: 1em;
+        font-family: 'Teko', sans-serif;
+        a {
+            text-decoration: none;
+            border: 3px solid $clr-accent-dark;
+            padding: .1em .5em;
+            background: transparent;
+            font-size: 1.3em;
+            &:hover {
                     cursor: pointer;
                     border: 3px solid #ff8191;
                     border-radius: 5px;
-                }
             }
         }
-
-        div.prevWeekNavCont, div.nextWeekNavCont {
-            background: $clr-accent2;
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            @include uS();
-            &:hover {
-                opacity: .6;
-                box-shadow: 3px 3px 3px $clr-accent-dark;
-            }
-        }
-        
-        div.prevWeekNavCont {
-            grid-area: prevWeek;
-        }
-
-        div.nextWeekNavCont {
-            grid-area: nextWeek;
-        }
-
-        div.fixtures {
-            grid-area: fixtures;
-            display: block;
-            height: 100%;
-            width: 100%;
-
-            section.fixturesList  {
-                display: none;
-                transition: opacity 250ms, transform 250ms cubic-bezier(.33,.15,.55,.86);
-
-                div {
-                    background: $clr-accent2;
-                    display: grid;
-                    grid-template-columns: 1fr .4fr 1fr;
-                    grid-template-rows: 1fr .8fr;
-                    grid-template-areas: 
-                        "homeTeam score awayTeam"
-                        "additionalInfo additionalInfo additionalInfo"
-                    ;
-
-                    span, div {
-                        text-align: center;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        gap: .5em;
-                        font-size: 1em;
-                        flex-direction: row;
-                        img {
-                            width: 20px;
-                            display: inline-block; 
-                        }
-                    }
-
-                    span:nth-of-type(1) {
-                        grid-area: homeTeam;
-                        justify-content: flex-end;
-                        margin-right: 1em;
-                        padding: .4em 0;
-                    }
-                    span:nth-of-type(2) {
-                        grid-area: score;
-                        background: $clr-accent;
-                        padding: .4em 0;
-                    }
-                    span:nth-of-type(3) {
-                        grid-area: awayTeam;
-                        justify-content: flex-start;
-                        margin-left: 1em;
-                        padding: .4em 0;
-                    }
-                    div {
-                        grid-area: additionalInfo;
-                        background: $clr-accent-dark;
-                        color: $clr-text;
-                        pointer-events: none;
-                        font-size: .8em;
-                    }
-                }
-                div:hover {
-                    cursor: pointer;
-                    opacity: .6;
-                    box-shadow: 3px 3px 3px $clr-accent-dark;
-                }
-            }
-            section.fixturesList.skipped {
-                animation: reappear 250ms;
-            }
-              
-            section.fixturesList.is_visible {
-                display: block;
-            }
-
-            section.fixtureDataContainer {
-                display: none;
-                height: 50vh;
-                grid-template-rows: 10% 15% auto;
-                grid-template-areas: 
-                    "tabsContainer"
-                    "header"
-                    "main"
-                ;
-                gap: .5em;
-
-                div.header {
-                    width: 100%;
-                    height: 100%;
-                    font-size: 1em;
-                    grid-area: header;
-                    background: $clr-accent2;
-                    display: grid;
-                    grid-template-columns: 1fr .2fr 1fr;
-                    grid-template-rows: 1fr 1fr;
-                    grid-template-areas:
-                      "gameWeek gameWeek gameWeek" 
-                      "homeTeam score awayTeam"
-                   ;
-
-                    p {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: .3em;
-                    }
-                    p.home {
-                        grid-area: homeTeam;
-                        justify-content: flex-end;
-                        padding-right: 1em;
-                    } 
-                    p.score {
-                        grid-area: score;
-                        background: $clr-accent;
-                    }
-                    p.away {
-                        grid-area: awayTeam;
-                        justify-content: flex-start;
-                        padding-left: 1em;
-                    }
-                    p.gameWeek {
-                        grid-area: gameWeek;
-                        background: $clr-accent-dark;
-                        color: $clr-text;
-                    }
-                }
-                div.tabsContainer {
-                    grid-area: tabsContainer;
-                    background: $clr-accent2;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 1em;
-                    font-size: 1em;
-                    font-family: 'Teko', sans-serif;
-                    a {
-                        text-decoration: none;
-                        border: 3px solid $clr-accent-dark;
-                        padding: .2em .5em;
-                        background: transparent;
-                        color: $clr-text;
-                        &:hover {
-                                cursor: pointer;
-                                border: 3px solid #ff8191;
-                                border-radius: 5px;
-                        }
-                    }
-                }
-                div.main {
-                    grid-area: main;
-                    background: $clr-accent2;
-                    padding: .5em;
-                    color: #000;
-                    border: .5em solid $clr-accent-dark;
-
-                    [data-tab-content] {
-                        display: none;
-                        width: 100%;
-                        height: 100%;
-                        font-size: .8em;
-                    }
-
-                    .active[data-tab-content] {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        grid-template-rows: 1fr;
-                        grid-template-areas: 
-                            "home away"
-                        ;
-
-                        section.homeLineups > div, section.awayLineups > div {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                            gap: .5em;
-                            padding: .2em; 
-                        }
-                        section {
-                            display: flex;
-                            align-items: center;
-                            background: $clr-accent2;
-                            gap: .2em;
-                            padding: 1em;
-                            &.home {
-                                grid-area: home;
-                                flex-direction: column;
-                                border-right: 2px solid $clr-accent-dark;
-                                div {
-                                    width: 100%;
-                                    display: flex;
-                                    align-items: center;
-                                    flex-direction: row-reverse;
-                                    gap: .5em;
-                                    border-bottom: 3px solid $clr-accent-dark;
-                                }
-                            }
-                            &.away {
-                                grid-area: away;
-                                display: flex;
-                                flex-direction: column;
-                                border-left: 2px solid $clr-accent-dark;
-                                div {
-                                    width: 100%;
-                                    display: flex;
-                                    align-items: center;
-                                    flex-direction: row;
-                                    gap: .5em;
-                                    border-bottom: 3px solid $clr-accent-dark;
-                                }
-                            } 
-                        }
-                    }
-
-                    #matchStatsTab {
-                        display: none;
-                    }
-
-                    #matchStatsTab.active[data-tab-content] {
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
-                        flex-direction: column;
-                        gap: 1em;
-                        padding: 1em;
-                        div {
-                            width: 100%;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            flex-direction: row;
-                            gap: .5em;
-                            border-bottom: 3px solid $clr-accent-dark;
-                        }
-                    }
-                }  
-            }
-            section.fixtureDataContainer.is_visible {
-                display: grid;
-            }
-
-        }
-
-
     }
-
-    section.fixtures_section.is_visible {
-        display: grid;
-        animation: slideIn 250ms forwards;
-    }
-
-    section.statistics_section {
-        display: none;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+    div.main {
+        grid-area: main;
+        background: $clr-accent2;
+        padding: .5em;
+        color: #000;
         font-weight: bold;
-        transition: opacity 250ms, transform 250ms, visibility 250ms;
 
-        div {
-            background: $clr-accent2;
+        [data-tab-content] {
+            display: none;
             width: 100%;
-            display: grid;
-            grid-template-columns: .2fr 1fr repeat(4, .2fr);
-            border-bottom: 1px solid #fff;
-            place-items: center;
-            padding: .2em;
-            font-size: .7em;
-            span {
-                text-align: center;
-            }
+            height: 100%;
+            font-size: .8em;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: 
+                "home away"
+            ;
+        }
 
-            span:nth-of-type(1) {
-                display: grid;
-                place-items: center;
-                img {
-                    width: 20px;
-                    display: inline-block;
+        .active[data-tab-content] {
+            display: grid;
+        }
+        section.homeLineups > div, section.awayLineups > div {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                padding: .2em; 
+        }
+        section {
+            display: flex;
+            align-items: center;
+            background: $clr-accent2;
+            padding: .5em;
+            gap: 1em;
+            &.home {
+                grid-area: home;
+                flex-direction: column;
+                border-right: 2px solid $clr-accent-dark;
+                div {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row-reverse;
+                    gap: .5em;
+                    border-bottom: 3px solid $clr-accent-dark;
                 }
             }
-            span:nth-of-type(2) {
-                justify-self: start;
-                text-indent: 1em;
+            &.away {
+                grid-area: away;
+                display: flex;
+                flex-direction: column;
+                border-left: 2px solid $clr-accent-dark;
+                div {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    gap: .5em;
+                    border-bottom: 3px solid $clr-accent-dark;
+                }
+            } 
+        }
+
+        #matchStatsTab {
+            display: none;
+        }
+
+        #matchStatsTab.tabContent.active[data-tab-content] {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            gap: 2em;
+            padding: 1em;
+            div {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+                gap: .5em;
+                border-bottom: 3px solid $clr-accent-dark;
             }
         }
-
-        div:first-child {
-            background: $clr-accent-dark;
-            font-size: .7em;
-            color: #fff;
-        }
-    }
-
-    section.statistics_section.is_visible {
-        display: flex;
-        animation: slideIn 250ms forwards;
-    }
+    }  
+}
+section.fixtureDataContainer.is_visible {
+    display: grid;
+}
 
 }
+
+div.weekHeadingContainer {
+        display: grid;
+        place-items: center;
+        background: $clr-accent2;
+        font-family: $font;
+        font-size: 1.5em;
+        border: 5px solid $clr-accent-dark;
+        margin-bottom: .5em;
+        a {
+            text-decoration: none;
+            border: 3px solid $clr-accent-dark;
+            padding: .5em;
+            background: transparent;
+            color: $clr-text;
+            &:hover {
+                cursor: pointer;
+                border: 3px solid #ff8191;
+                border-radius: 5px;
+            }
+        }
+}
+
+section.fixturesList  {
+    display: none;
+    transition: opacity 250ms, transform 250ms cubic-bezier(.33,.15,.55,.86);
+    gap: .4em;
+    flex-direction: column;
+
+    div {
+        background: $clr-accent2;
+        display: grid;
+        grid-template-columns: 1fr .4fr 1fr;
+        grid-template-rows: 1fr .5fr;
+        grid-template-areas: 
+            "homeTeam score awayTeam"
+            "info info info"
+        ;
+
+        span, div {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5em;
+            font-size: 1em;
+            flex-direction: row;
+            font-weight: bold;
+            img {
+                width: 20px;
+                display: inline-block; 
+            }
+        }
+
+        span:nth-of-type(1) {
+            grid-area: homeTeam;
+            justify-content: flex-end;
+            margin-right: .5em;
+            padding: .4em 0;
+        }
+        span:nth-of-type(2) {
+            grid-area: score;
+            background: $clr-accent;
+            padding: .4em 0;
+        }
+        span:nth-of-type(3) {
+            grid-area: awayTeam;
+            justify-content: flex-start;
+            margin-left: .5em;
+            padding: .4em 0;
+        }
+        div {
+            grid-area: info;
+            background: $clr-accent-dark;
+            pointer-events: none;
+            font-size: .8em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+        }
+    }
+
+    div:hover {
+        cursor: pointer;
+        opacity: .6;
+        box-shadow: 3px 3px 3px $clr-accent-dark;
+    }
+}
+
+
+section.fixturesList.skipped {
+    animation: reappear 250ms;
+}
+    
+section.fixturesList.is_visible {
+    display: flex;
+}
+
+
+section.statistics_section {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    transition: opacity 250ms, transform 250ms, visibility 250ms;
+
+    div {
+        background: $clr-accent2;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr repeat(4, .2fr);
+        border-bottom: 1px solid $clr-bg-primary;
+        place-items: center;
+        padding: .2em;
+        font-size: .9em;
+        span:first-child {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-self: center;
+            padding-left: 1em;
+            gap: 1em;
+            img {
+                width: 20px;
+                height: 22px;
+                display: inline-block;
+            }
+        }
+        span {
+            text-align: center;
+        }
+        span:nth-of-type(2) {
+            justify-self: start;
+            text-indent: 1em;
+        }
+    }
+
+    div:first-child {
+        background: $clr-accent-dark;
+        color: #fff;
+        span {
+            font-size: .7em;
+        }
+    }
+}
+
+section.statistics_section.is_visible {
+    display: flex;
+    animation: slideIn 250ms forwards;
+}
+
+
 
 @keyframes slideIn {
     0% {
@@ -553,16 +536,22 @@ main {
 
 
   @media (min-width: 641px) {
-      .fixture_section .fixtures .fixturesList {
-        div {
-            background: $clr-accent2;
-            display: grid;
-            grid-template-columns: 1fr .2fr 1fr;
-            grid-template-rows: 1fr .8fr;
-            grid-template-areas: 
-                "homeTeam score awayTeam"
-                "additionalInfo additionalInfo additionalInfo"
-            ;
-        }
-      }
+    body {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        height: 100vh;
+    }
+
+    img {
+        width: 25px;
+    }
+
+    header {
+        font-size: 1.3em;
+    }
+
+    .data {
+        width: 75%;
+        height: 75%;
+    }
   }

@@ -5965,9 +5965,12 @@ const matchPop = async e => {
   // by removing and adding a class of respective elements.
   _elements.fixturesList.classList.remove('is_visible');
 
-  _elements.fixtureDataContainer.classList.add('is_visible');
+  _elements.fixtureDataContainer.classList.add('is_visible'); // disabling week buttons
 
-  (0, _utils.setGWHeader)(`<a data-back>Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
+
+  _elements.weekNavButtons.forEach(btn => btn.style.display = 'none');
+
+  (0, _utils.setGWHeader)(`<a data-back style="color: #000">Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
 
   let matchID = e.currentTarget.dataset.id; // if there is no data for the match on the LS, it's gonna fetch it using the matchID.
 
@@ -6010,7 +6013,7 @@ const matchPop = async e => {
             <section class="homeEvents home">
                 ${homeEvents.map(i => {
       return `
-                    <div className="homeEvent" data-type="${i.type}>
+                    <div className="homeEvent" data-type="${i.type}">
                         <p className="time">${i.elapsed}'</p>
                         <p className="player" ${i.type === "subst" ? `style="color:red"` : ''}>${i.player}</p>
                         <p className="type">${(0, _utils.eventTypeHandler)(i.type)}</p>
@@ -6077,14 +6080,14 @@ function standingPop(standingsData) {
     <div class="headings">
         <span>#</span>
         <span>Team</span>
-        <span>Played</span>
-        <span>Won</span>
-        <span>Lost</span>
-        <span>Drawn</span>
-        <span>Points</span>
+        <span>P</span>
+        <span>W</span>
+        <span>L</span>
+        <span>D</span>
+        <span>Pts</span>
     </div>
-    `;
-  console.log(standingsData);
+    `; // console.log(standingsData);
+
   let html = standingsData.map(team => {
     num++;
     return `
@@ -6112,23 +6115,19 @@ async function fixturesPop(fixturesData) {
                 <span className="score"><p>${fix.score.fulltime || (0, _moment.default)(fix.event_date).format('h:mm')}</p></span>
                 <span className="away"><img src="${fix.awayTeam.logo}">${fix.awayTeam.team_name.includes('chester') ? fix.awayTeam.team_name.replace('chester', '.') : fix.awayTeam.team_name}</span>
                 <div className="additional__info">
-                    <p className="referee">Referee: ${fix.referee || "N/A"}</p>
-                    <p className="venue">Venue: ${fix.venue || "N/A"}</p>
-                    <p className="eventDate">${(0, _moment.default)(fix.event_date).format('MMMM Do YYYY, h:mm')}</p>
+                        <p className="venue">${fix.venue || "N/A"}</p>
+                        <p className="eventDate">${(0, _moment.default)(fix.event_date).format('MMMM Do YYYY, h:mm')}</p>
                 </div>
             </div>
-        
         `;
   }).join('');
-  _elements.fixturesList.innerHTML = html; // weekHeading.innerHTML = weekElem;
-
+  _elements.fixturesList.innerHTML = html;
   [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
 }
 
 function statsPop(statsData) {
   let labels = `
         <div className="headings">
-            <span className=""></span>
             <span>Player</span>
             <span>G<small>(p)</small></span>
             <span>As.</span>
@@ -6140,8 +6139,7 @@ function statsPop(statsData) {
   let html = statsData.map(scorer => {
     return `
             <div className="scorer">
-                <span className="teamLogo"><img src="https://media.api-sports.io/football/teams/${scorer.team_id}.png" alt="club logo" className="logo"/></span>
-                <span>${scorer.player_name}</span>
+                <span><img src="https://media.api-sports.io/football/teams/${scorer.team_id}.png" alt="club logo" className="logo"/><p>${scorer.firstname[0]}. ${scorer.lastname}</p></span>
                 <span className="goals">${scorer.goals.total}<small> (${scorer.penalty.success})</small></span>
                 <span className="assists">${scorer.goals.assists ? scorer.goals.assists : '0'}</span>
                 <span className="apps">${scorer.games.appearences}</span>
@@ -6191,6 +6189,9 @@ _elements.headingCont.addEventListener('click', e => {
     _elements.fixturesList.classList.add('is_visible');
 
     (0, _utils.setGWHeader)(currentGW);
+
+    _elements.weekNavButtons.forEach(btn => btn.style.display = 'grid');
+
     [..._elements.fixturesList.children].forEach(child => child.addEventListener('click', e => matchPop(e)));
   } else return;
 });
@@ -6230,7 +6231,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64958" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
