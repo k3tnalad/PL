@@ -6135,7 +6135,6 @@ function statsPop(statsData) {
             <span>Mins</span>
         </div>
     `;
-  console.log(statsData);
   let html = statsData.map(scorer => {
     return `
             <div className="scorer">
