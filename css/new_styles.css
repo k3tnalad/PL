@@ -10,8 +10,12 @@
           box-sizing: border-box;
 }
 
+html {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#264653), to(#2a9d8f));
+  background-image: linear-gradient(180deg, #264653, #2a9d8f);
+}
+
 body {
-  background: #264653;
   font-family: "Titillium Web", sans-serif;
 }
 
@@ -46,29 +50,44 @@ header nav .tabs {
       -ms-flex-direction: row;
           flex-direction: row;
   color: #FDFFFC;
+  letter-spacing: .05em;
   font-family: "Teko", sans-serif;
   gap: 1em;
-  cursor: pointer;
 }
 
 header nav .tabs a {
+  cursor: pointer;
   text-decoration: none;
-  border: 3px solid #f4a261;
-  -webkit-transition: 150ms border-radius ease-in;
-  transition: 150ms border-radius ease-in;
+  border: 3px solid #0b161b;
+  -webkit-transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+  transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
   padding: .2em .5em;
   font-size: 1.3em;
+  background: #bb9a48;
+  color: #0b161b;
 }
 
-header nav .tabs a:hover {
-  border: 3px dashed #ff8191;
+header nav .tabs a:hover, header nav .tabs a:focus {
   border-radius: 10px;
+  border: 3px dashed #2a9d8f;
+  background: #0b161b;
+  color: #fff;
 }
 
 main {
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 2em 0;
 }
 
@@ -103,7 +122,7 @@ section.standings_section {
 }
 
 section.standings_section div:first-child {
-  background: #f4a261;
+  background: #0b161b;
   font-size: .9em;
   color: #FDFFFC;
 }
@@ -115,9 +134,9 @@ section.standings_section div {
       grid-template-columns: 0.1fr 0.8fr repeat(5, 0.15fr);
   width: 100%;
   color: #000;
-  background: #e9c46a;
+  background: #bb9a48;
   padding: .2em;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #0b161b;
 }
 
 section.standings_section div span {
@@ -182,7 +201,8 @@ div.fixtures {
 
 div.fixtures div.prevWeekNavCont, div.fixtures div.nextWeekNavCont {
   margin-top: .5em;
-  background: #e9c46a;
+  background: #0b161b;
+  color: #fff;
   display: -ms-grid;
   display: grid;
   place-items: center;
@@ -227,7 +247,7 @@ div.fixtures section.fixtureDataContainer div.header {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: header;
-  background: #e9c46a;
+  background: #bb9a48;
   display: -ms-grid;
   display: grid;
   font-weight: bold;
@@ -265,7 +285,7 @@ div.fixtures section.fixtureDataContainer div.header p.score {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #2a9d8f;
+  background: #e76f51;
 }
 
 div.fixtures section.fixtureDataContainer div.header p.away {
@@ -283,14 +303,14 @@ div.fixtures section.fixtureDataContainer div.header p.gameWeek {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: gameWeek;
-  background: #f4a261;
+  background: #0b161b;
+  color: #fff;
 }
 
 div.fixtures section.fixtureDataContainer div.tabsContainer {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: tabsContainer;
-  background: #e9c46a;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -307,23 +327,32 @@ div.fixtures section.fixtureDataContainer div.tabsContainer {
 
 div.fixtures section.fixtureDataContainer div.tabsContainer a {
   text-decoration: none;
-  border: 3px solid #f4a261;
-  padding: .1em .5em;
-  background: transparent;
+  width: 5em;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  border: 3px solid #0b161b;
+  -webkit-transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+  transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+  padding: .2em .5em;
   font-size: 1.3em;
+  background: #bb9a48;
+  color: #0b161b;
+  cursor: pointer;
 }
 
-div.fixtures section.fixtureDataContainer div.tabsContainer a:hover {
-  cursor: pointer;
-  border: 3px solid #ff8191;
-  border-radius: 5px;
+div.fixtures section.fixtureDataContainer div.tabsContainer a:hover, div.fixtures section.fixtureDataContainer div.tabsContainer a:focus {
+  border-radius: 10px;
+  border: 3px dashed #2a9d8f;
+  background: #0b161b;
+  color: #fff;
 }
 
 div.fixtures section.fixtureDataContainer div.main {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: main;
-  background: #e9c46a;
+  background: #bb9a48;
   padding: .5em;
   color: #000;
   font-weight: bold;
@@ -367,7 +396,7 @@ div.fixtures section.fixtureDataContainer div.main section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #e9c46a;
+  background: #bb9a48;
   padding: .5em;
   gap: 1em;
 }
@@ -380,7 +409,7 @@ div.fixtures section.fixtureDataContainer div.main section.home {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-right: 2px solid #f4a261;
+  border-right: 2px solid  #0b161b;
 }
 
 div.fixtures section.fixtureDataContainer div.main section.home div {
@@ -396,7 +425,7 @@ div.fixtures section.fixtureDataContainer div.main section.home div {
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
   gap: .5em;
-  border-bottom: 3px solid #f4a261;
+  border-bottom: 3px solid  #0b161b;
 }
 
 div.fixtures section.fixtureDataContainer div.main section.away {
@@ -410,7 +439,7 @@ div.fixtures section.fixtureDataContainer div.main section.away {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-left: 2px solid #f4a261;
+  border-left: 2px solid  #0b161b;
 }
 
 div.fixtures section.fixtureDataContainer div.main section.away div {
@@ -426,7 +455,7 @@ div.fixtures section.fixtureDataContainer div.main section.away div {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: .5em;
-  border-bottom: 3px solid #f4a261;
+  border-bottom: 3px solid  #0b161b;
 }
 
 div.fixtures section.fixtureDataContainer div.main #matchStatsTab {
@@ -467,7 +496,7 @@ div.fixtures section.fixtureDataContainer div.main #matchStatsTab.tabContent.act
       -ms-flex-direction: row;
           flex-direction: row;
   gap: .5em;
-  border-bottom: 3px solid #f4a261;
+  border-bottom: 3px solid #0b161b;
 }
 
 div.fixtures section.fixtureDataContainer.is_visible {
@@ -479,25 +508,38 @@ div.weekHeadingContainer {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  background: #e9c46a;
+  background: transparent;
   font-family: "Teko", sans-serif;
-  font-size: 1.5em;
-  border: 5px solid #f4a261;
+  padding: .5em 0;
   margin-bottom: .5em;
+  font-size: 1.3em;
+}
+
+div.weekHeadingContainer p {
+  padding: .2em .5em;
+  font-size: 1.3em;
+  background: #bb9a48;
+  color: #0b161b;
+  border: 3px solid #0b161b;
 }
 
 div.weekHeadingContainer a {
+  cursor: pointer;
   text-decoration: none;
-  border: 3px solid #f4a261;
-  padding: .5em;
-  background: transparent;
-  color: #FDFFFC;
+  border: 3px solid #0b161b;
+  -webkit-transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+  transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+  padding: .2em .5em;
+  font-size: 1.3em;
+  background: #bb9a48;
+  color: #0b161b;
 }
 
-div.weekHeadingContainer a:hover {
-  cursor: pointer;
-  border: 3px solid #ff8191;
-  border-radius: 5px;
+div.weekHeadingContainer a:hover, div.weekHeadingContainer a:focus {
+  border-radius: 10px;
+  border: 3px dashed #2a9d8f;
+  background: #0b161b;
+  color: #fff;
 }
 
 section.fixturesList {
@@ -514,11 +556,11 @@ section.fixturesList {
 }
 
 section.fixturesList div {
-  background: #e9c46a;
+  background: #bb9a48;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr .4fr 1fr;
-      grid-template-columns: 1fr .4fr 1fr;
+  -ms-grid-columns: 1fr .3fr 1fr;
+      grid-template-columns: 1fr .3fr 1fr;
   -ms-grid-rows: 1fr .5fr;
       grid-template-rows: 1fr .5fr;
       grid-template-areas: "homeTeam score awayTeam" "info info info";
@@ -564,7 +606,7 @@ section.fixturesList div span:nth-of-type(2) {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: score;
-  background: #2a9d8f;
+  background: #e76f51;
   padding: .4em 0;
 }
 
@@ -584,7 +626,8 @@ section.fixturesList div div {
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: info;
-  background: #f4a261;
+  background: #0b161b;
+  color: #fff;
   pointer-events: none;
   font-size: .8em;
   display: -webkit-box;
@@ -620,9 +663,9 @@ section.fixturesList.is_visible {
 section.statistics_section {
   display: none;
   width: 100%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -638,7 +681,7 @@ section.statistics_section {
 }
 
 section.statistics_section div {
-  background: #e9c46a;
+  background: #bb9a48;
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -681,8 +724,9 @@ section.statistics_section div span:nth-of-type(2) {
 }
 
 section.statistics_section div:first-child {
-  background: #f4a261;
+  background: #0b161b;
   color: #fff;
+  padding: .2em;
 }
 
 section.statistics_section div:first-child span {
@@ -796,6 +840,7 @@ section.statistics_section.is_visible {
   .data {
     width: 75%;
     height: 75%;
+    padding-top: 3em;
   }
 }
 /*# sourceMappingURL=new_styles.css.map */

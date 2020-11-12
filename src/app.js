@@ -72,7 +72,7 @@ const matchPop = async (e) => {
     // disabling week buttons
     weekNavButtons.forEach(btn => btn.style.display = 'none');
 
-    setGWHeader(`<a data-back style="color: #000">Back to fixtures</a>`)
+    setGWHeader(`<a data-back>Back to fixtures</a>`)
     
     // getting a fixtureID to find the match data that was selected.
     let matchID = e.currentTarget.dataset.id;

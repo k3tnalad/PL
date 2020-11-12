@@ -15,7 +15,7 @@ $clr-bg-primary: #264653;
 $clr-bg-secondary-light: #e76f51;
 $clr-text: #FDFFFC;
 $clr-accent: #2a9d8f;
-$clr-accent2: #e9c46a;
+$clr-accent2: #bb9a48;
 $clr-accent-dark: #f4a261;
 $font: 'Teko', sans-serif;
 $font-main: 'Titillium Web', sans-serif;
@@ -26,9 +26,11 @@ $font-main: 'Titillium Web', sans-serif;
     -webkit-user-select: none;
 }
 
+html {
+    background-image: linear-gradient(180deg, $clr-bg-primary, $clr-accent)
+}
 
 body {
-    background: $clr-bg-primary;
     font-family: $font-main;
 }
 
@@ -47,18 +49,23 @@ header {
             align-items: center;
             flex-direction: row;
             color: $clr-text;
+            letter-spacing: .05em;
             font-family: $font;
             gap: 1em;
-            cursor: pointer;
             a {
+                cursor: pointer;
                 text-decoration: none;
-                border: 3px solid $clr-accent-dark;
-                transition: 150ms border-radius ease-in;
+                border: 3px solid #0b161b;
+                transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
                 padding: .2em .5em;
                 font-size: 1.3em;
-                &:hover{
-                    border: 3px dashed #ff8191;
+                background: $clr-accent2;
+                color: #0b161b;
+                &:hover, &:focus {
                     border-radius: 10px;
+                    border: 3px dashed $clr-accent;
+                    background: #0b161b;
+                    color: #fff;
                 }
             }
         }
@@ -67,8 +74,10 @@ header {
 }
 
 main {
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
     padding: 2em 0;
 }
 
@@ -90,7 +99,7 @@ section.standings_section {
     font-weight: bold;
     
     div:first-child {
-        background: $clr-accent-dark;
+        background: #0b161b;
         font-size: .9em;
         color: $clr-text;
         
@@ -103,7 +112,7 @@ section.standings_section {
         color: #000;
         background: $clr-accent2;
         padding: .2em;
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #0b161b;
 
         span {
             display: grid;
@@ -156,7 +165,8 @@ div.fixtures {
 
     div.prevWeekNavCont, div.nextWeekNavCont {
         margin-top: .5em;
-        background: $clr-accent2;
+        background: #0b161b;
+        color: #fff;
         display: grid;
         place-items: center;
         cursor: pointer;
@@ -218,7 +228,7 @@ section.fixtureDataContainer {
         } 
         p.score {
             grid-area: score;
-            background: $clr-accent;
+            background: $clr-bg-secondary-light;
         }
         p.away {
             grid-area: awayTeam;
@@ -227,12 +237,12 @@ section.fixtureDataContainer {
         }
         p.gameWeek {
             grid-area: gameWeek;
-            background: $clr-accent-dark;
+            background: #0b161b;
+            color: #fff;
         }
     }
     div.tabsContainer {
         grid-area: tabsContainer;
-        background: $clr-accent2;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -240,16 +250,23 @@ section.fixtureDataContainer {
         font-size: 1em;
         font-family: 'Teko', sans-serif;
         a {
-            text-decoration: none;
-            border: 3px solid $clr-accent-dark;
-            padding: .1em .5em;
-            background: transparent;
-            font-size: 1.3em;
-            &:hover {
-                    cursor: pointer;
-                    border: 3px solid #ff8191;
-                    border-radius: 5px;
-            }
+                text-decoration: none;
+                width: 5em;
+                display: grid;
+                place-items: center;
+                border: 3px solid #0b161b;
+                transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+                padding: .2em .5em;
+                font-size: 1.3em;
+                background: $clr-accent2;
+                color: #0b161b;
+                cursor: pointer;
+                &:hover, &:focus {
+                    border-radius: 10px;
+                    border: 3px dashed $clr-accent;
+                    background: #0b161b;
+                    color: #fff;
+                }
         }
     }
     div.main {
@@ -289,28 +306,28 @@ section.fixtureDataContainer {
             &.home {
                 grid-area: home;
                 flex-direction: column;
-                border-right: 2px solid $clr-accent-dark;
+                border-right: 2px solid  #0b161b;
                 div {
                     width: 100%;
                     display: flex;
                     align-items: center;
                     flex-direction: row-reverse;
                     gap: .5em;
-                    border-bottom: 3px solid $clr-accent-dark;
+                    border-bottom: 3px solid  #0b161b;
                 }
             }
             &.away {
                 grid-area: away;
                 display: flex;
                 flex-direction: column;
-                border-left: 2px solid $clr-accent-dark;
+                border-left: 2px solid  #0b161b;
                 div {
                     width: 100%;
                     display: flex;
                     align-items: center;
                     flex-direction: row;
                     gap: .5em;
-                    border-bottom: 3px solid $clr-accent-dark;
+                    border-bottom: 3px solid  #0b161b;
                 }
             } 
         }
@@ -333,7 +350,7 @@ section.fixtureDataContainer {
                 align-items: center;
                 flex-direction: row;
                 gap: .5em;
-                border-bottom: 3px solid $clr-accent-dark;
+                border-bottom: 3px solid #0b161b;
             }
         }
     }  
@@ -347,22 +364,33 @@ section.fixtureDataContainer.is_visible {
 div.weekHeadingContainer {
         display: grid;
         place-items: center;
-        background: $clr-accent2;
+        background: transparent;
         font-family: $font;
-        font-size: 1.5em;
-        border: 5px solid $clr-accent-dark;
+        padding: .5em 0;
         margin-bottom: .5em;
+        font-size: 1.3em;
+        p {
+            padding: .2em .5em;
+            font-size: 1.3em;
+            background: $clr-accent2;
+            color: #0b161b;
+            border: 3px solid #0b161b;
+        }
         a {
-            text-decoration: none;
-            border: 3px solid $clr-accent-dark;
-            padding: .5em;
-            background: transparent;
-            color: $clr-text;
-            &:hover {
-                cursor: pointer;
-                border: 3px solid #ff8191;
-                border-radius: 5px;
-            }
+            cursor: pointer;
+                text-decoration: none;
+                border: 3px solid #0b161b;
+                transition: all 250ms cubic-bezier(0, 1.13, 0, 1.13);
+                padding: .2em .5em;
+                font-size: 1.3em;
+                background: $clr-accent2;
+                color: #0b161b;
+                &:hover, &:focus {
+                    border-radius: 10px;
+                    border: 3px dashed $clr-accent;
+                    background: #0b161b;
+                    color: #fff;
+                }
         }
 }
 
@@ -375,7 +403,7 @@ section.fixturesList  {
     div {
         background: $clr-accent2;
         display: grid;
-        grid-template-columns: 1fr .4fr 1fr;
+        grid-template-columns: 1fr .3fr 1fr;
         grid-template-rows: 1fr .5fr;
         grid-template-areas: 
             "homeTeam score awayTeam"
@@ -405,7 +433,7 @@ section.fixturesList  {
         }
         span:nth-of-type(2) {
             grid-area: score;
-            background: $clr-accent;
+            background: $clr-bg-secondary-light;
             padding: .4em 0;
         }
         span:nth-of-type(3) {
@@ -416,7 +444,8 @@ section.fixturesList  {
         }
         div {
             grid-area: info;
-            background: $clr-accent-dark;
+            background: #0b161b;
+            color: #fff;
             pointer-events: none;
             font-size: .8em;
             display: flex;
@@ -446,7 +475,7 @@ section.fixturesList.is_visible {
 section.statistics_section {
     display: none;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     font-weight: bold;
@@ -484,8 +513,9 @@ section.statistics_section {
     }
 
     div:first-child {
-        background: $clr-accent-dark;
+        background: #0b161b;
         color: #fff;
+        padding: .2em;
         span {
             font-size: .7em;
         }
@@ -553,5 +583,6 @@ section.statistics_section.is_visible {
     .data {
         width: 75%;
         height: 75%;
+        padding-top: 3em;
     }
   }

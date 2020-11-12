@@ -5970,7 +5970,7 @@ const matchPop = async e => {
 
   _elements.weekNavButtons.forEach(btn => btn.style.display = 'none');
 
-  (0, _utils.setGWHeader)(`<a data-back style="color: #000">Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
+  (0, _utils.setGWHeader)(`<a data-back>Back to fixtures</a>`); // getting a fixtureID to find the match data that was selected.
 
   let matchID = e.currentTarget.dataset.id; // if there is no data for the match on the LS, it's gonna fetch it using the matchID.
 
@@ -6230,7 +6230,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64958" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63122" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
